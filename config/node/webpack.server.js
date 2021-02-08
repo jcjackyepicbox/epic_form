@@ -1,6 +1,6 @@
 const path = require('path');
 const webpackNodeExternals = require('webpack-node-externals');
-const { default: WebpackBarPlugin } = require('webpackbar');
+const WebpackBarPlugin = require('webpackbar');
 
 module.exports = {
   target: 'node',

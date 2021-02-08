@@ -1,38 +1,37 @@
 const path = require('path');
+const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const webpackCommon = require('./common');
 const loaders = require('./loaders');
 
 const webpackDev = {
+  entry: [
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
+    path.resolve(__dirname, '../../src/pages/main/index.js'),
+  ],
   mode: 'development',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, '..', 'build'),
+    path: path.resolve(__dirname, '..', '..', 'build'),
     publicPath: '/',
   },
   devtool: 'source-map',
   devServer: {
     hot: true,
-    watchContentBase: true,
-    historyApiFallback: true,
-    contentBase: path.join(__dirname, '..', 'public'),
-    disableHostCheck: true,
-    port: 3018,
-    host: 'localhost',
-    open: true,
+    port: 3000,
   },
+  plugins: [new webpack.HotModuleReplacementPlugin()],
 };
 
-module.exports = (env) =>
-  merge(
-    webpackDev,
-    webpackCommon(env),
-    loaders.extractCSS(),
-    loaders.loadFiles({
-      options: {
-        name: '[name].[ext]',
-      },
-    }),
-    loaders.loadJavaScript(),
-    loaders.loadPreESLint()
-  );
+module.exports = merge(
+  webpackDev,
+  webpackCommon,
+  loaders.extractCSS(),
+  loaders.loadFiles({
+    options: {
+      name: '[name].[ext]',
+    },
+  }),
+  loaders.loadJavaScript()
+  // loaders.loadPreESLint()
+);
