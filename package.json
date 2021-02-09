@@ -2,14 +2,14 @@
   "name": "nosedive_ssr",
   "version": "1.0.0",
   "description": "nosedive app portfolio",
-  "main": "index.js",
   "repository": "https://github.com/jrjcky98/ssr.git",
   "author": "jacky",
   "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "node ./scripts/dev",
-    "build": "node ./scripts/build"
+    "build": "node ./scripts/build",
+    "start": "node ./scripts/start"
   },
   "dependencies": {
     "express": "^4.17.1",

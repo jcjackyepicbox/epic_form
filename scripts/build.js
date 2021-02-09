@@ -8,7 +8,7 @@ function init() {
     fs.rmSync('build', { recursive: true });
   }
 
-  compile([clientWebpackConfig(), serverWebpackConfig])
+  compile([clientWebpackConfig, serverWebpackConfig])
     .then(() => {
       console.log('Success! Compiled in `build` folder');
     })

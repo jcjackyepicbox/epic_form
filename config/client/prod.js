@@ -3,8 +3,8 @@ const { merge } = require('webpack-merge');
 const webpackCommon = require('./common');
 const loaders = require('./loaders');
 const TerserPlugin = require('terser-webpack-plugin');
-const copyWebpackPlugin = require('copy-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const WebpackBarPlugin = require('webpackbar');
 
 const webpackProd = {
   mode: 'production',
@@ -13,11 +13,7 @@ const webpackProd = {
     path: path.resolve(__dirname, '../../build'),
     publicPath: '/',
   },
-  plugins: [
-    new copyWebpackPlugin({
-      patterns: [{ from: 'public', to: '.' }],
-    }),
-  ],
+  plugins: [new WebpackBarPlugin({ name: 'Client' })],
   optimization: {
     splitChunks: {
       chunks: 'all',

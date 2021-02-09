@@ -77,7 +77,7 @@ exports.loadPreESLint = () => ({
             loader: require.resolve('eslint-loader'),
           },
         ],
-        include: path.join(__dirname, '..', 'src'),
+        include: path.join(__dirname, '..', '..', 'src'),
       },
     ],
   },
