@@ -1,7 +1,7 @@
 {
-  "name": "nosedive_ssr",
+  "name": "ssr",
   "version": "1.0.0",
-  "description": "nosedive app portfolio",
+  "description": "ssr app portfolio",
   "repository": "https://github.com/jrjcky98/ssr.git",
   "author": "jacky",
   "license": "MIT",
