@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 
-// if (module.hot) {
-//   module.hot.accept();
-// }
+let renderMethod = ReactDOM.hydrate;
 
-ReactDOM.hydrate(
+if (module.hot) {
+  module.hot.accept();
+  renderMethod = ReactDOM.render;
+}
+
+renderMethod(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

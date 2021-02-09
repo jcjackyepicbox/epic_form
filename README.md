@@ -17,11 +17,11 @@ Here are the steps to reach complete universal react application
 
 ### Client Perfection
 
-- [ ] [Style] Using CSS Modules
-- [ ] [Style] Setup CSS for Server Rendered Content
-- [ ] [File] Import SVG
+- [x] [Style] Using CSS Modules
+- [x] [Style] Setup CSS for Server Rendered Content
 - [ ] [async] Promise and async/await support
 - [ ] [async] Code Splitting support
+- [ ] [- File] Import SVG
 
 ### Server Client Connection
 

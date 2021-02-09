@@ -7,6 +7,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackBarPlugin = require('webpackbar');
 
 const webpackProd = {
+  entry: path.resolve(__dirname, '../../src/pages/main/index.jsx'),
   mode: 'production',
   output: {
     filename: 'static/js/[name].[contenthash].js',

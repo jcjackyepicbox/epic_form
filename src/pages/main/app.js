@@ -1,10 +1,11 @@
 import React from 'react';
+import classes from './app.module.css';
 
 function App() {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <div className={classes.app}>
+      <h1>Hello Worldss</h1>
+    </div>
   );
 }
 
