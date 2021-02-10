@@ -2,6 +2,18 @@
 
 Learning how to build react application using NodeJS to server side rendering application due to multiple page application. Using pre-rendering abilities to improve FCP time.
 
+### Development Environment
+
+Due to using webpack to build client and server application. To run dev server, you must build at least one time then run dev scripts, you must start from the base route then navigate with browser router. This is to enable HMR.
+
+### Production Environment
+
+For production environment, we have a complete setup and no limitation like dev env.
+
+### Trade-Offs
+
+To support SSR more smoothly, we use webpack to bundle client at build time. To support this, we advised that when start or run dev, might need to run build scripts if you switching between routes at full refresh.
+
 ## Learning Steps
 
 Here are the steps to reach complete universal react application
@@ -20,14 +32,14 @@ Here are the steps to reach complete universal react application
 - [x] [Style] Using CSS Modules
 - [x] [Style] Setup CSS for Server Rendered Content
 - [ ] [async] Promise and async/await support
-- [ ] [async] Code Splitting support
+- [x] [async] Code Splitting support
 - [ ] [- File] Import SVG
 
 ### Server Client Connection
 
 - [ ] Redux Provider state management
-- [ ] Static Routing
-- [ ] Routing with Code Splitting support (?)
+- [x] Static Routing
+- [x] Routing with Code Splitting support (?)
 
 ### Testing
 

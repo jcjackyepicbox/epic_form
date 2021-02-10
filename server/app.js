@@ -4,11 +4,26 @@ const express = require('express');
 
 export const app = express();
 
-app.get('/', (req, res) => {
+app.use(express.static('build'));
+
+app.get('*', (req, res) => {
   import('../src/pages/main/app.js').then(({ default: App }) => {
-    const finalContent = renderContent(App, 'build/index.html');
+    const context = {};
+    const finalContent = renderContent(
+      App,
+      'build/index.html',
+      context,
+      req.url
+    );
+
+    if (context.url) {
+      res.writeHead(301, {
+        Location: context.url,
+      });
+
+      res.end();
+    }
+
     res.send(finalContent);
   });
 });
-
-app.use(express.static('build'));

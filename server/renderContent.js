@@ -1,11 +1,14 @@
 const { renderToString } = require('react-dom/server');
 const React = require('react');
+const { StaticRouter } = require('react-router-dom');
 const fs = require('fs');
 
-function renderContent(App, pathHTML) {
+function renderContent(App, pathHTML, context, location) {
   const appContent = renderToString(
     <div id="app">
-      <App />
+      <StaticRouter location={location} context={context}>
+        <App />
+      </StaticRouter>
     </div>
   );
 
