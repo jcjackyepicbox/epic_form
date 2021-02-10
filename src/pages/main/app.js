@@ -4,8 +4,12 @@ import NotFound from '../404/404';
 import classes from './app.module.css';
 import loadable from '@loadable/component';
 
-const About = loadable(() => import('../about/about'));
-const Home = loadable(() => import('../home/home'));
+const About = loadable(() => import('../about/about'), {
+  fallback: <div>Loading</div>,
+});
+const Home = loadable(() => import('../home/home'), {
+  fallback: <div>Loading..</div>,
+});
 
 function App() {
   return (
@@ -19,7 +23,7 @@ function App() {
           About
         </Link>
         <Link className={classes.navlink} to="/404">
-          Not Founds
+          Not Found
         </Link>
       </nav>
       <Switch>

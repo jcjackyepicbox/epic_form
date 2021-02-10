@@ -25,7 +25,7 @@ const webpackDev = {
 
 module.exports = merge(
   webpackDev,
-  webpackCommon,
+  webpackCommon(true),
   loaders.extractCSS(),
   loaders.loadFiles({
     options: {

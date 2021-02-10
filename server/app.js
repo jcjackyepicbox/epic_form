@@ -11,7 +11,7 @@ app.get('*', (req, res) => {
     const context = {};
     const finalContent = renderContent(
       App,
-      'build/index.html',
+      'build/public/index.html',
       context,
       req.url
     );

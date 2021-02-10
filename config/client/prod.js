@@ -75,7 +75,7 @@ const webpackProd = {
 
 module.exports = merge(
   webpackProd,
-  webpackCommon,
+  webpackCommon(),
   loaders.loadFiles({
     options: {
       name: 'static/media/[name].[ext]',
