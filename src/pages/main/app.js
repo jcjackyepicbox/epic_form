@@ -6,6 +6,7 @@ import loadable from '@loadable/component';
 
 const About = loadable(() => import('../about/about'), {
   fallback: <div>Loading</div>,
+  ssr: false,
 });
 const Home = loadable(() => import('../home/home'), {
   fallback: <div>Loading..</div>,

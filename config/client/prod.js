@@ -5,6 +5,7 @@ const loaders = require('./loaders');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackBarPlugin = require('webpackbar');
+const copyWebpackPlugin = require('copy-webpack-plugin');
 
 const webpackProd = {
   entry: path.resolve(__dirname, '../../src/pages/main/index.jsx'),
@@ -14,7 +15,12 @@ const webpackProd = {
     path: path.resolve(__dirname, '../../build'),
     publicPath: '/',
   },
-  plugins: [new WebpackBarPlugin({ name: 'Client' })],
+  plugins: [
+    new WebpackBarPlugin({ name: 'Client' }),
+    new copyWebpackPlugin({
+      patterns: [{ from: 'public', to: 'public' }],
+    }),
+  ],
   optimization: {
     splitChunks: {
       chunks: 'all',

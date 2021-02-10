@@ -33,7 +33,7 @@ Here are the steps to reach complete universal react application
 - [x] [Style] Setup CSS for Server Rendered Content
 - [ ] [async] Promise and async/await support
 - [x] [async] Code Splitting support
-- [ ] [perf] Code Splitting and Pre-rendered Content
+- [x] [perf] Code Splitting and Pre-rendered Content - @loadable/component etc
 - [ ] [- File] Import SVG
 
 ### Server Client Connection
