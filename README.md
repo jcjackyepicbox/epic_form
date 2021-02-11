@@ -1,18 +1,10 @@
 ## Universal React Application
 
-Learning how to build react application using NodeJS to server side rendering application due to multiple page application. Using pre-rendering abilities to improve FCP time.
+Build react application using NodeJS to server side rendering application due to supporting multiple page application from scratch.
 
-#### Development Environment
+## Guidelines
 
-Due to using webpack and webpack dev middleware to build client and server application. To run dev server and enalbe HMR, you must start from the base route then navigate with browser router.
-
-#### Production Environment
-
-For production environment, we have a complete setup and no limitation like development env.
-
-## Learning Steps
-
-Here are the steps to reach complete universal react application
+Guidelines and todo list to reach complete universal react application
 
 ### Base Architecture
 
@@ -23,7 +15,7 @@ Here are the steps to reach complete universal react application
 - [x] Setup Webpack Build both client & server
 - [x] Server Render Content at runtime
 
-### Client Perfection
+### Client Side
 
 - [x] [Style] Using CSS Modules
 - [x] [Style] Setup CSS for Server Rendered Content
@@ -32,24 +24,26 @@ Here are the steps to reach complete universal react application
 - [x] [perf] Code Splitting and Pre-rendered Content - @loadable/component etc
 - [ ] [- File] Import SVG
 
-### Server Client Connection
+### Server - Client
 
 - [x] Redux Provider state management
 - [x] Static Routing
 - [x] Routing with Code Splitting support (?)
+- [ ] Routing + Redux (static function - nextjs)
 
 ### Testing
 
 - [ ] Jest setup
 - [ ] @testing-library/react
 - [ ] Puppeteer
+- [ ] Mock Service Worker
 
 ### Progressive Web Apps
 
 - [ ] Enable PWA (Installable)
 - [ ] Service Worker
 - [ ] Caching Strategy
-- [ ] Download new version(if updated)
+- [ ] Action download for new version (if updated)
 - [ ] Push Notification (?)
 
 ### Miscellaneous
@@ -60,4 +54,4 @@ Here are the steps to reach complete universal react application
 ### Perfomance Metrics
 
 - [ ] Setup Profiling Measurement Webpack Config
-- [ ] Comparison to SPA
+- [ ] Comparison to SPA using Web Vitals

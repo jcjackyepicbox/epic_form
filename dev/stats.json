@@ -1,5 +1,5 @@
 {
-  "hash": "0e00a4cc19eaf83e4549",
+  "hash": "d7e9a66c57f4768866e9",
   "version": "5.21.2",
   "publicPath": "/",
   "outputPath": "/Users/jacky/Documents/MyProject/ssr/dev",
@@ -7,16 +7,16 @@
     "main": [
       "main.css",
       "main.js",
-      "main.64eb6a3936a2a754ea8e.hot-update.js"
+      "main.9f7e52d11cb22d0a1c58.hot-update.js"
     ],
     "about-about": [
       "about-about.css",
-      "about-about.main.js"
+      "about-about.main.js",
+      "about-about.9f7e52d11cb22d0a1c58.hot-update.js"
     ],
     "home-home": [
       "home-home.css",
-      "home-home.main.js",
-      "home-home.64eb6a3936a2a754ea8e.hot-update.js"
+      "home-home.main.js"
     ]
   },
   "assets": [
@@ -95,7 +95,7 @@
         {
           "type": "sourceMap",
           "name": "home-home.main.js.map",
-          "size": 1591,
+          "size": 1596,
           "emitted": false,
           "comparedForEmit": false,
           "cached": true,
@@ -125,7 +125,7 @@
     {
       "type": "asset",
       "name": "about-about.main.js",
-      "size": 2331,
+      "size": 2330,
       "emitted": false,
       "comparedForEmit": false,
       "cached": true,
@@ -146,7 +146,7 @@
         {
           "type": "sourceMap",
           "name": "about-about.main.js.map",
-          "size": 1176,
+          "size": 1170,
           "emitted": false,
           "comparedForEmit": false,
           "cached": true,
@@ -175,21 +175,21 @@
     },
     {
       "type": "asset",
-      "name": "home-home.64eb6a3936a2a754ea8e.hot-update.js",
-      "size": 1728,
+      "name": "about-about.9f7e52d11cb22d0a1c58.hot-update.js",
+      "size": 1356,
       "emitted": false,
       "comparedForEmit": false,
       "cached": true,
       "info": {
         "hotModuleReplacement": true,
         "immutable": true,
-        "fullhash": "64eb6a3936a2a754ea8e",
+        "fullhash": "9f7e52d11cb22d0a1c58",
         "related": {
-          "sourceMap": "home-home.64eb6a3936a2a754ea8e.hot-update.js.map"
+          "sourceMap": "about-about.9f7e52d11cb22d0a1c58.hot-update.js.map"
         }
       },
       "chunkNames": [
-        "home-home"
+        "about-about"
       ],
       "chunkIdHints": [],
       "auxiliaryChunkNames": [],
@@ -198,8 +198,8 @@
       "related": [
         {
           "type": "sourceMap",
-          "name": "home-home.64eb6a3936a2a754ea8e.hot-update.js.map",
-          "size": 1063,
+          "name": "about-about.9f7e52d11cb22d0a1c58.hot-update.js.map",
+          "size": 638,
           "emitted": false,
           "comparedForEmit": false,
           "cached": true,
@@ -209,19 +209,19 @@
           "chunkNames": [],
           "chunkIdHints": [],
           "auxiliaryChunkNames": [
-            "home-home"
+            "about-about"
           ],
           "auxiliaryChunkIdHints": [],
           "related": {},
           "chunks": [],
           "auxiliaryChunks": [
-            "home-home"
+            "about-about"
           ],
           "isOverSizeLimit": false
         }
       ],
       "chunks": [
-        "home-home"
+        "about-about"
       ],
       "auxiliaryChunks": [],
       "isOverSizeLimit": false
@@ -278,7 +278,7 @@
     },
     {
       "type": "asset",
-      "name": "main.64eb6a3936a2a754ea8e.hot-update.js",
+      "name": "main.9f7e52d11cb22d0a1c58.hot-update.js",
       "size": 373,
       "emitted": false,
       "comparedForEmit": false,
@@ -286,9 +286,9 @@
       "info": {
         "hotModuleReplacement": true,
         "immutable": true,
-        "fullhash": "64eb6a3936a2a754ea8e",
+        "fullhash": "9f7e52d11cb22d0a1c58",
         "related": {
-          "sourceMap": "main.64eb6a3936a2a754ea8e.hot-update.js.map"
+          "sourceMap": "main.9f7e52d11cb22d0a1c58.hot-update.js.map"
         }
       },
       "chunkNames": [
@@ -301,7 +301,7 @@
       "related": [
         {
           "type": "sourceMap",
-          "name": "main.64eb6a3936a2a754ea8e.hot-update.js.map",
+          "name": "main.9f7e52d11cb22d0a1c58.hot-update.js.map",
           "size": 250,
           "emitted": false,
           "comparedForEmit": false,
@@ -431,15 +431,15 @@
     },
     {
       "type": "asset",
-      "name": "main.64eb6a3936a2a754ea8e.hot-update.json",
-      "size": 40,
+      "name": "main.9f7e52d11cb22d0a1c58.hot-update.json",
+      "size": 42,
       "emitted": false,
       "comparedForEmit": false,
       "cached": true,
       "info": {
         "hotModuleReplacement": true,
         "immutable": true,
-        "fullhash": "64eb6a3936a2a754ea8e"
+        "fullhash": "9f7e52d11cb22d0a1c58"
       },
       "chunkNames": [],
       "chunkIdHints": [],
@@ -453,13 +453,13 @@
   ],
   "chunks": [
     {
-      "rendered": false,
+      "rendered": true,
       "initial": false,
       "entry": false,
       "recorded": false,
-      "size": 812,
+      "size": 811,
       "sizes": {
-        "javascript": 722,
+        "javascript": 721,
         "css/mini-extract": 90
       },
       "names": [
@@ -471,13 +471,15 @@
       ],
       "files": [
         "about-about.css",
-        "about-about.main.js"
+        "about-about.main.js",
+        "about-about.9f7e52d11cb22d0a1c58.hot-update.js"
       ],
       "auxiliaryFiles": [
+        "about-about.9f7e52d11cb22d0a1c58.hot-update.js.map",
         "about-about.css.map",
         "about-about.main.js.map"
       ],
-      "hash": "926a0dce9d2ffcf4a4c7",
+      "hash": "19c1ff4b9f8aa0e2afa5",
       "childrenByOrder": {},
       "id": "about-about",
       "siblings": [],
@@ -489,7 +491,7 @@
       "origins": []
     },
     {
-      "rendered": true,
+      "rendered": false,
       "initial": false,
       "entry": false,
       "recorded": false,
@@ -507,15 +509,13 @@
       ],
       "files": [
         "home-home.css",
-        "home-home.main.js",
-        "home-home.64eb6a3936a2a754ea8e.hot-update.js"
+        "home-home.main.js"
       ],
       "auxiliaryFiles": [
-        "home-home.64eb6a3936a2a754ea8e.hot-update.js.map",
         "home-home.css.map",
         "home-home.main.js.map"
       ],
-      "hash": "331f8b1f4b8f04fa4c36",
+      "hash": "67f2b1c4815065dcea2d",
       "childrenByOrder": {},
       "id": "home-home",
       "siblings": [],
@@ -547,14 +547,14 @@
       "files": [
         "main.css",
         "main.js",
-        "main.64eb6a3936a2a754ea8e.hot-update.js"
+        "main.9f7e52d11cb22d0a1c58.hot-update.js"
       ],
       "auxiliaryFiles": [
-        "main.64eb6a3936a2a754ea8e.hot-update.js.map",
+        "main.9f7e52d11cb22d0a1c58.hot-update.js.map",
         "main.css.map",
         "main.js.map"
       ],
-      "hash": "394a216de4ff60d35321",
+      "hash": "58f49c3293d659e14053",
       "childrenByOrder": {},
       "id": "main",
       "siblings": [],
@@ -581,14 +581,14 @@
           "name": "main.js"
         },
         {
-          "name": "main.64eb6a3936a2a754ea8e.hot-update.js"
+          "name": "main.9f7e52d11cb22d0a1c58.hot-update.js"
         }
       ],
       "filteredAssets": 0,
       "assetsSize": null,
       "auxiliaryAssets": [
         {
-          "name": "main.64eb6a3936a2a754ea8e.hot-update.js.map"
+          "name": "main.9f7e52d11cb22d0a1c58.hot-update.js.map"
         },
         {
           "name": "main.css.map"
@@ -618,14 +618,14 @@
           "name": "main.js"
         },
         {
-          "name": "main.64eb6a3936a2a754ea8e.hot-update.js"
+          "name": "main.9f7e52d11cb22d0a1c58.hot-update.js"
         }
       ],
       "filteredAssets": 0,
       "assetsSize": null,
       "auxiliaryAssets": [
         {
-          "name": "main.64eb6a3936a2a754ea8e.hot-update.js.map"
+          "name": "main.9f7e52d11cb22d0a1c58.hot-update.js.map"
         },
         {
           "name": "main.css.map"
@@ -651,11 +651,17 @@
         },
         {
           "name": "about-about.main.js"
+        },
+        {
+          "name": "about-about.9f7e52d11cb22d0a1c58.hot-update.js"
         }
       ],
       "filteredAssets": 0,
       "assetsSize": null,
       "auxiliaryAssets": [
+        {
+          "name": "about-about.9f7e52d11cb22d0a1c58.hot-update.js.map"
+        },
         {
           "name": "about-about.css.map"
         },
@@ -680,17 +686,11 @@
         },
         {
           "name": "home-home.main.js"
-        },
-        {
-          "name": "home-home.64eb6a3936a2a754ea8e.hot-update.js"
         }
       ],
       "filteredAssets": 0,
       "assetsSize": null,
       "auxiliaryAssets": [
-        {
-          "name": "home-home.64eb6a3936a2a754ea8e.hot-update.js.map"
-        },
         {
           "name": "home-home.css.map"
         },
