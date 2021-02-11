@@ -34,7 +34,7 @@ Here are the steps to reach complete universal react application
 
 ### Server Client Connection
 
-- [ ] Redux Provider state management
+- [x] Redux Provider state management
 - [x] Static Routing
 - [x] Routing with Code Splitting support (?)
 
