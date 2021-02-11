@@ -7,6 +7,6 @@ module.exports = () => {
     resolve: {
       extensions: ['.js', '.json', '.tsx', '.ts', '.jsx'],
     },
-    plugins: [new webpack.HotModuleReplacementPlugin(), new LoadablePlugin()],
+    plugins: [new webpack.HotModuleReplacementPlugin()],
   };
 };

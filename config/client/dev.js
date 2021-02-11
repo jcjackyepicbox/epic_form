@@ -1,4 +1,4 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { default: LoadablePlugin } = require('@loadable/webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
@@ -13,7 +13,7 @@ const webpackDev = {
   mode: 'development',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, '..', '..', 'build'),
+    path: path.resolve(__dirname, '..', '..', 'dev'),
     publicPath: '/',
   },
   devtool: 'source-map',
@@ -23,24 +23,24 @@ const webpackDev = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '..', '..', 'dev', 'dev.html'),
-      filename: 'index.html',
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
-    }),
+    new LoadablePlugin({ filename: 'stats.json', writeToDisk: true }),
+    // new HtmlWebpackPlugin({
+    //   template: path.resolve(__dirname, '..', '..', 'dev', 'dev.html'),
+    //   filename: 'index.html',
+    //   inject: true,
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeRedundantAttributes: true,
+    //     useShortDoctype: true,
+    //     removeEmptyAttributes: true,
+    //     removeStyleLinkTypeAttributes: true,
+    //     keepClosingSlash: true,
+    //     minifyJS: true,
+    //     minifyCSS: true,
+    //     minifyURLs: true,
+    //   },
+    // }),
   ],
 };
 

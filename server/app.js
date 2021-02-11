@@ -1,28 +1,33 @@
-const { renderContentLoadable } = require('./renderContent');
-const path = require('path');
+const { default: createAppStore } = require('../redux/store');
+const { renderContentLoadable, renderReduxState } = require('./renderContent');
 const express = require('express');
-const ejs = require('ejs');
 
 export const app = express();
 
 app.use(express.static('build'));
-
 app.set('view engine', 'ejs');
 
 app.get('*', (req, res) => {
+  const store = createAppStore({
+    todo: ['abc', 'cde'],
+  });
   import('../src/pages/main/app.js').then(({ default: App }) => {
     const context = {};
     const { html, linkTags, scriptTags, styleTags } = renderContentLoadable(
       App,
       context,
-      req.url
+      req.url,
+      store
     );
 
+    const finalState = store.getState();
+    const reduxScriptTag = renderReduxState(finalState);
     res.render('../public/index', {
       styleTag: styleTags,
       linkTag: linkTags,
       bodyHTML: html,
       scriptTag: scriptTags,
+      reduxTag: reduxScriptTag,
     });
 
     if (context.url) {

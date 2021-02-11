@@ -4,6 +4,7 @@ const { StaticRouter } = require('react-router-dom');
 const fs = require('fs');
 const { ChunkExtractor } = require('@loadable/server');
 const path = require('path');
+const { Provider } = require('react-redux');
 
 function renderContent(App, pathHTML, context, location) {
   const appContent = renderToString(
@@ -20,16 +21,20 @@ function renderContent(App, pathHTML, context, location) {
   return finalContent;
 }
 
-function renderContentLoadable(App, context, location) {
-  const webStats = path.resolve(__dirname, '../build/loadable-stats.json');
+function renderContentLoadable(App, context, location, store) {
+  let webStats = path.resolve(__dirname, '../build/loadable-stats.json');
 
+  if (process.env.NODE_ENV === 'development') {
+    webStats = path.resolve(__dirname, '../dev/stats.json');
+  }
   const extractor = new ChunkExtractor({ statsFile: webStats });
-
   const jsx = extractor.collectChunks(
     <div id="app">
-      <StaticRouter location={location} context={context}>
-        <App />
-      </StaticRouter>
+      <Provider store={store}>
+        <StaticRouter location={location} context={context}>
+          <App />
+        </StaticRouter>
+      </Provider>
     </div>
   );
 
@@ -46,7 +51,19 @@ function renderContentLoadable(App, context, location) {
   };
 }
 
+function renderReduxState(preloadedState) {
+  return `<script>
+    // WARNING: See the following for security issues around embedding JSON in HTML:
+    // https://redux.js.org/recipes/server-rendering/#security-considerations
+    window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
+      /</g,
+      '\\u003c'
+    )}
+  </script>`;
+}
+
 module.exports = {
   renderContent,
   renderContentLoadable,
+  renderReduxState,
 };
