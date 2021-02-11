@@ -4,15 +4,11 @@ Learning how to build react application using NodeJS to server side rendering ap
 
 #### Development Environment
 
-Due to using webpack to build client and server application. To run dev server, you must build at least one time then run dev scripts, you must start from the base route then navigate with browser router. This is to enable HMR.
+Due to using webpack and webpack dev middleware to build client and server application. To run dev server and enalbe HMR, you must start from the base route then navigate with browser router.
 
 #### Production Environment
 
-For production environment, we have a complete setup and no limitation like dev env.
-
-#### Trade-Offs
-
-To support SSR more smoothly, we use webpack to bundle client at build time. To support this, we advised that when start or run dev, might need to run build scripts if you switching between routes at full refresh.
+For production environment, we have a complete setup and no limitation like development env.
 
 ## Learning Steps
 
