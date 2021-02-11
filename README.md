@@ -26,7 +26,7 @@ Guidelines and todo list to reach complete universal react application
 
 ### Server - Client
 
-- [x] Redux Provider state management
+- [x] Redux State management
 - [x] Static Routing
 - [x] Routing with Code Splitting support (?)
 - [ ] Routing + Redux (static function - nextjs)
