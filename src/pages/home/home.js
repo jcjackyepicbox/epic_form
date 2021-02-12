@@ -10,7 +10,7 @@ function Home() {
       <p>Home page to tell all people what our website does and offers.</p>
       {todo &&
         todo.map((val) => {
-          return <div key={val}>{val}</div>;
+          return <div key={val.title}>{val.title}</div>;
         })}
     </div>
   );
