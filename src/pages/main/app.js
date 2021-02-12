@@ -1,16 +1,7 @@
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import NotFound from '../404/404';
 import classes from './app.module.css';
-import loadable from '@loadable/component';
-
-const About = loadable(() => import('../about/about'), {
-  fallback: <div>Loading</div>,
-  ssr: false,
-});
-const Home = loadable(() => import('../home/home'), {
-  fallback: <div>Loading..</div>,
-});
+import routes from '../../routes';
 
 function App() {
   return (
@@ -28,9 +19,9 @@ function App() {
         </Link>
       </nav>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/about" component={About} />
-        <Route component={NotFound} />
+        {routes.map((val, idx) => {
+          return <Route {...val} key={idx} />;
+        })}
       </Switch>
     </div>
   );
