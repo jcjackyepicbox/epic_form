@@ -22,7 +22,6 @@ const routes = [
     path: '/about',
     exact: true,
     component: About,
-    loadData: () => getHomeData(),
   },
   {
     component: NotFound,

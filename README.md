@@ -29,7 +29,7 @@ Guidelines and todo list to reach complete universal react application
 - [x] Redux State management
 - [x] Static Routing
 - [x] Routing with Code Splitting support (?)
-- [ ] Routing + Redux (static function - nextjs)
+- [x] Routing + Redux (static function - nextjs)
 
 ### Testing
 
@@ -50,6 +50,7 @@ Guidelines and todo list to reach complete universal react application
 
 - [ ] Web Socket
 - [ ] Docker
+- [ ] Typescript
 
 ### Perfomance Metrics
 
