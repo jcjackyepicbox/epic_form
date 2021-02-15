@@ -1,19 +1,28 @@
-const { fetchDataByRoute } = require('./fetchData');
+import compression from 'compression';
+import helmet from 'helmet';
+import { fetchDataByRoute } from './fetchData';
+import createAppStore from '../redux/store';
+import { renderContentLoadable, renderReduxState } from './renderContent';
+import express from 'express';
 
-const { default: createAppStore } = require('../redux/store');
-const { renderContentLoadable, renderReduxState } = require('./renderContent');
-const express = require('express');
 export const app = express();
+
+app.use(compression());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 app.use(express.static('build'));
 app.set('view engine', 'ejs');
 
 app.get('*', async (req, res) => {
-  const fetchData = await fetchDataByRoute(req);
+  const fetchData: any = await fetchDataByRoute(req.path);
   const { data } = fetchData;
-  const store = createAppStore({ todo: data });
-  import('../src/pages/main/app.js').then(({ default: App }) => {
-    const context = {};
+  const store = createAppStore({ todo: { todo: data } });
+  import('../src/pages/main/app').then(({ default: App }) => {
+    const context: any = {};
     const { html, linkTags, scriptTags, styleTags } = renderContentLoadable(
       App,
       context,

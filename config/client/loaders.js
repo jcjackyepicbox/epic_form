@@ -54,7 +54,10 @@ exports.loadJavaScript = () => ({
     rules: [
       {
         test: /\.(js|mjs|jsx|ts|tsx)$/,
-        include: path.join(__dirname, '../../src'),
+        include: [
+          path.join(__dirname, '../../src'),
+          path.join(__dirname, '../../redux'),
+        ],
         use: 'babel-loader',
       },
     ],

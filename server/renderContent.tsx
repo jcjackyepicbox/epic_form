@@ -1,27 +1,18 @@
-const { renderToString } = require('react-dom/server');
-const React = require('react');
-const { StaticRouter } = require('react-router-dom');
-const fs = require('fs');
-const { ChunkExtractor } = require('@loadable/server');
-const path = require('path');
-const { Provider } = require('react-redux');
+import { renderToString } from 'react-dom/server';
+import React from 'react';
+import { StaticRouter } from 'react-router-dom';
+import { ChunkExtractor } from '@loadable/server';
+import path from 'path';
+import { Provider } from 'react-redux';
+import { AnyAction, CombinedState, Store } from 'redux';
+import { ApplicationState } from '../redux/reducers';
 
-function renderContent(App, pathHTML, context, location) {
-  const appContent = renderToString(
-    <div id="app">
-      <StaticRouter location={location} context={context}>
-        <App />
-      </StaticRouter>
-    </div>
-  );
-
-  const htmlContent = fs.readFileSync(pathHTML, 'utf8');
-  const finalContent = htmlContent.replace('<div id="app"></div>', appContent);
-
-  return finalContent;
-}
-
-function renderContentLoadable(App, context, location, store) {
+function renderContentLoadable(
+  App: () => JSX.Element,
+  context: any,
+  location: any,
+  store: Store<CombinedState<ApplicationState>, AnyAction>
+) {
   let webStats = path.resolve(__dirname, '../build/loadable-stats.json');
 
   if (process.env.NODE_ENV === 'development') {
@@ -51,7 +42,7 @@ function renderContentLoadable(App, context, location, store) {
   };
 }
 
-function renderReduxState(preloadedState) {
+function renderReduxState(preloadedState: any) {
   return `<script>
     // WARNING: See the following for security issues around embedding JSON in HTML:
     // https://redux.js.org/recipes/server-rendering/#security-considerations
@@ -62,8 +53,4 @@ function renderReduxState(preloadedState) {
   </script>`;
 }
 
-module.exports = {
-  renderContent,
-  renderContentLoadable,
-  renderReduxState,
-};
+export { renderContentLoadable, renderReduxState };

@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { ApplicationState } from '../../../redux/reducers';
 import classes from './home.module.css';
 
 function Home() {
-  const todo = useSelector((state) => state.todo);
+  const todo = useSelector((state: ApplicationState) => state.todo.todo);
   return (
     <div className={classes.home}>
       <h3>Home page</h3>

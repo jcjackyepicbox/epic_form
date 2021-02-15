@@ -9,7 +9,7 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 const { default: LoadablePlugin } = require('@loadable/webpack-plugin');
 
 const webpackProd = {
-  entry: path.resolve(__dirname, '../../src/pages/main/index.jsx'),
+  entry: path.resolve(__dirname, '../../src/pages/main/index.tsx'),
   mode: 'production',
   output: {
     filename: 'static/js/[name].[contenthash].js',

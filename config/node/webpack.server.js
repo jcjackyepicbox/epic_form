@@ -11,7 +11,7 @@ module.exports = {
   node: {
     __dirname: true,
   },
-  entry: './server/app.js',
+  entry: './server/app.ts',
   externals: [webpackNodeExternals()],
   module: {
     rules: [

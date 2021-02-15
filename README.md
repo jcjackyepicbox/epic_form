@@ -38,6 +38,13 @@ Guidelines and todo list to reach complete universal react application
 - [ ] Puppeteer
 - [ ] Mock Service Worker
 
+### Development Environment
+
+- [ ] ESLint Config
+- [ ] ESLint Loader
+- [ ] Prettier
+- [ ] Typescript
+
 ### Progressive Web Apps
 
 - [ ] Enable PWA (Installable)
@@ -50,7 +57,8 @@ Guidelines and todo list to reach complete universal react application
 
 - [ ] Web Socket
 - [ ] Docker
-- [ ] Typescript
+- [ ] React Helmet
+- [x] Compression
 
 ### Perfomance Metrics
 

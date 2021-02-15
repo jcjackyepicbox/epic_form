@@ -20,7 +20,7 @@ function App() {
       </nav>
       <Switch>
         {routes.map((val, idx) => {
-          return <Route {...val} key={idx} />;
+          return <Route key={idx} {...val} />;
         })}
       </Switch>
     </div>

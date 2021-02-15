@@ -8,6 +8,12 @@ import App from './app';
 
 let renderMethod = ReactDOM.hydrate;
 
+declare global {
+  interface Window {
+    __PRELOADED_STATE__: any;
+  }
+}
+
 if (module.hot) {
   module.hot.accept();
   renderMethod = ReactDOM.render;
@@ -21,11 +27,11 @@ const store = createAppStore(preloadedState);
 loadableReady(() => {
   renderMethod(
     <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Provider store={store}>
           <App />
-        </BrowserRouter>
-      </Provider>
+        </Provider>
+      </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('app')
   );

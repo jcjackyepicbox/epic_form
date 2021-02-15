@@ -1,11 +1,18 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-function Status({ code, children }) {
+interface IProps {
+  code: number;
+  children: React.ReactNode | React.ReactChild;
+}
+
+function Status({ code, children }: IProps) {
   return (
     <Route
       render={({ staticContext }) => {
-        if (staticContext) staticContext.status = code;
+        if (staticContext) {
+          staticContext.statusCode = code;
+        }
         return children;
       }}
     />

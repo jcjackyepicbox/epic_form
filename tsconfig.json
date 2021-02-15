@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "lib": ["dom", "esnext"],
+    "strict": true,
+    "strictFunctionTypes": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "target": "es2017",
+    "jsx": "react",
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  }
+}
