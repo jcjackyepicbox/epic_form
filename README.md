@@ -43,7 +43,7 @@ Guidelines and todo list to reach complete universal react application
 - [ ] ESLint Config
 - [ ] ESLint Loader
 - [ ] Prettier
-- [ ] Typescript
+- [x] Typescript
 
 ### Progressive Web Apps
 
