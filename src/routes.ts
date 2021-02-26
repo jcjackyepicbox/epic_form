@@ -1,15 +1,16 @@
 import loadable from '@loadable/component';
 import { RouteProps } from 'react-router-dom';
+import Loading from './components/loading/loading';
 import NotFound from './pages/404/404';
 import { getHomeData } from './service/common.service';
 
 const About = loadable<any>(() => import('./pages/about/about'), {
-  // fallback: ,
+  fallback: Loading(),
   ssr: false,
 });
 
 const Home = loadable<any>(() => import('./pages/home/home'), {
-  // fallback: ,
+  fallback: Loading(),
 });
 
 export interface IRouteApp extends RouteProps {

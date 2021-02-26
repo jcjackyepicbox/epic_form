@@ -60,6 +60,11 @@ Guidelines and todo list to reach complete universal react application
 - [ ] React Helmet
 - [x] Compression
 
+### Finishing Touch
+
+- [ ] Typescript Good Practice
+- [ ] NodeJS Design Pattern
+
 ### Perfomance Metrics
 
 - [ ] Setup Profiling Measurement Webpack Config
