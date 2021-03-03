@@ -32,7 +32,7 @@ server.use(
   })
 );
 
-server.use(morgan('dev'));
+server.use(morgan('tiny'));
 
 server.use(
   webpackHotMiddleware(compiler, {

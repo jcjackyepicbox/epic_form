@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import Layout from '../../components/layout/layout';
 
 interface IProps {
   code: number;
@@ -21,11 +22,13 @@ function Status({ code, children }: IProps) {
 
 function NotFound() {
   return (
-    <Status code={404}>
-      <div>
-        <h1>Sorry, can’t find that.</h1>
-      </div>
-    </Status>
+    <Layout>
+      <Status code={404}>
+        <div>
+          <h1>Sorry, can’t find that.</h1>
+        </div>
+      </Status>
+    </Layout>
   );
 }
 

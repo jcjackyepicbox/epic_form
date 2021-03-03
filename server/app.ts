@@ -18,10 +18,10 @@ app.use(express.static('build'));
 app.set('view engine', 'ejs');
 
 app.get('*', async (req, res) => {
-  const fetchData: any = await fetchDataByRoute(req.path);
-  const { data } = fetchData;
-  const store = createAppStore({ todo: { todo: data } });
-  import('../src/pages/main/app').then(({ default: App }) => {
+  const store = createAppStore();
+  await fetchDataByRoute(req.path, store.dispatch);
+
+  import('../src/_app').then(({ default: App }) => {
     const context: any = {};
     const { html, linkTags, scriptTags, styleTags } = renderContentLoadable(
       App,

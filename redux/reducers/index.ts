@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux';
-import todo, { ITodoState } from './todo';
+import { ITodoState } from '../../interfaces/redux/todo.interface';
+import todo from './todo';
 
 export interface ApplicationState {
-  todo: ITodoState;
+  todoApp: ITodoState;
 }
 
 const getReducers = () => {
   return combineReducers<ApplicationState>({
-    todo,
+    todoApp: todo,
   });
 };
 

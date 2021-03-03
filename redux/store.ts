@@ -1,8 +1,14 @@
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 import appReducer, { ApplicationState } from './reducers';
+import { initialTodoState } from './reducers/todo';
 
-function createAppStore(initialState: ApplicationState) {
-  let store = createStore(appReducer(), initialState);
+const initialAppStore: ApplicationState = {
+  todoApp: { ...initialTodoState },
+};
+
+function createAppStore(initialState: ApplicationState = initialAppStore) {
+  const store = createStore(appReducer(), initialState, applyMiddleware(thunk));
 
   if (module.hot && typeof module.hot.accept === 'function') {
     module.hot.accept('./reducers', () => {

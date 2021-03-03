@@ -1,29 +1,27 @@
-export interface ITodo {
-  title: string;
-}
+import { IAction, ITodoState } from '../../interfaces/redux/todo.interface';
 
-export interface ITodoState {
-  todo: ITodo[];
-}
-
-export interface IAction {
-  type: string;
-  todo: ITodo[];
-}
-
-const initialState: ITodoState = {
+export const initialTodoState: ITodoState = {
   todo: [],
+  isTodoLoading: false,
 };
 // Use the initialState as a default value
-export default function todoReducer(state = initialState, action: IAction) {
+export default function todoReducer(
+  state = initialTodoState,
+  action: IAction
+): ITodoState {
   // The reducer normally looks at the action type field to decide what happens
-
   switch (action.type) {
     // Do something here based on the different types of actions
-    case 'FETCH_TODO':
+    case 'STORE_TODO':
       return {
         ...state,
-        todo: action.todo,
+        todo: action.payload.todo || [],
+      };
+    case 'UPDATE_TODO_LOADING':
+      return {
+        ...state,
+        isTodoLoading:
+          action.payload.isTodoLoading || initialTodoState.isTodoLoading,
       };
 
     default:

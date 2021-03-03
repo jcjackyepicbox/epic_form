@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
-import classes from './app.module.css';
-import routes from '../../routes';
+import { Link } from 'react-router-dom';
+import classes from './layout.module.css';
 
-function App() {
+interface IProps {
+  children: React.ReactNode;
+}
+
+function Layout({ children }: IProps) {
   return (
     <div className={classes.app}>
       <h1>Hello World</h1>
@@ -18,13 +21,10 @@ function App() {
           Not Found
         </Link>
       </nav>
-      <Switch>
-        {routes.map((val, idx) => {
-          return <Route key={idx} {...val} />;
-        })}
-      </Switch>
+
+      {children}
     </div>
   );
 }
 
-export default App;
+export default Layout;

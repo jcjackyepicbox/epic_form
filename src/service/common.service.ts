@@ -1,17 +1,27 @@
-const fetch = require('node-fetch');
+import axios from 'axios';
+import { ITodo } from '../../interfaces/redux/todo.interface';
+import { IService } from './type.service';
 
-async function getHomeData(): Promise<any> {
+async function getHomeData(): Promise<IService<ITodo[]>> {
   try {
-    const data = await fetch('https://jsonplaceholder.typicode.com/todos');
-    const jsonData = await data.json();
+    const data = await axios.get<ITodo[]>(
+      'https://jsonplaceholder.typicode.com/todos',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
     return {
-      status: 1,
-      data: jsonData,
+      status: true,
+      data: data.data,
     };
   } catch (err) {
     return {
-      status: 0,
-      msg: err,
+      status: false,
+      data: [],
+      message: err.message || 'Something went wrong',
     };
   }
 }
