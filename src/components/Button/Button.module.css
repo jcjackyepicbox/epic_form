@@ -1,0 +1,15 @@
+.Button {
+  border-radius: 8px;
+  background: #f1e4ff;
+  padding: 16px 30px;
+  border: none;
+  font-size: inherit;
+  color: #8c30f5;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.Button.Secondary {
+  background-color: #8c30f5;
+  color: #fff;
+}

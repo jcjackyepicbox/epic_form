@@ -1,0 +1,8 @@
+.NotFound {
+  text-align: center;
+  margin: 64px auto;
+}
+
+.NotFound img {
+  height: 60vh;
+}

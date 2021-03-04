@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/layout/layout';
+import Layout from '../../components/LandingLayout/LandingLayout';
 import classes from './about.module.css';
 
 function About() {

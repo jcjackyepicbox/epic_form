@@ -1,0 +1,82 @@
+.LandingLayout {
+  margin: 0;
+  font-size: 16px;
+}
+
+.LandingNavbar {
+  max-width: 1200px;
+  margin: 8px auto;
+  display: flex;
+  align-items: center;
+  padding: 32px 24px;
+}
+
+.EpicLogo {
+  text-decoration: none;
+}
+
+.SpacingNav {
+  margin: 0px auto;
+}
+
+.Navbar {
+  display: flex;
+  align-items: center;
+}
+
+.MenuListContainer {
+  position: relative;
+  padding: 0px;
+  margin-right: 32px;
+}
+
+.MenuList {
+  list-style: none;
+  display: flex;
+}
+
+.MenuList li {
+  padding: 0 16px;
+  font-weight: bold;
+}
+
+.MenuList li a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #000;
+}
+
+.ButtonContainer {
+  display: flex;
+  margin-left: auto;
+}
+
+.ButtonContainer a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.ButtonContainer > button:not(:last-child) {
+  margin-right: 16px;
+}
+
+.Footer {
+  background: rgb(38, 38, 39);
+  color: #fff;
+}
+
+.GridFooter {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px 24px;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding: 80px 32px;
+  align-items: center;
+}
+
+.GridFooter > * {
+  text-align: center;
+}

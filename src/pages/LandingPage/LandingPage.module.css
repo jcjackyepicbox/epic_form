@@ -1,0 +1,27 @@
+.LandingGrid {
+  max-width: 1200px;
+  margin: 16px auto;
+  padding: 0px 32px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 50% 50%;
+  grid-template-columns: 50% 50%;
+}
+
+.GridContent h1 {
+  font-size: 72px;
+}
+
+.GridContent p {
+  font-size: 24px;
+}
+
+.GridContentButton {
+  margin: 16px 0;
+  font-size: 16px;
+}
+
+.GridContentButton a {
+  text-decoration: none;
+  color: inherit;
+}

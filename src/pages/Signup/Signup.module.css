@@ -1,0 +1,36 @@
+.SignupContainer {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: 40% auto;
+}
+
+.SignupImage {
+  padding: 32px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.SignupImage img {
+  width: auto;
+  height: 100%;
+}
+
+.Signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: justify;
+}
+
+.SpaceBlock {
+  margin: 16px 0;
+}
+
+.SignupDesc {
+  color: #585858;
+}
