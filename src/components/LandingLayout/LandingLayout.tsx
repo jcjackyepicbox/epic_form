@@ -31,12 +31,9 @@ function LandingLayout({ children }: IProps) {
           </div>
 
           <div className={classes.ButtonContainer}>
-            <Button type="primary">
-              <Link to="/login">Log in</Link>
-            </Button>
-            <Button type="secondary">
-              <Link to="/signup">Sign up</Link>
-            </Button>
+            <Link to="/join">
+              <Button type="primary">Join</Button>
+            </Link>
           </div>
         </nav>
       </header>

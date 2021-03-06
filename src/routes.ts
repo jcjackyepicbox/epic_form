@@ -12,11 +12,11 @@ const Home = loadable<any>(() => import('./pages/LandingPage/LandingPage'), {
   fallback: Loading(),
 });
 
-const Login = loadable<any>(() => import('./pages/Login/Login'), {
+const Join = loadable<any>(() => import('./pages/Join/Join'), {
   fallback: Loading(),
 });
 
-const Signup = loadable<any>(() => import('./pages/Signup/Signup'), {
+const Dashboard = loadable<any>(() => import('./pages/Dashboard/Dashboard'), {
   fallback: Loading(),
 });
 
@@ -36,14 +36,14 @@ const routes: IRouteApp[] = [
     component: About,
   },
   {
-    path: '/login',
+    path: '/join',
     exact: true,
-    component: Login,
+    component: Join,
   },
   {
-    path: '/signup',
+    path: '/dashboard',
     exact: true,
-    component: Signup,
+    component: Dashboard,
   },
   {
     component: NotFound,

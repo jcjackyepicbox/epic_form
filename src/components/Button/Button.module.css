@@ -13,3 +13,13 @@
   background-color: #8c30f5;
   color: #fff;
 }
+
+.Button.Outline {
+  background-color: transparent;
+  border: 1px solid #8c30f5;
+  padding: 0 16px 0 0;
+}
+
+.Button.Outline span {
+  padding-left: 8px;
+}

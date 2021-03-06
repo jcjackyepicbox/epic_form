@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import createAppStore from '../../../redux/store';
-import App from '../../_app';
+import createAppStore from '../redux/store';
+import App from './_app';
 import './index.module.css';
 
 let renderMethod = ReactDOM.hydrate;

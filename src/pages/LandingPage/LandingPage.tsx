@@ -11,13 +11,15 @@ function LandingPage() {
         <div className={classes.GridContent}>
           <h1>The Creative Way of Building Forms</h1>
           <p>
-            Tired of boring form? Create one that you and your audience love.
-            Build with EpicForm with elegant design and creative form.
+            Tired of filling and building a boring form? <br />
+            Create one that you and your audience will love at first sight.
+            Build with <b>EpicForm</b>
+            &nbsp;for elegant design and creative form.
           </p>
           <div className={classes.GridContentButton}>
-            <Button type="secondary">
-              <Link to="/login">Get Started - It's Free</Link>
-            </Button>
+            <Link to="/join">
+              <Button type="secondary">Get Started - It's Free</Button>
+            </Link>
           </div>
         </div>
         <div className={classes.GridImage}>

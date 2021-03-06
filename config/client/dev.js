@@ -8,7 +8,7 @@ const loaders = require('./loaders');
 const webpackDev = {
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
-    path.resolve(__dirname, '../../src/pages/main/index.tsx'),
+    path.resolve(__dirname, '../../src/index.tsx'),
   ],
   mode: 'development',
   output: {

@@ -13,7 +13,8 @@
 }
 
 .GridContent p {
-  font-size: 24px;
+  font-size: 20px;
+  line-height: 32px;
 }
 
 .GridContentButton {
@@ -24,4 +25,12 @@
 .GridContentButton a {
   text-decoration: none;
   color: inherit;
+}
+
+.GridImage {
+  padding: 16px;
+}
+
+.GridImage img {
+  width: 100%;
 }

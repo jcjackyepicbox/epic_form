@@ -56,7 +56,7 @@
   color: inherit;
 }
 
-.ButtonContainer > button:not(:last-child) {
+.ButtonContainer > a:not(:last-child) {
   margin-right: 16px;
 }
 

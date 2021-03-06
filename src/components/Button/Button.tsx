@@ -4,17 +4,20 @@ import classes from './Button.module.css';
 
 interface IProps {
   children: React.ReactNode;
-  type: 'primary' | 'secondary';
+  type: 'primary' | 'secondary' | 'outline';
+  icon?: JSX.Element;
 }
 
-function Button({ children, type }: IProps) {
+function Button({ children, type, icon }: IProps) {
   return (
     <button
       role="button"
       className={cx(classes.Button, {
         [classes.Secondary]: type === 'secondary',
+        [classes.Outline]: type === 'outline',
       })}
     >
+      {icon}
       {children}
     </button>
   );
