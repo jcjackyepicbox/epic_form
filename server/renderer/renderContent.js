@@ -4,19 +4,12 @@ import { StaticRouter } from 'react-router-dom';
 import { ChunkExtractor } from '@loadable/server';
 import path from 'path';
 import { Provider } from 'react-redux';
-import { AnyAction, CombinedState, Store } from 'redux';
-import { ApplicationState } from '../redux/reducers';
 
-function renderContentLoadable(
-  App: () => JSX.Element,
-  context: any,
-  location: any,
-  store: Store<CombinedState<ApplicationState>, AnyAction>
-) {
-  let webStats = path.resolve(__dirname, '../build/loadable-stats.json');
+function renderContentLoadable(App, context, location, store) {
+  let webStats = path.resolve(__dirname, '../../build/loadable-stats.json');
 
   if (process.env.NODE_ENV === 'development') {
-    webStats = path.resolve(__dirname, '../dev/stats.json');
+    webStats = path.resolve(__dirname, '../../dev/stats.json');
   }
   const extractor = new ChunkExtractor({ statsFile: webStats });
   const jsx = extractor.collectChunks(
@@ -42,7 +35,7 @@ function renderContentLoadable(
   };
 }
 
-function renderReduxState(preloadedState: any) {
+function renderReduxState(preloadedState) {
   return `<script>
     // WARNING: See the following for security issues around embedding JSON in HTML:
     // https://redux.js.org/recipes/server-rendering/#security-considerations

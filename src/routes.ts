@@ -22,6 +22,7 @@ const Dashboard = loadable<any>(() => import('./pages/Dashboard/Dashboard'), {
 
 export interface IRouteApp extends RouteProps {
   loadData?: (store: any) => Promise<void>;
+  requireAuth?: boolean;
 }
 
 const routes: IRouteApp[] = [
@@ -44,6 +45,7 @@ const routes: IRouteApp[] = [
     path: '/dashboard',
     exact: true,
     component: Dashboard,
+    requireAuth: true,
   },
   {
     component: NotFound,

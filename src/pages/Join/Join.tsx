@@ -28,9 +28,14 @@ function Join() {
           </div>
 
           <div className={classes.SpaceBlock}>
-            <Button type="outline" icon={<GoogleSvg verticalAlign="middle" />}>
-              <span>Sign up with Google</span>
-            </Button>
+            <a href="/auth/google">
+              <Button
+                type="outline"
+                icon={<GoogleSvg verticalAlign="middle" />}
+              >
+                <span>Sign up with Google</span>
+              </Button>
+            </a>
           </div>
           <div className={classes.SpaceBlock} />
           <div className={classes.SpaceBlock}>
