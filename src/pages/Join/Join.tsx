@@ -17,7 +17,7 @@ function Join() {
       </div>
       <div className={classes.Signup}>
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <Logo />
+          <Logo size="large" />
         </Link>
         <div className={classes.SignupContent}>
           <h1>Join Us</h1>
@@ -28,7 +28,7 @@ function Join() {
           </div>
 
           <div className={classes.SpaceBlock}>
-            <a href="/auth/google">
+            <a href="http://localhost:3001/auth/google">
               <Button
                 type="outline"
                 icon={<GoogleSvg verticalAlign="middle" />}

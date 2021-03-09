@@ -17,6 +17,7 @@
 .SignupImage img {
   width: auto;
   height: 100%;
+  max-height: -webkit-fill-available;
 }
 
 .Signup {

@@ -1,0 +1,54 @@
+import { verifyToken } from '../../shared/jwt';
+
+export function checkCookieToken(cookieToken) {
+  return new Promise((resolve) => {
+    verifyToken(cookieToken, process.env.SESSION_COOKIE_SECRET, (data, err) => {
+      if (err) {
+        console.log(err);
+        resolve({
+          data: null,
+          status: false,
+        });
+      } else {
+        resolve({
+          data: data,
+          status: true,
+        });
+      }
+    });
+  });
+}
+
+export function ensureLoggedIn() {
+  return async function (req, res, next) {
+    const cookieToken = req.cookies.auth;
+    if (!cookieToken) {
+      return res.json({ error: 'No Authentication Provided', data: null });
+    }
+
+    const { status } = await checkCookieToken(cookieToken);
+
+    if (!status) {
+      return res.json({ error: 'Token expired', data: null });
+    }
+
+    next();
+  };
+}
+
+export function ensureLoggedOut() {
+  return async function (req, res, next) {
+    try {
+      const cookieToken = req.cookies.auth;
+      const { status } = await checkCookieToken(cookieToken);
+
+      if (cookieToken && status) {
+        return res.redirect('http://localhost:3000/dashboard/');
+      }
+
+      next();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+}

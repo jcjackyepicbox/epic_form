@@ -4,3 +4,11 @@
   color: #858585;
   cursor: pointer;
 }
+
+.Logo.medium {
+  font-size: 18px;
+}
+
+.Logo.small {
+  font-size: 12px;
+}

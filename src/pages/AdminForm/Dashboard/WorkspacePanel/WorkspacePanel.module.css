@@ -1,0 +1,61 @@
+.WorkspacePanel {
+  width: 256px;
+  box-shadow: rgb(0 0 0 / 7%) -1px 0px inset;
+  display: flex;
+  flex-direction: column;
+}
+
+.PanelTitle {
+  flex-shrink: 0;
+  padding: 32px 16px 24px 32px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.PanelList {
+  flex-grow: 1;
+  margin: 0;
+  list-style: none;
+  font-size: 14px;
+  padding: 0;
+}
+
+.PanelList > li {
+  padding: 12px 32px;
+  color: #4c4c4c;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.PanelList > li.active,
+.PanelList > li:hover {
+  color: #262627;
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+.ListFlex {
+  color: inherit;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.PanelList > li.active .CountItem {
+  color: #262627;
+}
+
+.TitleItem {
+  color: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.CountItem {
+  color: #bbbbbb;
+  font-size: 12px;
+}

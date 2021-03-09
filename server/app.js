@@ -1,7 +1,6 @@
-require('dotenv').config();
-
 import compression from 'compression';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import { fetchDataByRoute } from './utils/fetchData';
 import createAppStore from '../redux/store';
 import {
@@ -9,18 +8,11 @@ import {
   renderReduxState,
 } from './renderer/renderContent';
 import express from 'express';
-import initAuthentication from './api/authentication';
-import middlewares from './api/middlewares';
-import authRouter from './api/routes/auth/index';
-import apiRouter from './api/routes/api';
 import App from '../src/_app';
 
 export const app = express();
 
 app.set('view engine', 'ejs');
-app.set('trust proxy', 1); // trust first proxy
-
-initAuthentication();
 
 app.use(compression());
 app.use(
@@ -28,13 +20,14 @@ app.use(
     contentSecurityPolicy: false,
   })
 );
-
-app.use(middlewares);
+app.use(cookieParser());
 
 app.use(express.static('build'));
 
-app.use('/auth', authRouter);
-app.use('/api', apiRouter);
+app.use((req, _, next) => {
+  console.log('COOKIES', req.url, req.headers, req.cookies);
+  next();
+});
 
 app.get('*', async (req, res) => {
   const store = createAppStore();
@@ -57,12 +50,4 @@ app.get('*', async (req, res) => {
     scriptTag: scriptTags,
     reduxTag: reduxScriptTag,
   });
-
-  if (context.url) {
-    res.writeHead(301, {
-      Location: context.url,
-    });
-
-    res.end();
-  }
 });

@@ -13,7 +13,7 @@ function LandingLayout({ children }: IProps) {
     <div className={classes.LandingLayout}>
       <header className={classes.LandingNavbar}>
         <Link to="/" className={classes.EpicLogo}>
-          <Logo />
+          <Logo size="large" />
         </Link>
 
         <div className={classes.SpacingNav} />
@@ -43,7 +43,7 @@ function LandingLayout({ children }: IProps) {
       <footer className={classes.Footer}>
         <div className={classes.GridFooter}>
           <Link to="/" className={classes.EpicLogo}>
-            <Logo />
+            <Logo size="medium" />
           </Link>
           <div className={classes.Copyright}>
             © 2021 EpicForm. All rights reserved

@@ -1,0 +1,27 @@
+* {
+  color: #262627;
+}
+
+.Dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  flex-flow: column nowrap;
+}
+
+.Dashboard > div:last-child {
+  flex: 1 1 0%;
+}
+
+.EpicLogo {
+  text-decoration: none;
+}
+
+.WorkspaceContainer {
+  display: flex;
+}
+
+.WorkspaceContainer > div:last-child {
+  flex-grow: 1;
+  background-color: rgb(250, 250, 250);
+}

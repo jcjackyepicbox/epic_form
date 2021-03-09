@@ -15,7 +15,7 @@ async function fetchDataByRoute(
     .map((val) => {
       const { loadData } = val;
       if (loadData) {
-        return () => loadData(dispatch);
+        return () => loadData(dispatch, '');
       }
 
       return null;

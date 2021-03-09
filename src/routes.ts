@@ -2,7 +2,7 @@ import loadable from '@loadable/component';
 import { RouteProps } from 'react-router-dom';
 import Loading from './components/Loading/Loading';
 import NotFound from './pages/404/404';
-
+import { getUserWorkspace } from '../redux/actions/user.action';
 const About = loadable<JSX.Element>(() => import('./pages/About/About'), {
   fallback: Loading(),
   ssr: false,
@@ -16,12 +16,15 @@ const Join = loadable<any>(() => import('./pages/Join/Join'), {
   fallback: Loading(),
 });
 
-const Dashboard = loadable<any>(() => import('./pages/Dashboard/Dashboard'), {
-  fallback: Loading(),
-});
+const Dashboard = loadable<any>(
+  () => import('./pages/AdminForm/Dashboard/Dashboard'),
+  {
+    fallback: Loading(),
+  }
+);
 
 export interface IRouteApp extends RouteProps {
-  loadData?: (store: any) => Promise<void>;
+  loadData?: (store: any, token: string) => Promise<void>;
   requireAuth?: boolean;
 }
 
@@ -42,10 +45,12 @@ const routes: IRouteApp[] = [
     component: Join,
   },
   {
-    path: '/dashboard',
+    path: ['/dashboard', '/dashboard/:id'],
     exact: true,
     component: Dashboard,
     requireAuth: true,
+    loadData: (dispatch: any, token: string) =>
+      dispatch(getUserWorkspace(token)),
   },
   {
     component: NotFound,

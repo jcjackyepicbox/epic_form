@@ -4,6 +4,7 @@ import { StaticRouter } from 'react-router-dom';
 import { ChunkExtractor } from '@loadable/server';
 import path from 'path';
 import { Provider } from 'react-redux';
+import serialize from 'serialize-javascript';
 
 function renderContentLoadable(App, context, location, store) {
   let webStats = path.resolve(__dirname, '../../build/loadable-stats.json');
@@ -36,14 +37,9 @@ function renderContentLoadable(App, context, location, store) {
 }
 
 function renderReduxState(preloadedState) {
-  return `<script>
-    // WARNING: See the following for security issues around embedding JSON in HTML:
-    // https://redux.js.org/recipes/server-rendering/#security-considerations
-    window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
-      /</g,
-      '\\u003c'
-    )}
-  </script>`;
+  return `<script>window.__PRELOADED_STATE__=${serialize(
+    preloadedState
+  )}</script>`;
 }
 
 export { renderContentLoadable, renderReduxState };

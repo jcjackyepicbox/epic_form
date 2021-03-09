@@ -8,16 +8,20 @@
   "private": true,
   "scripts": {
     "dev": "node ./scripts/dev",
+    "dev:api": "backpack dev",
     "build": "node ./scripts/build",
     "start": "node ./scripts/start"
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
     "axios": "^0.21.1",
+    "backpack-core": "^0.8.4",
     "body-parser": "^1.19.0",
+    "bson": "^4.2.3",
     "classnames": "^2.2.6",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
@@ -26,6 +30,7 @@
     "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
     "keygrip": "^1.1.0",
+    "mongodb": "^3.6.4",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
@@ -36,6 +41,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "serialize-javascript": "^5.0.1",
     "typescript": "^3.7.5"
   },
   "devDependencies": {

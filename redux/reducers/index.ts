@@ -1,14 +1,18 @@
 import { combineReducers } from 'redux';
-import { ITodoState } from '../../interfaces/redux/todo.interface';
-import todo from './todo';
+import { IGenericState } from '../../interfaces/redux/generic.interface';
+import { IUserState } from '../../interfaces/redux/user.interface';
+import user from './user';
+import generic from './generic';
 
 export interface ApplicationState {
-  todoApp: ITodoState;
+  user: IUserState;
+  generic: IGenericState;
 }
 
 const getReducers = () => {
   return combineReducers<ApplicationState>({
-    todoApp: todo,
+    user: user,
+    generic: generic,
   });
 };
 

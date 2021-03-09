@@ -1,8 +1,9 @@
+require('dotenv').config();
 import { matchPath } from 'react-router-dom';
+import { verifyTokenSync } from '../../shared/jwt';
 import routes from '../../src/routes';
-import { ensureLoggedIn } from '../api/middlewares/ensureLogged';
 
-function getMatchPromises(path) {
+function getMatchPromises(path, dispatch, token) {
   let isRequireAuth = false;
   const matchPromises = routes // return array of components
     .map((route) => {
@@ -12,7 +13,7 @@ function getMatchPromises(path) {
         isRequireAuth = isRequireAuth || route.requireAuth;
       }
 
-      return match && route.loadData ? route.loadData(dispatch) : null;
+      return match && route.loadData ? route.loadData(dispatch, token) : null;
     }) // Return an array of promises, since we're calling loadData(), which returns async promises
     .map((promise) => {
       // Make sure it's not null
@@ -31,16 +32,27 @@ function getMatchPromises(path) {
 }
 
 function fetchDataByRoute(req, res, dispatch) {
-  return new Promise((resolve, reject) => {
-    const { path } = req;
-    const { isRequireAuth, matchPromises } = getMatchPromises(path);
+  return new Promise(async (resolve, reject) => {
+    const { path, cookies, url } = req;
+    const token = cookies ? cookies.auth || '' : '';
+    const { isRequireAuth, matchPromises } = getMatchPromises(
+      path,
+      dispatch,
+      token
+    );
     // Wait for all the loadData() calls to finish their async calls
 
-    ensureLoggedIn(isRequireAuth)(req, res, () => {
+    try {
+      if (isRequireAuth) {
+        await verifyTokenSync(token, process.env.SESSION_COOKIE_SECRET);
+      }
+
       Promise.all(matchPromises)
         .then(() => resolve())
         .catch(() => reject());
-    });
+    } catch (err) {
+      return res.redirect(`/join?error=${encodeURIComponent(err.message)}`);
+    }
   });
 }
 

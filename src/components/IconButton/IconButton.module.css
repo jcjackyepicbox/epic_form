@@ -1,0 +1,17 @@
+.IconButton {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 4px;
+}
+
+.IconButton:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.IconButton:active {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}

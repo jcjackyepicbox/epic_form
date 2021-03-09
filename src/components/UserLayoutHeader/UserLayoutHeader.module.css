@@ -1,0 +1,30 @@
+.UserLayoutHeader {
+  display: flex;
+  height: 4rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+.LayoutSection {
+  flex-grow: 1;
+  margin-left: 32px;
+}
+
+.UserSection {
+  padding: 8px;
+  height: inherit;
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.UserSection img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.UserSection span {
+  margin-left: 8px;
+  font-size: 14px;
+}
