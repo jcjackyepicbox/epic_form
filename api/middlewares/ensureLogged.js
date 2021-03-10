@@ -23,13 +23,17 @@ export function ensureLoggedIn() {
   return async function (req, res, next) {
     const cookieToken = req.cookies.auth;
     if (!cookieToken) {
-      return res.json({ error: 'No Authentication Provided', data: null });
+      return res.json({
+        status: false,
+        code: 99,
+        error: 'No Authentication Provided',
+      });
     }
 
     const { status } = await checkCookieToken(cookieToken);
 
     if (!status) {
-      return res.json({ error: 'Token expired', data: null });
+      return res.json({ status: false, error: 'Token expired', code: 99 });
     }
 
     next();

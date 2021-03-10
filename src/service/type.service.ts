@@ -1,6 +1,11 @@
 export interface IService<T> {
-  status: boolean;
   data: T;
-  message?: string;
+  status: boolean;
   error?: string;
+  code?: number;
+}
+
+export interface IPostStatus {
+  status: boolean;
+  message: string;
 }

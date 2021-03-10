@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { matchPath, Route, Switch, useLocation } from 'react-router-dom';
 import routes, { IRouteApp } from './routes';
 
+const pathException = 'dashboard';
+
 async function fetchDataByRoute(
   path: string,
   dispatch: Dispatch<any>
@@ -28,6 +30,17 @@ async function fetchDataByRoute(
   await loadDataRoute();
 }
 
+function getExceptionPath(pathname: string, prevPathname: string) {
+  if (
+    pathname.includes(pathException) &&
+    prevPathname.includes(pathException)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
 function App() {
   const { pathname } = useLocation();
   const currLocation = useRef(pathname);
@@ -39,7 +52,10 @@ function App() {
   }
 
   useEffect(() => {
-    if (currLocation.current !== pathname) {
+    if (
+      currLocation.current !== pathname &&
+      getExceptionPath(pathname, currLocation.current)
+    ) {
       fetchPreloadData(pathname, () => {
         currLocation.current = pathname;
       });

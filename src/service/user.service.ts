@@ -1,21 +1,25 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { IUser } from '../../interfaces/redux/user.interface';
-import { IService } from './type.service';
+import { IPostStatus, IService } from './type.service';
 
 async function getUserDashboard(
   token: string
 ): Promise<IService<IUser | null>> {
   try {
-    if (document && token) {
-      document.cookie = `auth=${token}`;
+    const headers: any = {
+      'Content-Type': 'application/json',
+    };
+
+    if (typeof window !== 'undefined' && window.document && token) {
+      window.document.cookie = `auth=${token}`;
+    } else if (token) {
+      headers['Cookie'] = `auth=${token}`;
     }
 
     const data = await axios.get<IService<IUser | null>>(
       'http://localhost:3001/api/user/workspace',
       {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         withCredentials: true,
       }
     );
@@ -31,6 +35,7 @@ async function getUserDashboard(
       data: serviceData.data,
     };
   } catch (err) {
+    console.error(err);
     return {
       status: false,
       data: null,
@@ -39,4 +44,84 @@ async function getUserDashboard(
   }
 }
 
-export { getUserDashboard };
+async function createNewWorkspace(
+  title: string
+): Promise<IService<IPostStatus | null>> {
+  try {
+    const headers: any = {
+      'Content-Type': 'application/json',
+    };
+
+    const data = await axios.post<IService<IPostStatus | null>>(
+      'http://localhost:3001/api/user/workspace',
+      {
+        title,
+      },
+      {
+        headers,
+        withCredentials: true,
+      }
+    );
+
+    const serviceData = data.data;
+
+    if (serviceData.status === false && serviceData.error) {
+      return serviceData;
+    }
+
+    return {
+      status: true,
+      data: serviceData.data,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      status: false,
+      data: null,
+      error: err.message || 'Something went wrong',
+    };
+  }
+}
+
+async function updateWorkspace(
+  title: string,
+  workspace_id: string
+): Promise<IService<IPostStatus | null>> {
+  try {
+    const headers: any = {
+      'Content-Type': 'application/json',
+    };
+
+    const data = await axios.put<IService<IPostStatus | null>>(
+      'http://localhost:3001/api/user/workspace',
+      {
+        title,
+        workspace_id,
+      },
+      {
+        headers,
+        withCredentials: true,
+      }
+    );
+
+    const serviceData = data.data;
+
+    if (serviceData.status === false && serviceData.error) {
+      return serviceData;
+    }
+
+    return {
+      status: true,
+      data: serviceData.data,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      status: false,
+      data: null,
+      error: err.message || 'Something went wrong',
+    };
+  }
+}
+
+export { getUserDashboard, createNewWorkspace, updateWorkspace };

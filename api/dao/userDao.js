@@ -1,3 +1,4 @@
+import { ObjectId } from 'bson';
 class UserDao {
   constructor() {
     this.user = null;
@@ -65,6 +66,74 @@ class UserDao {
     } catch (e) {
       console.error(`Error occurred while logging in user, ${e}`);
       return { error: e };
+    }
+  }
+
+  async insertWorkspace(workspaceData, provider_id) {
+    try {
+      const updatedData = await this.user.updateOne(
+        { provider_id: provider_id },
+        {
+          $push: {
+            workspaces: workspaceData,
+          },
+        }
+      );
+
+      if (updatedData.modifiedCount === 1) {
+        return { status: true, message: 'Succesfully insert workspace' };
+      }
+
+      throw new Error(`${updatedData.matchedCount} data updated`);
+    } catch (e) {
+      console.error(`Error occurred while updating data, ${e}`);
+      return { error: e.message, code: 100, status: false };
+    }
+  }
+
+  async updateTitleWorkspace(title, workspace_id, provider_id) {
+    try {
+      const updatedData = await this.user.updateOne(
+        { provider_id: provider_id, 'workspaces._id': ObjectId(workspace_id) },
+        {
+          $set: {
+            'workspaces.$.workspace_name': title,
+          },
+        }
+      );
+
+      if (updatedData.modifiedCount === 1) {
+        return { status: true, message: 'Succesfully update workspace' };
+      }
+
+      throw new Error(`${updatedData.matchedCount} data updated`);
+    } catch (e) {
+      console.error(`Error occurred while updating data, ${e}`);
+      return { error: e.message, code: 100, status: false };
+    }
+  }
+
+  async removeWorkspace(workspace_id, provider_id) {
+    try {
+      const deletedData = await this.user.updateOne(
+        { provider_id: provider_id },
+        {
+          $pull: {
+            workspaces: {
+              _id: ObjectId(workspace_id),
+            },
+          },
+        }
+      );
+
+      if (deletedData.modifiedCount === 1) {
+        return { status: true, message: 'Succesfully delete workspace' };
+      }
+
+      throw new Error(`${updatedData.matchedCount} data deleted`);
+    } catch (e) {
+      console.error(`Error occurred while deleted data, ${e}`);
+      return { error: e.message, code: 100, status: false };
     }
   }
 }

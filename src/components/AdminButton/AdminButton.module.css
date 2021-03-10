@@ -1,0 +1,27 @@
+.AdminButton {
+  padding: 6px 12px;
+  font-weight: normal;
+  font-size: 14px;
+  border: 0;
+  line-height: 20px;
+  border-radius: 4px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.AdminButton.grey {
+  background-color: rgba(0, 0, 0, 0.07);
+  color: #262627;
+}
+
+.AdminButton.teal {
+  background-color: rgb(79, 176, 174);
+  color: #fff;
+}
+
+.AdminButton.disabled {
+  background-color: rgba(0, 0, 0, 0.07);
+  color: rgb(170, 170, 170);
+}

@@ -3,15 +3,19 @@
   background-color: transparent;
   border: none;
   padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
 }
 
 .IconButton:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  border-radius: 2px;
 }
 
-.IconButton:active {
+.IconButton:active,
+.IconButton.active {
   background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  border-radius: 2px;
 }

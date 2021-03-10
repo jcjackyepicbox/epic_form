@@ -2,6 +2,7 @@ export interface IWorkspace {
   workspace_name: string;
   _id: string;
   forms: string[];
+  is_default: boolean;
 }
 
 export interface IUser {

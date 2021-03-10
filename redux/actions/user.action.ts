@@ -22,7 +22,7 @@ export function setError(error: string): IAction {
 export function getUserWorkspace(token: string) {
   return async (dispatch: any) => {
     const userData = await getUserDashboard(token);
-    console.log(userData);
+
     if (!userData.status && userData.error) {
       dispatch(setError(userData.error));
     } else if (userData.status && userData.data) {

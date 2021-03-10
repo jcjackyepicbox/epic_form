@@ -35,13 +35,13 @@ export function signToken(secret) {
     jwt.sign(
       { userId: req.user.provider_id },
       secret,
-      { expiresIn: '2 h' },
+      { expiresIn: '2 d' },
       (err, token) => {
         if (err) {
           res.sendStatus(500);
         } else {
           res.cookie('auth', token, {
-            maxAge: 900000,
+            maxAge: 14400000,
             sameSite: false,
             httpOnly: false,
           });

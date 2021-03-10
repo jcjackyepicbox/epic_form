@@ -5,4 +5,40 @@
 .WorkspaceTitle {
   padding: 10px 16px;
   font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.WorkspaceTitle > *:first-child {
+  margin-right: 16px;
+}
+
+.MoreDropdown {
+  position: relative;
+}
+
+.DropdownList {
+  position: absolute;
+  top: calc(100% + 4px);
+  background-color: #fff;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  font-size: 14px;
+  width: max-content;
+  box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
+  border-radius: 4px;
+}
+
+.DropdownList > li {
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.DropdownList > li:hover {
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+.DropdownList > li.delete {
+  color: rgb(217, 87, 103);
 }

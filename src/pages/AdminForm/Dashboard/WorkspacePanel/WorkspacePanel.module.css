@@ -3,6 +3,7 @@
   box-shadow: rgb(0 0 0 / 7%) -1px 0px inset;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 4rem);
 }
 
 .PanelTitle {
@@ -22,17 +23,23 @@
   list-style: none;
   font-size: 14px;
   padding: 0;
+  overflow: auto;
 }
 
-.PanelList > li {
+.PanelList > a {
+  text-decoration: none;
+}
+
+.PanelList li {
   padding: 12px 32px;
   color: #4c4c4c;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.PanelList > li.active,
-.PanelList > li:hover {
+.PanelList li.active,
+.PanelList li:hover {
   color: #262627;
   background-color: rgba(0, 0, 0, 0.07);
 }
@@ -42,9 +49,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
-.PanelList > li.active .CountItem {
+.PanelList li.active .CountItem {
   color: #262627;
 }
 

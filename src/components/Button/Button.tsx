@@ -8,6 +8,9 @@ interface IProps {
   icon?: JSX.Element;
 }
 
+/**
+ * Button for Landing Page
+ */
 function Button({ children, type, icon }: IProps) {
   return (
     <button
