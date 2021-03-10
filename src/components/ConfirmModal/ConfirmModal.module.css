@@ -1,0 +1,14 @@
+.ConfirmModalTitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.ModalAction {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ModalAction > button:not(:last-child) {
+  margin-right: 8px;
+}

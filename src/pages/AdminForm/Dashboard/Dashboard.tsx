@@ -13,8 +13,10 @@ import WorkspaceModal from './WorkspaceModal/WorkspaceModal';
 import {
   createNewWorkspace,
   updateWorkspace,
+  deleteWorkspace,
 } from '../../../service/user.service';
 import { getUserWorkspace } from '../../../../redux/actions/user.action';
+import ConfirmModal from '../../../components/ConfirmModal/ConfirmModal';
 
 function checkIfRedirect(workspaces: IWorkspace[], id: string | undefined) {
   const activeId = workspaces.filter((val) => val._id === id);
@@ -45,11 +47,12 @@ function Dashboard() {
     defaultUserData;
 
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const { id } = useParams<{ id: string | undefined }>();
-  const { pathRedirect, activeId } = checkIfRedirect(workspaces, id);
+  let { pathRedirect, activeId } = checkIfRedirect(workspaces, id);
   const activeWorkspace = getActiveWorkspace(workspaces, activeId);
 
   function onCreateModalSave(title: string, resetCallback: () => void) {
@@ -72,6 +75,19 @@ function Dashboard() {
         dispatch(getUserWorkspace(''));
         resetModal();
         resetCallback();
+      }
+    });
+  }
+
+  function onDeleteModalSave() {
+    deleteWorkspace(activeId).then((data) => {
+      if (data.status && data.data && data.data.status) {
+        dispatch(getUserWorkspace(''));
+        setOpenDeleteModal(false);
+
+        if (workspaces.length > 0) {
+          pathRedirect = `/dashboard/${workspaces[0]._id}`;
+        }
       }
     });
   }
@@ -107,6 +123,7 @@ function Dashboard() {
           <WorkspaceForm
             workspaceData={activeWorkspace}
             onEdit={onWorkspaceEdit}
+            onDelete={() => setOpenDeleteModal(true)}
           />
         </div>
       </div>
@@ -118,6 +135,26 @@ function Dashboard() {
         onUpdate={onUpdateModalSave}
         isEdit={isEditMode}
       />
+
+      <ConfirmModal
+        open={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        title="Delete workspace"
+        cancelText="Cancel"
+        actionText="Yes, Delete"
+        onActionClick={onDeleteModalSave}
+      >
+        <div className={classes.DeleteDescription}>
+          You’re about to delete your Workspace
+        </div>
+        <div className={classes.DeleteDescription}>
+          You’ll lose all forms and responses collected in this Workspace. We
+          can’t recover them once you delete.
+        </div>
+        <div className={classes.DeleteDescription}>
+          Are you sure you want to permanently delete this Workspace?
+        </div>
+      </ConfirmModal>
     </>
   );
 }

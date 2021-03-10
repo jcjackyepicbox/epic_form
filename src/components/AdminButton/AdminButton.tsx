@@ -4,7 +4,7 @@ import cx from 'classnames';
 interface IProps {
   children: React.ReactNode;
   disabled?: boolean;
-  color: 'grey' | 'teal';
+  color: 'grey' | 'teal' | 'red';
   onClick?: () => void;
 }
 
@@ -17,6 +17,7 @@ function AdminButton({ children, disabled, color, onClick }: IProps) {
         [classes.disabled]: disabled === true,
         [classes.grey]: color === 'grey',
         [classes.teal]: color === 'teal',
+        [classes.red]: color === 'red',
       })}
     >
       {children}

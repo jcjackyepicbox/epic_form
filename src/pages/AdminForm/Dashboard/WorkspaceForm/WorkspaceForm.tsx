@@ -7,9 +7,10 @@ import classes from './WorkspaceForm.module.css';
 interface IProps {
   workspaceData: IWorkspace | null;
   onEdit: () => void;
+  onDelete: () => void;
 }
 
-function WorkspaceForm({ workspaceData, onEdit }: IProps) {
+function WorkspaceForm({ workspaceData, onEdit, onDelete }: IProps) {
   const [menuActive, setMenuActive] = useState<boolean>(false);
 
   if (!workspaceData) {
@@ -49,7 +50,9 @@ function WorkspaceForm({ workspaceData, onEdit }: IProps) {
             <ul className={classes.DropdownList}>
               <li onClick={onEdit}>Edit Workspace</li>
               {!is_default && (
-                <li className={classes.delete}>Delete Workspace</li>
+                <li className={classes.delete} onClick={onDelete}>
+                  Delete Workspace
+                </li>
               )}
             </ul>
           )}
