@@ -1,12 +1,14 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import appReducer, { ApplicationState } from './reducers';
+import { initialFormState } from './reducers/form';
 import { initialGenericState } from './reducers/generic';
 import { initialUserState } from './reducers/user';
 
 const initialAppStore: ApplicationState = {
   user: { ...initialUserState },
   generic: { ...initialGenericState },
+  form: { ...initialFormState },
 };
 
 function createAppStore(initialState: ApplicationState = initialAppStore) {

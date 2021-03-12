@@ -136,6 +136,28 @@ class UserDao {
       return { error: e.message, code: 100, status: false };
     }
   }
+
+  async updateFormWorkspace(form_id, workspace_id, provider_id) {
+    try {
+      const updatedData = await this.user.updateOne(
+        { provider_id: provider_id, 'workspaces._id': ObjectId(workspace_id) },
+        {
+          $push: {
+            'workspaces.$.forms': form_id,
+          },
+        }
+      );
+
+      if (updatedData.modifiedCount === 1) {
+        return { status: true, message: 'Succesfully update workspace' };
+      }
+
+      throw new Error(`${updatedData.matchedCount} data updated`);
+    } catch (e) {
+      console.error(`Error occurred while updating data, ${e}`);
+      return { error: e.message, code: 100, status: false };
+    }
+  }
 }
 
 const userDao = new UserDao();

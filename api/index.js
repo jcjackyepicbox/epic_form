@@ -7,6 +7,8 @@ import apiRouter from './routes/api/index';
 import { MongoClient } from 'mongodb';
 import userDao from './dao/userDao';
 import initAuthentication from './authentication';
+import formDao from './dao/formDao';
+import settingDao from './dao/settingDao';
 
 const app = express();
 
@@ -45,6 +47,8 @@ function initMongo() {
     })
     .then(async (client) => {
       await userDao.injectDB(client);
+      await formDao.injectDB(client);
+      await settingDao.injectDB(client);
       return;
     });
 }

@@ -13,7 +13,9 @@ function getMatchPromises(path, dispatch, token) {
         isRequireAuth = isRequireAuth || route.requireAuth;
       }
 
-      return match && route.loadData ? route.loadData(dispatch, token) : null;
+      return match && route.loadData
+        ? route.loadData(dispatch, token, match.params.id)
+        : null;
     }) // Return an array of promises, since we're calling loadData(), which returns async promises
     .map((promise) => {
       // Make sure it's not null
@@ -33,7 +35,7 @@ function getMatchPromises(path, dispatch, token) {
 
 function fetchDataByRoute(req, res, dispatch) {
   return new Promise(async (resolve, reject) => {
-    const { path, cookies, url } = req;
+    const { path, cookies } = req;
     const token = cookies ? cookies.auth || '' : '';
     const { isRequireAuth, matchPromises } = getMatchPromises(
       path,
@@ -44,6 +46,7 @@ function fetchDataByRoute(req, res, dispatch) {
 
     try {
       if (isRequireAuth) {
+        console.log('IS REQUIRE', token);
         await verifyTokenSync(token, process.env.SESSION_COOKIE_SECRET);
       }
 

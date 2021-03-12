@@ -8,3 +8,11 @@ body {
 ::after {
   box-sizing: border-box;
 }
+
+::placeholder {
+  color: #bbbbbb;
+}
+
+a {
+  text-decoration: none;
+}

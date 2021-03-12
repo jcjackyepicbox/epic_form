@@ -1,33 +1,37 @@
+import { resolve } from 'path';
 import React, { Dispatch, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { matchPath, Route, Switch, useLocation } from 'react-router-dom';
-import routes, { IRouteApp } from './routes';
+import {
+  matchPath,
+  Route,
+  Switch,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
+import routes from './routes';
 
 const pathException = 'dashboard';
 
-async function fetchDataByRoute(
-  path: string,
-  dispatch: Dispatch<any>
-): Promise<void> {
-  const loadDataRoute = routes
-    .filter((route: IRouteApp) => {
-      const match = matchPath(path, route);
-      return match && route.loadData;
-    })
-    .map((val) => {
-      const { loadData } = val;
-      if (loadData) {
-        return () => loadData(dispatch, '');
+function getMatchPromises(path: string, dispatch: Dispatch<any>) {
+  const matchPromises = routes // return array of components
+    .map((route) => {
+      const match = matchPath<{ id: string }>(path, route);
+
+      return match && route.loadData
+        ? route.loadData(dispatch, '', match.params.id)
+        : null;
+    }) // Return an array of promises, since we're calling loadData(), which returns async promises
+    .map((promise) => {
+      // Make sure it's not null
+      if (promise) {
+        return new Promise((resolve, reject) => {
+          // When the inner promise gets resolved or rejected...
+          promise.then(resolve).catch(resolve);
+        });
       }
+    });
 
-      return null;
-    })[0];
-
-  if (!loadDataRoute) {
-    return;
-  }
-
-  await loadDataRoute();
+  return matchPromises;
 }
 
 function getExceptionPath(pathname: string, prevPathname: string) {
@@ -46,17 +50,13 @@ function App() {
   const currLocation = useRef(pathname);
   const dispatch = useDispatch();
 
-  async function fetchPreloadData(pathname: string, callback: () => void) {
-    await fetchDataByRoute(pathname, dispatch);
-    callback();
-  }
-
   useEffect(() => {
     if (
       currLocation.current !== pathname &&
       getExceptionPath(pathname, currLocation.current)
     ) {
-      fetchPreloadData(pathname, () => {
+      const matchPromsies = getMatchPromises(pathname, dispatch);
+      Promise.all(matchPromsies).then(() => {
         currLocation.current = pathname;
       });
     }

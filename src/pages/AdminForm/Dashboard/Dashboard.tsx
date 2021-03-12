@@ -15,8 +15,10 @@ import {
   updateWorkspace,
   deleteWorkspace,
 } from '../../../service/user.service';
+import { createNewForm } from '../../../service/form.service';
 import { getUserWorkspace } from '../../../../redux/actions/user.action';
 import ConfirmModal from '../../../components/ConfirmModal/ConfirmModal';
+import NewFormModal from './NewFormModal/NewFormModal';
 
 function checkIfRedirect(workspaces: IWorkspace[], id: string | undefined) {
   const activeId = workspaces.filter((val) => val._id === id);
@@ -47,6 +49,7 @@ function Dashboard() {
     defaultUserData;
 
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openFormModal, setOpenFormModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [isEditMode, setEditMode] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -60,6 +63,20 @@ function Dashboard() {
       if (data.status && data.data && data.data.status) {
         dispatch(getUserWorkspace(''));
         resetModal();
+        resetCallback();
+      }
+    });
+  }
+
+  function onCreateFormSave(
+    title: string,
+    purpose: string,
+    resetCallback: () => void
+  ) {
+    createNewForm(title, purpose, activeId).then((data) => {
+      if (data.status && data.data && data.data.status) {
+        dispatch(getUserWorkspace(''));
+        setOpenFormModal(false);
         resetCallback();
       }
     });
@@ -124,6 +141,7 @@ function Dashboard() {
             workspaceData={activeWorkspace}
             onEdit={onWorkspaceEdit}
             onDelete={() => setOpenDeleteModal(true)}
+            onOpenFormModal={() => setOpenFormModal(true)}
           />
         </div>
       </div>
@@ -134,6 +152,14 @@ function Dashboard() {
         onSave={onCreateModalSave}
         onUpdate={onUpdateModalSave}
         isEdit={isEditMode}
+      />
+
+      <NewFormModal
+        open={openFormModal}
+        onCloseClick={() => {
+          setOpenFormModal(false);
+        }}
+        onSaveClick={onCreateFormSave}
       />
 
       <ConfirmModal

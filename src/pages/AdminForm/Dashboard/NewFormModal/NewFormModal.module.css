@@ -1,0 +1,37 @@
+.ModalTitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.ModalContent {
+  margin-bottom: 32px;
+}
+
+.InputGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.InputGroup > label {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.InputGroup > input {
+  width: 100%;
+  font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 8px;
+}
+
+.ModalAction {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ModalAction > button:not(:last-child) {
+  margin-right: 8px;
+}

@@ -3,6 +3,7 @@ import { RouteProps } from 'react-router-dom';
 import Loading from './components/Loading/Loading';
 import NotFound from './pages/404/404';
 import { getUserWorkspace } from '../redux/actions/user.action';
+import { getFormDataDetail } from '../redux/actions/form.action';
 const About = loadable<JSX.Element>(() => import('./pages/About/About'), {
   fallback: Loading(),
   ssr: false,
@@ -23,8 +24,12 @@ const Dashboard = loadable<any>(
   }
 );
 
+const Create = loadable<any>(() => import('./pages/AdminForm/Create/Create'), {
+  fallback: Loading(),
+});
+
 export interface IRouteApp extends RouteProps {
-  loadData?: (store: any, token: string) => Promise<void>;
+  loadData?: (store: any, token: string, id: string) => Promise<void>;
   requireAuth?: boolean;
 }
 
@@ -48,6 +53,22 @@ const routes: IRouteApp[] = [
     path: ['/dashboard', '/dashboard/:id'],
     exact: true,
     component: Dashboard,
+    requireAuth: true,
+    loadData: (dispatch: any, token: string) =>
+      dispatch(getUserWorkspace(token)),
+  },
+  {
+    path: '/forms/:id/create',
+    exact: true,
+    component: Create,
+    requireAuth: true,
+    loadData: (dispatch: any, token: string, id: string) => {
+      dispatch(getFormDataDetail(token, id || ''));
+    },
+  },
+  // Get necessary data
+  {
+    path: '/forms/:id/',
     requireAuth: true,
     loadData: (dispatch: any, token: string) =>
       dispatch(getUserWorkspace(token)),

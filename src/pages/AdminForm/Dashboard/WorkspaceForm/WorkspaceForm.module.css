@@ -57,7 +57,7 @@
   padding: 10px 16px;
 }
 
-.FormsContainer > .FormsItem {
+.FormsContainer .FormsItem {
   width: 176px;
   height: 208px;
   border-radius: 4px;
@@ -101,4 +101,25 @@
   height: inherit;
   border-radius: inherit;
   border: 2px dashed rgb(227, 227, 227);
+}
+
+.RegularForm {
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 24px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.RegularForm:hover {
+  opacity: 0.75;
+  box-shadow: rgb(0 0 0 / 12%) 0px 4px 8px, rgb(0 0 0 / 13%) 0px 4px 16px;
 }
