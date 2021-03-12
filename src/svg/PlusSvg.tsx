@@ -1,7 +1,7 @@
 import React from 'react';
 import { ISvgProps } from '../../interfaces/general/svg.interface';
 
-function PlusSvg({ height, width, verticalAlign }: Partial<ISvgProps>) {
+function PlusSvg({ height, width, verticalAlign, color }: Partial<ISvgProps>) {
   return (
     <svg
       width="24"
@@ -15,7 +15,10 @@ function PlusSvg({ height, width, verticalAlign }: Partial<ISvgProps>) {
         verticalAlign,
       }}
     >
-      <path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" fill="#2E3A59" />
+      <path
+        d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z"
+        fill={color || '#2E3A59'}
+      />
     </svg>
   );
 }

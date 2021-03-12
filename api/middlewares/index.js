@@ -15,7 +15,7 @@ middlewares.use(
   cookieSession({
     name: '__session',
     keys: [process.env.SESSION_COOKIE_SECRET],
-    maxAge: 24 * 60 * 60 * 100,
+    maxAge: 604800000,
     secure: true,
     httpOnly: true,
     sameSite: 'none',

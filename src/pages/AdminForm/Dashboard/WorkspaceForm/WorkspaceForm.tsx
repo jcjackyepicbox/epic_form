@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IWorkspace } from '../../../../../interfaces/redux/user.interface';
 import IconButton from '../../../../components/IconButton/IconButton';
 import MoreSvg from '../../../../svg/MoreSvg';
+import PlusSvg from '../../../../svg/PlusSvg';
 import classes from './WorkspaceForm.module.css';
 
 interface IProps {
@@ -56,6 +57,26 @@ function WorkspaceForm({ workspaceData, onEdit, onDelete }: IProps) {
               )}
             </ul>
           )}
+        </div>
+      </div>
+
+      <div className={classes.WorkspaceDescription}>
+        My Personal Workspace of surveys, including personal development,
+        self-perseverance, and people behavioural insights.
+      </div>
+
+      <div className={classes.FormsContainer}>
+        <div className={classes.FormsItem}>
+          <div className={classes.NewForm}>
+            <div className={classes.NewFormTitle}>New epicform</div>
+            <div className={classes.NewFormIcon}>
+              <PlusSvg color="#fff" width={32} height={32} />
+            </div>
+          </div>
+        </div>
+
+        <div className={classes.FormsItem}>
+          <div className={classes.EmptyForm} />
         </div>
       </div>
     </div>
