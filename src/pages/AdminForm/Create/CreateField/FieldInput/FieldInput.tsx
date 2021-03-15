@@ -15,10 +15,23 @@ interface IProps {
   formFieldData: IFormField;
   formSettings: IFormSetting[];
   onChange: (field_id: string, value: string) => void;
+  onSetActiveField: (field_id: string) => void;
+  onUpdateDescription: (field_id: string, value: string) => void;
 }
 
-function FieldInput({ formFieldData, formSettings, onChange }: IProps) {
-  const { _id, title, type_id } = formFieldData;
+function FieldInput({
+  formFieldData,
+  formSettings,
+  onChange,
+  onSetActiveField,
+  onUpdateDescription,
+}: IProps) {
+  const {
+    _id,
+    title,
+    type_id,
+    properties: { description },
+  } = formFieldData;
   const activeSettings = getActiveSettings(formSettings, type_id);
 
   if (!activeSettings) {
@@ -32,9 +45,16 @@ function FieldInput({ formFieldData, formSettings, onChange }: IProps) {
     onChange(_id, value);
   }
 
+  function onUpdateDesc(value: string) {
+    onUpdateDescription(_id, value);
+  }
+
   return (
     <div className={classes.FieldContainer}>
-      <div className={classes.FieldIconContainer}>
+      <div
+        className={classes.FieldIconContainer}
+        onClick={() => onSetActiveField(_id)}
+      >
         <div className={classes.FieldIcon} style={{ background: type_color }}>
           {iconSvg}
           <div />
@@ -46,6 +66,14 @@ function FieldInput({ formFieldData, formSettings, onChange }: IProps) {
           placeholder="Say Hi!"
           value={title}
         />
+
+        {description !== null && (
+          <EditableInput
+            onChange={onUpdateDesc}
+            placeholder="Your Description (optional)"
+            value={description}
+          />
+        )}
       </div>
       <div className={classes.FieldToolbar}>
         <IconButton>

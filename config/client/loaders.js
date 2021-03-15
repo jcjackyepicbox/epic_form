@@ -57,6 +57,7 @@ exports.loadJavaScript = () => ({
         include: [
           path.join(__dirname, '../../src'),
           path.join(__dirname, '../../redux'),
+          path.join(__dirname, '../../interfaces'),
         ],
         use: 'babel-loader',
       },

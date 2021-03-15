@@ -98,3 +98,24 @@ export function updateFieldTitle(
     dispatch(setAllFormField(cloneFields));
   };
 }
+
+export function updateFieldProperties(
+  field_id: string,
+  property: keyof IFormField['properties'],
+  value: string | null
+): ThunkAction<void, ApplicationState, unknown, Action<string>> {
+  return async (dispatch: any, getState) => {
+    const formData = getState().form.formData;
+    const { fields } = formData;
+
+    const cloneFields: IFormField[] = deepCopy(fields);
+
+    for (let field of cloneFields) {
+      if (field._id === field_id) {
+        field['properties'][property] = value;
+      }
+    }
+
+    dispatch(setAllFormField(cloneFields));
+  };
+}

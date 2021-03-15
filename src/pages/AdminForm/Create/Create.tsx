@@ -9,11 +9,28 @@ import classes from './Create.module.css';
 import CreateField from './CreateField/CreateField';
 import CreatePreview from './CreatePreview/CreatePreview';
 import CreateSettings from './CreateSettings/CreateSettings';
-import { SETTING_TYPE } from '../../../../interfaces/form/form.interface';
-import { addQuestionField } from '../../../../redux/actions/form.action';
+import {
+  IFormField,
+  SETTING_TYPE,
+} from '../../../../interfaces/form/form.interface';
+import {
+  addQuestionField,
+  updateFieldProperties,
+} from '../../../../redux/actions/form.action';
+
+function getActiveField(fieldData: IFormField[], _id: string) {
+  const filteredField = fieldData.filter((val) => val._id === _id);
+
+  if (filteredField.length === 1) {
+    return filteredField[0];
+  }
+
+  return null;
+}
 
 function Create() {
   const [openSetting, setOpenSetting] = useState<boolean>(false);
+  const [activeFieldId, setActiveFieldId] = useState<string>('');
 
   const dispatch = useDispatch();
   const { image, display_name } =
@@ -24,8 +41,23 @@ function Create() {
     (state: ApplicationState) => state.form
   );
 
+  const activeField = getActiveField(formData.fields, activeFieldId);
+
   function addQuestion(type_id: SETTING_TYPE) {
     dispatch(addQuestionField(type_id));
+  }
+
+  function onSetActiveField(field_id: string) {
+    setOpenSetting(true);
+    setActiveFieldId(field_id);
+  }
+
+  function updateSettingProperty(
+    field_id: string,
+    property: keyof IFormField['properties'],
+    value: string | null
+  ) {
+    dispatch(updateFieldProperties(field_id, property, value));
   }
 
   return (
@@ -54,12 +86,15 @@ function Create() {
           <CreateSettings
             open={openSetting}
             onClose={() => setOpenSetting(false)}
-            formSetting={null}
+            formSettings={formSetting}
+            activeField={activeField}
+            updateSetting={updateSettingProperty}
           />
           <CreateField
             formSettings={formSetting}
             addQuestion={addQuestion}
             fieldFormData={formData.fields}
+            onSetActiveField={onSetActiveField}
           />
           <CreatePreview />
         </div>

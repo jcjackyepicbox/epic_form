@@ -5,7 +5,10 @@ import {
   IFormSetting,
   SETTING_TYPE,
 } from '../../../../../interfaces/form/form.interface';
-import { updateFieldTitle } from '../../../../../redux/actions/form.action';
+import {
+  updateFieldTitle,
+  updateFieldProperties,
+} from '../../../../../redux/actions/form.action';
 import PlusSvg from '../../../../svg/PlusSvg';
 import classes from './CreateField.module.css';
 import FieldDropdown from './FieldDropdown/FieldDropdown';
@@ -15,9 +18,15 @@ interface IProps {
   fieldFormData: IFormField[];
   formSettings: IFormSetting[];
   addQuestion: (type_id: SETTING_TYPE) => void;
+  onSetActiveField: (_id: string) => void;
 }
 
-function CreateField({ formSettings, fieldFormData, addQuestion }: IProps) {
+function CreateField({
+  formSettings,
+  fieldFormData,
+  addQuestion,
+  onSetActiveField,
+}: IProps) {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const dispatch = useDispatch();
 
@@ -38,6 +47,10 @@ function CreateField({ formSettings, fieldFormData, addQuestion }: IProps) {
     dispatch(updateFieldTitle(field_id, value));
   }
 
+  function updateDescription(field_id: string, value: string) {
+    dispatch(updateFieldProperties(field_id, 'description', value));
+  }
+
   const fieldInputList = fieldFormData.map((val) => {
     const { _id } = val;
     return (
@@ -46,6 +59,8 @@ function CreateField({ formSettings, fieldFormData, addQuestion }: IProps) {
         formFieldData={val}
         formSettings={formSettings}
         onChange={updateTitle}
+        onSetActiveField={onSetActiveField}
+        onUpdateDescription={updateDescription}
       />
     );
   });

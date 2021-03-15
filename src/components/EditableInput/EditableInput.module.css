@@ -12,6 +12,10 @@
   white-space: pre-wrap;
 }
 
+.EditableContainer:not(:last-child) {
+  margin-bottom: 8px;
+}
+
 .Placeholder {
   flex-shrink: 0;
   color: #bbbbbb;
