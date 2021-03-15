@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import IconButton from '../../../../components/IconButton/IconButton';
 import CloseSvg from '../../../../svg/CloseSvg';
@@ -11,7 +11,6 @@ import {
 import { getActiveSettings } from '../../../../utils/create.utils';
 import { defaultFormSettingData } from '../../../../data/form.data';
 
-export type TFormSetting = Pick<IFormSetting, 'description' | 'button_text'>;
 interface IProps {
   open: boolean;
   onClose: () => void;
