@@ -1,0 +1,42 @@
+.FieldContainer {
+  display: flex;
+  flex-direction: row;
+  padding-top: 8px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.FieldIconContainer {
+  padding: 24px 0px 40px 24px;
+}
+
+.FieldIcon {
+  background-color: rgb(187, 211, 150);
+  width: 52px;
+  height: 24px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.FieldWorkspace {
+  flex-grow: 1;
+  padding: 24px 24px 64px 16px;
+}
+
+.FieldToolbar {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  column-gap: 4px;
+}
+
+.FieldContainer:hover {
+  background-color: #f6f6f6;
+}

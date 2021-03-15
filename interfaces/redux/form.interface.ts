@@ -1,14 +1,25 @@
-import { IForm } from '../form/form.interface';
+import { IForm, IFormField, IFormSetting } from '../form/form.interface';
 
 export interface IFormState {
-  formData: IForm | null;
+  formData: IForm;
+  formSetting: IFormSetting[];
   loading: boolean;
   error: string;
 }
 
-export interface IFormAction {
-  type: FORM_ACTION;
-  payload: Partial<IFormState>;
+interface IFormActionField {
+  field: IFormField;
+  fields: IFormField[];
 }
 
-export type FORM_ACTION = 'STORE_FORM' | 'SET_ERROR';
+export interface IFormAction {
+  type: FORM_ACTION;
+  payload: Partial<IFormState> & Partial<IFormActionField>;
+}
+
+export type FORM_ACTION =
+  | 'STORE_FORM'
+  | 'SET_ERROR'
+  | 'STORE_SETTING'
+  | 'SET_ALL_FORM_FIELDS'
+  | 'SET_FORM_FIELDS';

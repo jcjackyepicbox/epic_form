@@ -1,0 +1,22 @@
+.EditableContainer {
+  width: 100%;
+  display: flex;
+}
+
+.EditableInput {
+  display: block;
+  outline: none;
+  width: 100%;
+  color: #262627;
+  flex-grow: 1;
+  white-space: pre-wrap;
+}
+
+.Placeholder {
+  flex-shrink: 0;
+  color: #bbbbbb;
+}
+
+.EditableInput.None {
+  visibility: hidden;
+}

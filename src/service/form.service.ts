@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IForm } from '../../interfaces/form/form.interface';
+import { IForm, IFormSetting } from '../../interfaces/form/form.interface';
 import { IPostStatus, IService } from './type.service';
 
 async function getFormsWorkspace(
@@ -85,7 +85,7 @@ async function createNewForm(
 async function getFormDetail(
   token: string,
   form_id: string
-): Promise<IService<IForm | null>> {
+): Promise<IService<{ formData: IForm; formSetting: IFormSetting[] } | null>> {
   try {
     const headers: any = {
       'Content-Type': 'application/json',
@@ -97,13 +97,12 @@ async function getFormDetail(
       headers['Cookie'] = `auth=${token}`;
     }
 
-    const data = await axios.get<IService<IForm | null>>(
-      'http://localhost:3001/api/form/' + form_id,
-      {
-        headers,
-        withCredentials: true,
-      }
-    );
+    const data = await axios.get<
+      IService<{ formData: IForm; formSetting: IFormSetting[] } | null>
+    >('http://localhost:3001/api/form/' + form_id, {
+      headers,
+      withCredentials: true,
+    });
 
     const formsData = data.data;
 

@@ -62,11 +62,10 @@ const routes: IRouteApp[] = [
     exact: true,
     component: Create,
     requireAuth: true,
-    loadData: (dispatch: any, token: string, id: string) => {
-      dispatch(getFormDataDetail(token, id || ''));
-    },
+    loadData: (dispatch: any, token: string, id: string) =>
+      dispatch(getFormDataDetail(token, id || '')),
   },
-  // Get necessary data
+  // Get necessary data of user
   {
     path: '/forms/:id/',
     requireAuth: true,

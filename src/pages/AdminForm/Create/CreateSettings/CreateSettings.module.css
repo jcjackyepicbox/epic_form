@@ -1,0 +1,79 @@
+.CreateSettings {
+  box-shadow: rgb(0 0 0 / 7%) -1px 0px inset;
+  min-width: 256px;
+  width: 256px;
+  max-width: 576px;
+  display: flex;
+  font-size: 14px;
+  flex-direction: column;
+  background-color: rgb(250, 250, 250);
+}
+
+.SettingTitle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  justify-content: space-between;
+  box-shadow: rgb(0 0 0 / 7%) 0px -1px inset;
+}
+
+.SettingPanel {
+  padding: 0px 20px 40px;
+}
+
+.SettingItem {
+  padding: 16px 0;
+  box-shadow: rgb(0 0 0 / 7%) 0px -1px inset;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.SettingItem.DirColumn {
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.SettingItem.DirColumn > .SettingLabel {
+  margin-bottom: 8px;
+}
+
+.ToggleButton {
+  height: 16px;
+  width: 30px;
+  border-radius: 32px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out 0s;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: rgb(187, 187, 187);
+  opacity: 1;
+  appearance: none;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  outline: none;
+}
+
+.ToggleButton.active {
+  background-color: rgb(4, 135, 175);
+}
+
+.ToggleButton::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  position: relative;
+  left: 2px;
+  background-color: rgb(255, 255, 255);
+  display: block;
+  border-radius: 50%;
+  transition: all 0.15s ease 0s;
+  opacity: 1;
+}
+
+.ToggleButton.active::after {
+  transform: translateX(14px);
+}
