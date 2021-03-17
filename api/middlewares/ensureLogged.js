@@ -24,7 +24,6 @@ export function ensureLoggedIn() {
     const cookieToken = req.cookies.auth;
 
     if (!cookieToken) {
-      console.log('HERE', cookieToken);
       return res.json({
         status: false,
         code: 99,

@@ -1,25 +1,17 @@
 import axios from 'axios';
 import { IUser } from '../../interfaces/redux/user.interface';
+import AuthAxiosInstance from '../utils/axios.utils';
 import { IPostStatus, IService } from './type.service';
 
-async function getUserDashboard(
-  token: string
-): Promise<IService<IUser | null>> {
+async function getUserDashboard(ctx: any): Promise<IService<IUser | null>> {
   try {
-    const headers: any = {
-      'Content-Type': 'application/json',
-    };
+    const authAxios = AuthAxiosInstance.getInstance(
+      ctx?.cookies?.auth || ''
+    ).getAuthAxiosInstance();
 
-    if (typeof window !== 'undefined' && window.document && token) {
-      window.document.cookie = `auth=${token}`;
-    } else if (token) {
-      headers['Cookie'] = `auth=${token}`;
-    }
-
-    const data = await axios.get<IService<IUser | null>>(
+    const data = await authAxios.get<IService<IUser | null>>(
       'http://localhost:3001/api/user/workspace',
       {
-        headers,
         withCredentials: true,
       }
     );
@@ -48,17 +40,15 @@ async function createNewWorkspace(
   title: string
 ): Promise<IService<IPostStatus | null>> {
   try {
-    const headers: any = {
-      'Content-Type': 'application/json',
-    };
-
     const data = await axios.post<IService<IPostStatus | null>>(
       'http://localhost:3001/api/user/workspace',
       {
         title,
       },
       {
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+        },
         withCredentials: true,
       }
     );
@@ -88,10 +78,6 @@ async function updateWorkspace(
   workspace_id: string
 ): Promise<IService<IPostStatus | null>> {
   try {
-    const headers: any = {
-      'Content-Type': 'application/json',
-    };
-
     const data = await axios.put<IService<IPostStatus | null>>(
       'http://localhost:3001/api/user/workspace',
       {
@@ -99,7 +85,9 @@ async function updateWorkspace(
         workspace_id,
       },
       {
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+        },
         withCredentials: true,
       }
     );

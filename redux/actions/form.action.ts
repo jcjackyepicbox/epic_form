@@ -57,9 +57,9 @@ export function setError(error: string): IFormAction {
   };
 }
 
-export function getFormDataDetail(token: string, id: string) {
+export function getFormDataDetail(ctx: any, params: any) {
   return async (dispatch: any) => {
-    const formData = await getFormDetail(token, id);
+    const formData = await getFormDetail(ctx, params);
 
     if (!formData.status && formData.error) {
       dispatch(setError(formData.error));

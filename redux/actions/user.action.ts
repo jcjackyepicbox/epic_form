@@ -19,9 +19,9 @@ export function setError(error: string): IAction {
   };
 }
 
-export function getUserWorkspace(token: string) {
+export function getUserWorkspace(ctx: any) {
   return async (dispatch: any) => {
-    const userData = await getUserDashboard(token);
+    const userData = await getUserDashboard(ctx);
 
     if (!userData.status && userData.error) {
       dispatch(setError(userData.error));

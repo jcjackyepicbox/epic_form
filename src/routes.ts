@@ -29,7 +29,7 @@ const Create = loadable<any>(() => import('./pages/AdminForm/Create/Create'), {
 });
 
 export interface IRouteApp extends RouteProps {
-  loadData?: (store: any, token: string, id: string) => Promise<void>;
+  loadData?: (dispatch: any, ctx: any, params: any) => Promise<void>;
   requireAuth?: boolean;
 }
 
@@ -54,23 +54,21 @@ const routes: IRouteApp[] = [
     exact: true,
     component: Dashboard,
     requireAuth: true,
-    loadData: (dispatch: any, token: string) =>
-      dispatch(getUserWorkspace(token)),
+    loadData: (dispatch: any, ctx: any) => dispatch(getUserWorkspace(ctx)),
   },
   {
     path: '/forms/:id/create',
     exact: true,
     component: Create,
     requireAuth: true,
-    loadData: (dispatch: any, token: string, id: string) =>
-      dispatch(getFormDataDetail(token, id || '')),
+    loadData: (dispatch: any, ctx: any, params: any) =>
+      dispatch(getFormDataDetail(ctx, params)),
   },
   // Get necessary data of user
   {
     path: '/forms/:id/',
     requireAuth: true,
-    loadData: (dispatch: any, token: string) =>
-      dispatch(getUserWorkspace(token)),
+    loadData: (dispatch: any, ctx: any) => dispatch(getUserWorkspace(ctx)),
   },
   {
     component: NotFound,

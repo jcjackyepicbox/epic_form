@@ -3,7 +3,7 @@ import { matchPath } from 'react-router-dom';
 import { verifyTokenSync } from '../../shared/jwt';
 import routes from '../../src/routes';
 
-function getMatchPromises(path, dispatch, token) {
+function getMatchPromises(path, dispatch, ctx) {
   let isRequireAuth = false;
   const matchPromises = routes // return array of components
     .map((route) => {
@@ -14,15 +14,13 @@ function getMatchPromises(path, dispatch, token) {
       }
 
       return match && route.loadData
-        ? route.loadData(dispatch, token, match.params.id)
+        ? route.loadData(dispatch, ctx, match.params)
         : null;
-    }) // Return an array of promises, since we're calling loadData(), which returns async promises
+    })
     .map((promise) => {
-      // Make sure it's not null
       if (promise) {
         return new Promise((resolve, reject) => {
-          // When the inner promise gets resolved or rejected...
-          promise.then(resolve).catch(resolve);
+          promise.then(resolve).catch(reject);
         });
       }
     });
@@ -40,13 +38,12 @@ function fetchDataByRoute(req, res, dispatch) {
     const { isRequireAuth, matchPromises } = getMatchPromises(
       path,
       dispatch,
-      token
+      req
     );
     // Wait for all the loadData() calls to finish their async calls
 
     try {
       if (isRequireAuth) {
-        console.log('IS REQUIRE', token);
         await verifyTokenSync(token, process.env.SESSION_COOKIE_SECRET);
       }
 

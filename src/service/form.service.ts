@@ -1,20 +1,19 @@
 import axios from 'axios';
 import { IForm, IFormSetting } from '../../interfaces/form/form.interface';
+import AuthAxiosInstance from '../utils/axios.utils';
 import { IPostStatus, IService } from './type.service';
 
 async function getFormsWorkspace(
   formIds: string[]
 ): Promise<IService<IForm[]>> {
   try {
-    const headers: any = {
-      'Content-Type': 'application/json',
-    };
-
     const data = await axios.post<IService<IForm[]>>(
       'http://localhost:3001/api/form/bulk',
       { form_ids: formIds },
       {
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+        },
         withCredentials: true,
       }
     );
@@ -45,10 +44,6 @@ async function createNewForm(
   workspace_id: string
 ): Promise<IService<IPostStatus | null>> {
   try {
-    const headers: any = {
-      'Content-Type': 'application/json',
-    };
-
     const data = await axios.post<IService<IPostStatus | null>>(
       'http://localhost:3001/api/form/create',
       {
@@ -57,7 +52,9 @@ async function createNewForm(
         workspace_id,
       },
       {
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+        },
         withCredentials: true,
       }
     );
@@ -83,24 +80,18 @@ async function createNewForm(
 }
 
 async function getFormDetail(
-  token: string,
-  form_id: string
+  ctx: any,
+  params: any
 ): Promise<IService<{ formData: IForm; formSetting: IFormSetting[] } | null>> {
   try {
-    const headers: any = {
-      'Content-Type': 'application/json',
-    };
+    const authAxios = AuthAxiosInstance.getInstance(
+      ctx?.cookies?.auth || ''
+    ).getAuthAxiosInstance();
+    const form_id = params?.id || '';
 
-    if (typeof window !== 'undefined' && window.document && token) {
-      window.document.cookie = `auth=${token}`;
-    } else if (token) {
-      headers['Cookie'] = `auth=${token}`;
-    }
-
-    const data = await axios.get<
+    const data = await authAxios.get<
       IService<{ formData: IForm; formSetting: IFormSetting[] } | null>
     >('http://localhost:3001/api/form/' + form_id, {
-      headers,
       withCredentials: true,
     });
 
