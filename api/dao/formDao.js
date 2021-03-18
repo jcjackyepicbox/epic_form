@@ -54,6 +54,28 @@ class FormDao {
       return { error: err.message, code: 100, status: false };
     }
   }
+
+  async updateFormField(form_id, form_fields) {
+    try {
+      const updatedData = await this.form.updateOne(
+        { _id: ObjectId(form_id) },
+        {
+          $set: {
+            fields: form_fields,
+          },
+        }
+      );
+
+      if (updatedData.modifiedCount === 1) {
+        return { status: true, message: 'Succesfully update form data' };
+      }
+
+      throw new Error(`${updatedData.matchedCount} data updated`);
+    } catch (e) {
+      console.error(`Error occurred while updating data, ${e}`);
+      return { error: e.message, code: 100, status: false };
+    }
+  }
 }
 
 const formDao = new FormDao();

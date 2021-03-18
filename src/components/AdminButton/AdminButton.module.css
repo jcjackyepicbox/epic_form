@@ -30,3 +30,8 @@
   background-color: rgb(217, 87, 103);
   color: #fff;
 }
+
+.AdminButton.black {
+  background-color: #262627;
+  color: #fff;
+}

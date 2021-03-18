@@ -7,6 +7,7 @@ import classes from './WorkspaceForm.module.css';
 import { getFormsWorkspace } from '../../../../service/form.service';
 import { IForm } from '../../../../../interfaces/form/form.interface';
 import { Link } from 'react-router-dom';
+import Dropdown from '../../../../components/Dropdown/Dropdown';
 interface IProps {
   workspaceData: IWorkspace | null;
   onEdit: () => void;
@@ -60,7 +61,7 @@ function WorkspaceForm({
       <div className={classes.WorkspaceTitle}>
         <div>{workspace_name}</div>
 
-        <div className={classes.MoreDropdown}>
+        <Dropdown.DropdownContainer>
           <IconButton
             customPadding="10px 6px"
             active={menuActive}
@@ -69,16 +70,16 @@ function WorkspaceForm({
             <MoreSvg />
           </IconButton>
           {menuActive && (
-            <ul className={classes.DropdownList}>
+            <Dropdown.DropdownList>
               <li onClick={onEdit}>Edit Workspace</li>
               {!is_default && (
                 <li className={classes.delete} onClick={onDelete}>
                   Delete Workspace
                 </li>
               )}
-            </ul>
+            </Dropdown.DropdownList>
           )}
-        </div>
+        </Dropdown.DropdownContainer>
       </div>
 
       <div className={classes.WorkspaceDescription}>

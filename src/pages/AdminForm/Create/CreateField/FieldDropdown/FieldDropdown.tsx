@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import {
   IFormSetting,
@@ -10,12 +10,26 @@ import IconWelcomeSvg from '../../../../../svg/IconWelcomeSvg';
 import classes from './FieldDropdown.module.css';
 import IconButton from '../../../../../components/IconButton/IconButton';
 import CloseSvg from '../../../../../svg/CloseSvg';
+import { IDropdownFormSettings } from '../CreateField';
 
 interface IProps {
   openDropdown: boolean;
-  formSettings: IFormSetting[];
+  formSettings: IDropdownFormSettings[];
   addQuestion: (type_id: SETTING_TYPE) => void;
   onCloseDropdown: () => void;
+  ddlContainerRef: DOMRect | undefined;
+}
+
+function getInitialActiveForm(formSettings: IDropdownFormSettings[]) {
+  const filteredFormSettings = formSettings.filter(
+    (val) => val.disable === false
+  );
+
+  if (filteredFormSettings.length > 0) {
+    return filteredFormSettings[0];
+  }
+
+  return null;
 }
 
 function FieldDropdown({
@@ -23,14 +37,33 @@ function FieldDropdown({
   formSettings,
   addQuestion,
   onCloseDropdown,
+  ddlContainerRef,
 }: IProps) {
-  const [activeForm, setActiveForm] = useState<IFormSetting | null>(
-    formSettings.length > 0 ? formSettings[0] : null
+  const [activeForm, setActiveForm] = useState<IDropdownFormSettings | null>(
+    () => getInitialActiveForm(formSettings)
   );
+  const [ddlUpward, setDdlUpward] = useState<boolean>(false);
+  const ddlDropdownRef = useRef<HTMLDivElement | null>(null);
 
-  function onListHover(formSetting: IFormSetting) {
+  function onListHover(formSetting: IDropdownFormSettings) {
     setActiveForm(formSetting);
   }
+
+  useEffect(() => {
+    const activeForm = getInitialActiveForm(formSettings);
+    setActiveForm(activeForm);
+  }, [formSettings]);
+
+  useLayoutEffect(() => {
+    const topCon = ddlContainerRef?.top || 0;
+    const heightCon = ddlContainerRef?.height || 0;
+    const heightDdl =
+      ddlDropdownRef.current?.getBoundingClientRect().height || 0;
+
+    if (topCon + heightCon + heightDdl > window.document.body.clientHeight) {
+      setDdlUpward(true);
+    }
+  }, [ddlContainerRef?.top]);
 
   const questionListItems = formSettings.map((val) => {
     const { type_name, icon, type_id, type_color } = val;
@@ -38,8 +71,11 @@ function FieldDropdown({
     return (
       <li
         key={type_id}
-        className={cx({ [classes.active]: type_id === activeForm?.type_id })}
-        onMouseEnter={() => onListHover(val)}
+        className={cx({
+          [classes.active]: type_id === activeForm?.type_id,
+          [classes.disable]: val.disable,
+        })}
+        onMouseEnter={val.disable ? undefined : () => onListHover(val)}
         onClick={() => addQuestion(type_id)}
       >
         <span className={classes.NFListIcon} style={{ background: type_color }}>
@@ -55,7 +91,13 @@ function FieldDropdown({
   }
 
   return (
-    <div className={classes.NewFieldDropdown}>
+    <div
+      className={classes.NewFieldDropdown}
+      ref={ddlDropdownRef}
+      style={{
+        bottom: ddlUpward === true ? ddlContainerRef?.height || 'auto' : 'auto',
+      }}
+    >
       <div className={classes.NewFieldTypeList}>
         <div className={classes.NewFieldTypeTitle}>Choose Question Type</div>
         <ul>{questionListItems}</ul>

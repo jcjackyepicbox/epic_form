@@ -71,10 +71,9 @@ export function getFormDataDetail(ctx: any, params: any) {
 }
 
 export function addQuestionField(
-  type_id: SETTING_TYPE
+  newField: IFormField
 ): ThunkAction<void, ApplicationState, unknown, Action<string>> {
   return async (dispatch: any) => {
-    const newField = getNewFormField(type_id);
     dispatch(setFormField(newField));
   };
 }
@@ -96,6 +95,21 @@ export function updateFieldTitle(
     }
 
     dispatch(setAllFormField(cloneFields));
+  };
+}
+
+export function deleteField(
+  field_id: string
+): ThunkAction<void, ApplicationState, unknown, Action<string>> {
+  return async (dispatch: any, getState) => {
+    const formData = getState().form.formData;
+    const { fields } = formData;
+
+    const filteredFields: IFormField[] = fields.filter(
+      (val) => val._id !== field_id
+    );
+
+    dispatch(setAllFormField(filteredFields));
   };
 }
 

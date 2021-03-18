@@ -3,6 +3,7 @@ import cx from 'classnames';
 import classes from './EditableInput.module.css';
 
 interface IProps {
+  color?: 'grey';
   value: string;
   placeholder: string;
   onChange: (value: string) => void;
@@ -16,7 +17,7 @@ function checkIfPlaceholder(
   return initialValue === '' && value === '' && !focus;
 }
 
-function EditableInput({ placeholder, value, onChange }: IProps) {
+function EditableInput({ placeholder, value, onChange, color }: IProps) {
   const [focus, setFocus] = useState<boolean>(false);
   const textRef = useRef<HTMLDivElement | null>(null);
   const placeholderActive = checkIfPlaceholder(
@@ -54,6 +55,7 @@ function EditableInput({ placeholder, value, onChange }: IProps) {
         contentEditable={focus}
         className={cx(classes.EditableInput, {
           [classes.None]: placeholderActive,
+          [classes.Grey]: color === 'grey',
         })}
         suppressContentEditableWarning={true}
         onInput={() => onChange(textRef.current?.innerHTML.trim() || '')}

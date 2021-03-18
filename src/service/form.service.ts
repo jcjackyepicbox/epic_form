@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { IForm, IFormSetting } from '../../interfaces/form/form.interface';
+import {
+  IForm,
+  IFormField,
+  IFormSetting,
+} from '../../interfaces/form/form.interface';
 import AuthAxiosInstance from '../utils/axios.utils';
 import { IPostStatus, IService } from './type.service';
 
@@ -115,4 +119,43 @@ async function getFormDetail(
   }
 }
 
-export { getFormsWorkspace, createNewForm, getFormDetail };
+async function updateFormField(
+  form_id: string,
+  fields: IFormField[]
+): Promise<IService<IPostStatus | null>> {
+  try {
+    const data = await axios.put<IService<IPostStatus | null>>(
+      'http://localhost:3001/api/form/field',
+      {
+        form_id,
+        fields,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      }
+    );
+
+    const serviceData = data.data;
+
+    if (serviceData.status === false && serviceData.error) {
+      return serviceData;
+    }
+
+    return {
+      status: true,
+      data: serviceData.data,
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      status: false,
+      data: null,
+      error: err.message || 'Something went wrong',
+    };
+  }
+}
+
+export { getFormsWorkspace, createNewForm, getFormDetail, updateFormField };

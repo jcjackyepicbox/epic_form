@@ -14,7 +14,7 @@ function Logo({ size }: IProps) {
         [classes.small]: size === 'small',
       })}
     >
-      EpicForm
+      Epicform
     </div>
   );
 }

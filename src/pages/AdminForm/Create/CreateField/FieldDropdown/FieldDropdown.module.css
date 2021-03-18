@@ -5,6 +5,7 @@
   box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
   border-radius: 8px;
   display: flex;
+  background-color: #fff;
 }
 
 .NewFieldTypeList {
@@ -50,6 +51,11 @@
 
 .NewFieldTypeList > ul > li.active {
   background-color: rgb(227, 227, 227);
+}
+
+.NewFieldTypeList > ul > li.disable {
+  filter: grayscale(100%);
+  color: #e7e6e1;
 }
 
 .NewFieldTypeDescription {

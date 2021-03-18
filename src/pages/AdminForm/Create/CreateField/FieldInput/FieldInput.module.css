@@ -40,3 +40,7 @@
 .FieldContainer:hover {
   background-color: #f6f6f6;
 }
+
+.delete {
+  color: rgb(217, 87, 103);
+}

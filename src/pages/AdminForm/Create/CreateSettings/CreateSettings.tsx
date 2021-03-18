@@ -10,37 +10,42 @@ import {
 } from '../../../../../interfaces/form/form.interface';
 import { getActiveSettings } from '../../../../utils/create.utils';
 import { defaultFormSettingData } from '../../../../data/form.data';
+import {
+  availableCreateSetting,
+  mapFormatSettings,
+} from '../../../../constants/create/create.setting';
+import { mapIconCompoennt } from '../CreateField/FieldDropdown/FieldDropdown';
+import { updateFieldProperties } from '../../../../../redux/actions/form.action';
+import { useDispatch } from 'react-redux';
 
 interface IProps {
   open: boolean;
   onClose: () => void;
   activeField: IFormField | null;
   formSettings: IFormSetting[];
-  updateSetting: (
-    field_id: string,
-    property: keyof IFormField['properties'],
-    value: string | null
-  ) => void;
 }
 
-function CreateSettings({
-  open,
-  onClose,
-  formSettings,
-  activeField,
-  updateSetting,
-}: IProps) {
+function CreateSettings({ open, onClose, formSettings, activeField }: IProps) {
   if (!open || !activeField) {
     return null;
   }
 
+  const dispatch = useDispatch();
   const { type_id, properties, _id } = activeField;
   const activeSettings = getActiveSettings(formSettings, type_id) || {
     ...defaultFormSettingData,
   };
 
+  function updateSettingProperty(
+    field_id: string,
+    property: keyof IFormField['properties'],
+    value: string | null
+  ) {
+    dispatch(updateFieldProperties(field_id, property, value));
+  }
+
   const settingItems = Object.keys(activeSettings)
-    .filter((val: keyof IFormSetting) => availableSetting[val])
+    .filter((val: keyof IFormSetting) => availableCreateSetting[val])
     .map((val: keyof IFormField['properties']) => {
       const propertyValue = properties[val];
       const { flexDir, label } = mapFormatSettings[val];
@@ -55,12 +60,14 @@ function CreateSettings({
           <SettingComponent
             property={val}
             value={propertyValue}
-            updateSetting={updateSetting}
+            updateSetting={updateSettingProperty}
             field_id={_id}
           />
         </div>
       );
     });
+
+  const iconFieldComponent = mapIconCompoennt(activeSettings.icon);
 
   return (
     <div className={classes.CreateSettings}>
@@ -70,7 +77,24 @@ function CreateSettings({
           <CloseSvg width={8} height={8} />
         </IconButton>
       </div>
-      <div className={classes.SettingPanel}>{settingItems}</div>
+      <div className={classes.SettingPanel}>
+        <div className={cx(classes.SettingItem, classes.DirColumn)}>
+          <div className={classes.SettingLabel}>Question Type</div>
+
+          <div className={classes.SettingIconContainer}>
+            <div
+              className={classes.SettingFieldIcon}
+              style={{ backgroundColor: activeSettings.type_color }}
+            >
+              {iconFieldComponent}
+            </div>
+            <div className={classes.SettingStatement}>
+              {activeSettings.type_name}
+            </div>
+          </div>
+        </div>
+        {settingItems}
+      </div>
     </div>
   );
 }
@@ -140,30 +164,5 @@ function settingActionFactory(
       return () => {};
   }
 }
-
-const mapFormatSettings: Record<
-  keyof IFormField['properties'],
-  { label: string; flexDir: 'column' | 'row' }
-> = {
-  button_text: {
-    label: 'Button',
-    flexDir: 'column',
-  },
-  description: { label: 'Description', flexDir: 'row' },
-};
-
-// TODO: refactor for settings properties (later)
-const availableSetting: Record<keyof IFormSetting, boolean> = {
-  appear_once: false,
-  button_text: true,
-  description: true,
-  has_answer: false,
-  icon: false,
-  type_color: false,
-  type_desc: false,
-  type_id: false,
-  type_image: false,
-  type_name: false,
-};
 
 export default CreateSettings;

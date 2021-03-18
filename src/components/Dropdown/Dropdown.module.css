@@ -1,0 +1,26 @@
+.DropdownContainer {
+  position: relative;
+}
+
+.DropdownList {
+  position: absolute;
+  top: calc(100% + 4px);
+  background-color: #fff;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  font-size: 14px;
+  width: max-content;
+  box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
+  border-radius: 4px;
+  z-index: 99;
+}
+
+.DropdownList > li {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.DropdownList > li:hover {
+  background-color: rgba(0, 0, 0, 0.07);
+}

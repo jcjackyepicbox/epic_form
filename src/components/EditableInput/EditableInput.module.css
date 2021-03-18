@@ -12,8 +12,12 @@
   white-space: pre-wrap;
 }
 
+.EditableInput.Grey {
+  color: #737373;
+}
+
 .EditableContainer:not(:last-child) {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .Placeholder {

@@ -141,6 +141,25 @@ class FormController {
       res.json(err);
     }
   }
+
+  async updateFormFields(req, res) {
+    try {
+      const { form_id, fields } = req.body;
+
+      const updatedData = await formDao.updateFormField(form_id, fields);
+
+      if (updatedData.status) {
+        res.json({
+          status: true,
+          data: updatedData,
+        });
+      } else {
+        res.json(updatedData);
+      }
+    } catch (err) {
+      res.json(err);
+    }
+  }
 }
 
 const formController = new FormController();

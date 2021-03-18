@@ -1,0 +1,46 @@
+.EpicLogo {
+  text-decoration: none;
+}
+
+.CreateNavbar {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  padding-right: 16px;
+}
+
+.TitleBackNav {
+  display: flex;
+  font-size: 14px;
+}
+
+.TitleBackNav > *:not(:last-child) {
+  margin-right: 16px;
+}
+
+.MenuNav {
+  flex-grow: 1;
+}
+
+.MenuNav ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  justify-content: center;
+}
+
+.MenuNav ul > li {
+  margin: 0 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding-bottom: 2px;
+  color: rgb(137, 137, 137);
+}
+
+.MenuNav ul > li.active {
+  border-bottom: 2px solid #262627;
+  color: #262627;
+}
