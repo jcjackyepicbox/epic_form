@@ -47,24 +47,28 @@ function CreateSettings({ open, onClose, formSettings, activeField }: IProps) {
   const settingItems = Object.keys(activeSettings)
     .filter((val: keyof IFormSetting) => availableCreateSetting[val])
     .map((val: keyof IFormField['properties']) => {
+      const settingEnable = activeSettings[val];
       const propertyValue = properties[val];
       const { flexDir, label } = mapFormatSettings[val];
-      return (
-        <div
-          className={cx(classes.SettingItem, {
-            [classes.DirColumn]: flexDir === 'column',
-          })}
-          key={val}
-        >
-          <div className={classes.SettingLabel}>{label}</div>
-          <SettingComponent
-            property={val}
-            value={propertyValue}
-            updateSetting={updateSettingProperty}
-            field_id={_id}
-          />
-        </div>
-      );
+
+      if (settingEnable) {
+        return (
+          <div
+            className={cx(classes.SettingItem, {
+              [classes.DirColumn]: flexDir === 'column',
+            })}
+            key={val}
+          >
+            <div className={classes.SettingLabel}>{label}</div>
+            <SettingComponent
+              property={val}
+              value={propertyValue}
+              updateSetting={updateSettingProperty}
+              field_id={_id}
+            />
+          </div>
+        );
+      }
     });
 
   const iconFieldComponent = mapIconCompoennt(activeSettings.icon);

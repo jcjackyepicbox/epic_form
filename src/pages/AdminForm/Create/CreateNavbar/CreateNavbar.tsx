@@ -7,8 +7,9 @@ import classes from './CreateNavbar.module.css';
 interface IProps {
   title: string;
   onSave: () => void;
+  isUnsaved: boolean;
 }
-function CreateNavbar({ title, onSave }: IProps) {
+function CreateNavbar({ title, onSave, isUnsaved }: IProps) {
   return (
     <div className={classes.CreateNavbar}>
       <div className={classes.TitleBackNav}>
@@ -27,7 +28,7 @@ function CreateNavbar({ title, onSave }: IProps) {
       </div>
 
       <div>
-        <AdminButton color="black" onClick={onSave}>
+        <AdminButton color="black" onClick={onSave} disabled={!isUnsaved}>
           Save
         </AdminButton>
       </div>

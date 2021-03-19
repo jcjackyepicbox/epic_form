@@ -17,6 +17,7 @@ export default function formReducer(
       return {
         ...state,
         formData: action.payload.formData || { ...defaultFormData },
+        loading: action.payload.loading || false,
       };
 
     case 'STORE_SETTING':
@@ -50,6 +51,12 @@ export default function formReducer(
       return {
         ...state,
         error: action.payload.error || '',
+      };
+
+    case 'SET_FORM_LOADING':
+      return {
+        ...state,
+        loading: action.payload.loading || false,
       };
 
     default:

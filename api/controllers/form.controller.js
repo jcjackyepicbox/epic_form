@@ -109,12 +109,14 @@ class FormController {
       const {
         type_id,
         type_name,
+        type_image,
         icon,
         type_color,
         description,
         appear_once,
         button_text,
         has_answer,
+        type_desc,
       } = req.body;
 
       const insertData = await settingDao.insertSetting(
@@ -125,7 +127,9 @@ class FormController {
         description,
         appear_once,
         button_text,
-        has_answer
+        has_answer,
+        type_image,
+        type_desc
       );
 
       if (insertData.status) {

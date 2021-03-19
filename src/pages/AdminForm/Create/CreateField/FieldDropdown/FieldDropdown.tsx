@@ -1,8 +1,8 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import {
-  IFormSetting,
   SETTING_TYPE,
+  ICON_TYPE,
 } from '../../../../../../interfaces/form/form.interface';
 import IconShortSvg from '../../../../../svg/IconShortSvg';
 import IconThankyouSvg from '../../../../../svg/IconThankyouSvg';
@@ -11,6 +11,9 @@ import classes from './FieldDropdown.module.css';
 import IconButton from '../../../../../components/IconButton/IconButton';
 import CloseSvg from '../../../../../svg/CloseSvg';
 import { IDropdownFormSettings } from '../CreateField';
+import IconChoiceSvg from '../../../../../svg/IconChoiceSvg';
+import IconYesNoSvg from '../../../../../svg/IconYesNoSvg';
+import IconNumberSvg from '../../../../../svg/IconNumberSvg';
 
 interface IProps {
   openDropdown: boolean;
@@ -54,7 +57,7 @@ function FieldDropdown({
     setActiveForm(activeForm);
   }, [formSettings]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const topCon = ddlContainerRef?.top || 0;
     const heightCon = ddlContainerRef?.height || 0;
     const heightDdl =
@@ -119,7 +122,7 @@ function FieldDropdown({
   );
 }
 
-export function mapIconCompoennt(icon_name: string) {
+export function mapIconCompoennt(icon_name: ICON_TYPE) {
   switch (icon_name) {
     case 'welcome':
       return <IconWelcomeSvg color="#fff" />;
@@ -127,6 +130,12 @@ export function mapIconCompoennt(icon_name: string) {
       return <IconThankyouSvg color="#fff" />;
     case 'short':
       return <IconShortSvg color="#fff" />;
+    case 'choice':
+      return <IconChoiceSvg color="#fff" />;
+    case 'yesno':
+      return <IconYesNoSvg color="#fff" />;
+    case 'number':
+      return <IconNumberSvg color="#fff" />;
     default:
       return <></>;
   }

@@ -1,4 +1,5 @@
 import {
+  IChoiceForm,
   ICON_TYPE,
   IForm,
   IFormField,
@@ -33,8 +34,16 @@ export function getNewFormField(type_id: SETTING_TYPE): IFormField {
     properties: {
       button_text: null,
       description: null,
+      choices: [],
     },
     title: '',
     type_id,
+  };
+}
+
+export function getNewChoiceFormField(): IChoiceForm {
+  return {
+    _id: uuidv4(),
+    label: '',
   };
 }

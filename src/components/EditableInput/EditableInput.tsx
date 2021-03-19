@@ -19,18 +19,42 @@ function checkIfPlaceholder(
 
 function EditableInput({ placeholder, value, onChange, color }: IProps) {
   const [focus, setFocus] = useState<boolean>(false);
+  const [shiftActive, setShiftActive] = useState<boolean>(false);
   const textRef = useRef<HTMLDivElement | null>(null);
   const placeholderActive = checkIfPlaceholder(
     focus,
-    textRef.current?.innerHTML.trim() || '',
+    textRef.current?.innerText.trim() || '',
     value
   );
 
   useEffect(() => {
     if (textRef.current) {
-      textRef.current.innerHTML = value;
+      textRef.current.innerText = value;
     }
   }, []);
+
+  function onInputChange() {
+    onChange(textRef.current?.innerText.trim() || '');
+  }
+
+  function onKeyPress(e: React.KeyboardEvent<HTMLSpanElement>) {
+    if (!shiftActive && e.key === 'Enter') {
+      e.preventDefault();
+    }
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLSpanElement>) {
+    if (e.key === 'Shift') {
+      setShiftActive(true);
+    }
+    return false;
+  }
+
+  function onKeyUp(e: React.KeyboardEvent<HTMLSpanElement>) {
+    if (e.key === 'Shift') {
+      setShiftActive(false);
+    }
+  }
 
   return (
     <div
@@ -52,21 +76,19 @@ function EditableInput({ placeholder, value, onChange, color }: IProps) {
         ref={textRef}
         title="textbox"
         role="textbox"
-        contentEditable={focus}
+        contentEditable
         className={cx(classes.EditableInput, {
           [classes.None]: placeholderActive,
           [classes.Grey]: color === 'grey',
         })}
         suppressContentEditableWarning={true}
-        onInput={() => onChange(textRef.current?.innerHTML.trim() || '')}
-        onKeyDown={() => {
-          return false;
-        }}
-      >
-        {value}&#65279;
-      </span>
+        onInput={onInputChange}
+        onKeyPress={onKeyPress}
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
+      />
     </div>
   );
 }
 
-export default EditableInput;
+export default React.memo(EditableInput);

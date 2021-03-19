@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
+  IChoiceForm,
   IFormField,
   IFormSetting,
   SETTING_TYPE,
@@ -10,8 +11,13 @@ import {
   updateFieldProperties,
   addQuestionField,
   deleteField,
+  updateChoiceFieldProperties,
+  addChoiceFieldProperties,
 } from '../../../../../redux/actions/form.action';
-import { getNewFormField } from '../../../../data/form.data';
+import {
+  getNewChoiceFormField,
+  getNewFormField,
+} from '../../../../data/form.data';
 import PlusSvg from '../../../../svg/PlusSvg';
 import classes from './CreateField.module.css';
 import FieldDropdown from './FieldDropdown/FieldDropdown';
@@ -46,23 +52,36 @@ function CreateField({
     }
   }
 
-  function onAddQuestion(type_id: SETTING_TYPE) {
+  function actionAddQuestion(type_id: SETTING_TYPE) {
     const newField = getNewFormField(type_id);
+    newField.properties.choices.push(getNewChoiceFormField());
     dispatch(addQuestionField(newField));
     onSetActiveField(newField._id);
     setOpenDropdown(false);
   }
 
-  function onDeleteField(field_id: string) {
+  function actionDeleteField(field_id: string) {
     dispatch(deleteField(field_id));
   }
 
-  function updateTitle(field_id: string, value: string) {
+  function actionUpdateTitle(field_id: string, value: string) {
     dispatch(updateFieldTitle(field_id, value));
   }
 
-  function updateDescription(field_id: string, value: string) {
+  function actionUpdateDescription(field_id: string, value: string) {
     dispatch(updateFieldProperties(field_id, 'description', value));
+  }
+
+  function actionUpdateChoiceChange(
+    field_id: string,
+    choice_id: string,
+    label: string
+  ) {
+    dispatch(updateChoiceFieldProperties(field_id, choice_id, label));
+  }
+
+  function actionAddChoice(field_id: string, new_choice: IChoiceForm) {
+    dispatch(addChoiceFieldProperties(field_id, new_choice));
   }
 
   const fieldInputList = fieldFormData.map((val) => {
@@ -73,10 +92,12 @@ function CreateField({
         key={_id}
         formFieldData={val}
         formSettings={formSettings}
-        onChange={updateTitle}
+        onTitleChange={actionUpdateTitle}
         onSetActiveField={onSetActiveField}
-        onUpdateDescription={updateDescription}
-        onDeleteField={onDeleteField}
+        onUpdateDescription={actionUpdateDescription}
+        onDeleteField={actionDeleteField}
+        onUpdateChoiceChange={actionUpdateChoiceChange}
+        onAddChoice={actionAddChoice}
       />
     );
   });
@@ -102,7 +123,7 @@ function CreateField({
           <span className={classes.NewFieldText}>Add new question</span>
         </div>
         <FieldDropdown
-          addQuestion={onAddQuestion}
+          addQuestion={actionAddQuestion}
           formSettings={dropdownFormSettings}
           onCloseDropdown={() => setOpenDropdown(false)}
           openDropdown={openDropdown}

@@ -1,0 +1,34 @@
+.EditableContainer {
+  width: 100%;
+  display: flex;
+}
+
+.EditableInput {
+  display: block;
+  outline: none;
+  width: 100%;
+  color: #262627;
+  flex-grow: 1;
+  white-space: pre-wrap;
+}
+
+.EditableListStyle {
+  margin-right: 8px;
+}
+
+.EditableInput.Grey {
+  color: #737373;
+}
+
+.EditableContainer:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.Placeholder {
+  flex-shrink: 0;
+  color: #bbbbbb;
+}
+
+.EditableInput.None {
+  visibility: hidden;
+}

@@ -34,7 +34,9 @@ class SettingDao {
     description,
     appear_once,
     button_text,
-    has_answer
+    has_answer,
+    type_image,
+    type_desc
   ) {
     try {
       const cursor = await this.setting.insertOne({
@@ -46,6 +48,8 @@ class SettingDao {
         appear_once,
         button_text,
         has_answer,
+        type_image,
+        type_desc,
       });
 
       return {

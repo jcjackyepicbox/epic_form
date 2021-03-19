@@ -21,11 +21,6 @@
   color: #fff;
 }
 
-.AdminButton.disabled {
-  background-color: rgba(0, 0, 0, 0.07);
-  color: rgb(170, 170, 170);
-}
-
 .AdminButton.red {
   background-color: rgb(217, 87, 103);
   color: #fff;
@@ -34,4 +29,9 @@
 .AdminButton.black {
   background-color: #262627;
   color: #fff;
+}
+
+.AdminButton.disabled {
+  background-color: rgba(0, 0, 0, 0.07);
+  color: rgb(170, 170, 170);
 }

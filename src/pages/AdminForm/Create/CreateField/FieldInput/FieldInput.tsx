@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
+  IChoiceForm,
   IFormField,
   IFormSetting,
+  SETTING_TYPE,
 } from '../../../../../../interfaces/form/form.interface';
 import Dropdown from '../../../../../components/Dropdown/Dropdown';
+import EditableChoiceInput from '../../../../../components/EditableChoiceInput/EditableChoiceInput';
 import EditableInput from '../../../../../components/EditableInput/EditableInput';
 import IconButton from '../../../../../components/IconButton/IconButton';
 import { mapPlaceholderField } from '../../../../../constants/create/create.constant';
@@ -17,19 +20,27 @@ interface IProps {
   active: boolean;
   formFieldData: IFormField;
   formSettings: IFormSetting[];
-  onChange: (field_id: string, value: string) => void;
+  onTitleChange: (field_id: string, value: string) => void;
+  onUpdateChoiceChange: (
+    field_id: string,
+    choice_id: string,
+    label: string
+  ) => void;
   onSetActiveField: (field_id: string) => void;
   onUpdateDescription: (field_id: string, value: string) => void;
   onDeleteField: (field_id: string) => void;
+  onAddChoice: (field_id: string, new_choice: IChoiceForm) => void;
 }
 
 function FieldInput({
   formFieldData,
   formSettings,
-  onChange,
+  onTitleChange,
+  onUpdateChoiceChange,
   onSetActiveField,
   onUpdateDescription,
   active,
+  onAddChoice,
   onDeleteField,
 }: IProps) {
   const [hoverActive, setHoverActive] = useState<boolean>(false);
@@ -39,7 +50,7 @@ function FieldInput({
     _id,
     title,
     type_id,
-    properties: { description },
+    properties: { description, choices },
   } = formFieldData;
   const activeSettings = getActiveSettings(formSettings, type_id);
 
@@ -51,13 +62,26 @@ function FieldInput({
   const placeholder = mapPlaceholderField[type_id];
   const iconSvg = mapIconCompoennt(icon);
 
-  function onInputChange(value: string) {
-    onChange(_id, value);
-  }
+  const actionInputChange = useCallback(
+    (value: string) => {
+      onTitleChange(_id, value);
+    },
+    [_id]
+  );
 
-  function onUpdateDesc(value: string) {
-    onUpdateDescription(_id, value);
-  }
+  const actionAddChoice = useCallback(
+    (new_choice: IChoiceForm) => {
+      onAddChoice(_id, new_choice);
+    },
+    [_id]
+  );
+
+  const actionUpdateDescription = useCallback(
+    (value: string) => {
+      onUpdateDescription(_id, value);
+    },
+    [_id]
+  );
 
   function setActiveField() {
     onSetActiveField(_id);
@@ -83,6 +107,13 @@ function FieldInput({
     }
   }
 
+  const actionChoiceInputChange = useCallback(
+    (choice_id: string, label: string) => {
+      onUpdateChoiceChange(_id, choice_id, label);
+    },
+    [_id]
+  );
+
   return (
     <div
       className={classes.FieldContainer}
@@ -97,17 +128,25 @@ function FieldInput({
       </div>
       <div className={classes.FieldWorkspace} onClick={setActiveField}>
         <EditableInput
-          onChange={onInputChange}
+          onChange={actionInputChange}
           placeholder={placeholder}
           value={title}
         />
 
         {description !== null && (
           <EditableInput
-            onChange={onUpdateDesc}
-            placeholder="Your Description (optional)"
+            onChange={actionUpdateDescription}
+            placeholder="Description (optional)"
             value={description}
             color="grey"
+          />
+        )}
+
+        {type_id === SETTING_TYPE.multiple_choice && (
+          <EditableChoiceInput
+            onAddChoice={actionAddChoice}
+            choiceValue={choices}
+            onChange={actionChoiceInputChange}
           />
         )}
       </div>

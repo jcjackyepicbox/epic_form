@@ -2,12 +2,18 @@ export enum SETTING_TYPE {
   welcome_screen = 'welcome_screen',
   thankyou_screen = 'thankyou_screen',
   short_text = 'short_text',
+  multiple_choice = 'multiple_choice',
+  yes_no = 'yes_no',
+  number = 'number',
 }
 
 export enum ICON_TYPE {
   welcome = 'welcome',
   thankyou = 'thankyou',
   short = 'short',
+  choice = 'choice',
+  yesno = 'yesno',
+  number = 'number',
 }
 
 export interface IForm {
@@ -17,6 +23,11 @@ export interface IForm {
   fields: IFormField[];
 }
 
+export interface IChoiceForm {
+  _id: string;
+  label: string;
+}
+
 export interface IFormField {
   _id: string;
   type_id: SETTING_TYPE;
@@ -24,6 +35,7 @@ export interface IFormField {
   properties: {
     description: string | null;
     button_text: string | null;
+    choices: IChoiceForm[];
   };
 }
 
