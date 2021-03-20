@@ -2,6 +2,7 @@ import {
   IFormSetting,
   SETTING_TYPE,
 } from '../../interfaces/form/form.interface';
+import { defaultFormSettingData } from '../data/form.data';
 
 export function getActiveSettings(
   formSettings: IFormSetting[],
@@ -13,5 +14,5 @@ export function getActiveSettings(
     return filteredForm[0];
   }
 
-  return null;
+  return defaultFormSettingData;
 }

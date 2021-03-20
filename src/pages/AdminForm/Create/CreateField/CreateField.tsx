@@ -13,6 +13,7 @@ import {
   deleteField,
   updateChoiceFieldProperties,
   addChoiceFieldProperties,
+  deleteChoiceFieldProperties,
 } from '../../../../../redux/actions/form.action';
 import {
   getNewChoiceFormField,
@@ -84,6 +85,10 @@ function CreateField({
     dispatch(addChoiceFieldProperties(field_id, new_choice));
   }
 
+  function actionDeleteChoice(field_id: string, choice_id: string) {
+    dispatch(deleteChoiceFieldProperties(field_id, choice_id));
+  }
+
   const fieldInputList = fieldFormData.map((val) => {
     const { _id } = val;
     return (
@@ -98,6 +103,7 @@ function CreateField({
         onDeleteField={actionDeleteField}
         onUpdateChoiceChange={actionUpdateChoiceChange}
         onAddChoice={actionAddChoice}
+        onDeleteChoice={actionDeleteChoice}
       />
     );
   });

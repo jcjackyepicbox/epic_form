@@ -26,5 +26,5 @@
 }
 
 .EditableInput.None {
-  visibility: hidden;
+  width: 0;
 }

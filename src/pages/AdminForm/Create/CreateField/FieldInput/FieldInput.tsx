@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   IChoiceForm,
   IFormField,
@@ -30,6 +30,7 @@ interface IProps {
   onUpdateDescription: (field_id: string, value: string) => void;
   onDeleteField: (field_id: string) => void;
   onAddChoice: (field_id: string, new_choice: IChoiceForm) => void;
+  onDeleteChoice: (field_id: string, choice_id: string) => void;
 }
 
 function FieldInput({
@@ -42,6 +43,7 @@ function FieldInput({
   active,
   onAddChoice,
   onDeleteField,
+  onDeleteChoice,
 }: IProps) {
   const [hoverActive, setHoverActive] = useState<boolean>(false);
   const [ddlActive, setDdlActive] = useState<boolean>(false);
@@ -53,10 +55,6 @@ function FieldInput({
     properties: { description, choices },
   } = formFieldData;
   const activeSettings = getActiveSettings(formSettings, type_id);
-
-  if (!activeSettings) {
-    return null;
-  }
 
   const { icon, type_color } = activeSettings;
   const placeholder = mapPlaceholderField[type_id];
@@ -72,6 +70,13 @@ function FieldInput({
   const actionAddChoice = useCallback(
     (new_choice: IChoiceForm) => {
       onAddChoice(_id, new_choice);
+    },
+    [_id]
+  );
+
+  const actionDeleteChoice = useCallback(
+    (choice_id: string) => {
+      onDeleteChoice(_id, choice_id);
     },
     [_id]
   );
@@ -119,6 +124,7 @@ function FieldInput({
       className={classes.FieldContainer}
       onMouseEnter={() => setHoverActive(true)}
       onMouseLeave={onLeaveField}
+      onFocus={() => onSetActiveField(_id)}
     >
       <div className={classes.FieldIconContainer} onClick={setActiveField}>
         <div className={classes.FieldIcon} style={{ background: type_color }}>
@@ -147,6 +153,7 @@ function FieldInput({
             onAddChoice={actionAddChoice}
             choiceValue={choices}
             onChange={actionChoiceInputChange}
+            onDeleteChoice={actionDeleteChoice}
           />
         )}
       </div>

@@ -5,12 +5,12 @@ import {
   IForm,
   IFormField,
   IFormSetting,
+  SETTING_TYPE,
 } from '../../interfaces/form/form.interface';
 import { IFormAction } from '../../interfaces/redux/form.interface';
 import { getFormDetail } from '../../src/service/form.service';
 import { ApplicationState } from '../reducers';
 import { deepCopy } from '../../src/utils/deepCopy';
-import { getNewChoiceFormField } from '../../src/data/form.data';
 
 export function storeFormData(formData: IForm): IFormAction {
   return {
@@ -84,8 +84,33 @@ export function getFormDataDetail(ctx: any, params: any) {
 export function addQuestionField(
   newField: IFormField
 ): ThunkAction<void, ApplicationState, unknown, Action<string>> {
-  return async (dispatch: any) => {
-    dispatch(setFormField(newField));
+  return async (dispatch: any, getState) => {
+    const formData = getState().form.formData;
+    const { fields } = formData;
+
+    const cloneFields: IFormField[] = deepCopy(fields);
+    cloneFields.push(newField);
+
+    const welcomeScreenField = cloneFields.filter(
+      (val) => val.type_id === SETTING_TYPE.welcome_screen
+    );
+    const thankyouScreenField = cloneFields.filter(
+      (val) => val.type_id === SETTING_TYPE.thankyou_screen
+    );
+
+    const restScreenField = cloneFields.filter(
+      (val) =>
+        val.type_id !== SETTING_TYPE.welcome_screen &&
+        val.type_id !== SETTING_TYPE.thankyou_screen
+    );
+
+    dispatch(
+      setAllFormField([
+        ...welcomeScreenField,
+        ...restScreenField,
+        ...thankyouScreenField,
+      ])
+    );
   };
 }
 
@@ -171,8 +196,6 @@ export function updateChoiceFieldProperties(
       }
     }
 
-    console.log(choice_id, label, cloneFields);
-
     dispatch(setAllFormField(cloneFields));
   };
 }
@@ -190,6 +213,28 @@ export function addChoiceFieldProperties(
     for (let field of cloneFields) {
       if (field._id === field_id) {
         field.properties.choices.push(new_choice);
+      }
+    }
+
+    dispatch(setAllFormField(cloneFields));
+  };
+}
+
+export function deleteChoiceFieldProperties(
+  field_id: string,
+  choice_id: string
+): ThunkAction<void, ApplicationState, unknown, Action<string>> {
+  return async (dispatch: any, getState) => {
+    const formData = getState().form.formData;
+    const { fields } = formData;
+
+    const cloneFields: IFormField[] = deepCopy(fields);
+
+    for (let field of cloneFields) {
+      if (field._id === field_id) {
+        field.properties.choices = field.properties.choices.filter(
+          (val) => val._id !== choice_id
+        );
       }
     }
 

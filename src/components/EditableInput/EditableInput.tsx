@@ -86,6 +86,7 @@ function EditableInput({ placeholder, value, onChange, color }: IProps) {
         onKeyPress={onKeyPress}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
+        onFocus={() => setFocus(true)}
       />
     </div>
   );

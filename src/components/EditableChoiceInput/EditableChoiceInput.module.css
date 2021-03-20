@@ -21,7 +21,7 @@
 }
 
 .EditableContainer:not(:last-child) {
-  margin-bottom: 12px;
+  margin-bottom: 4px;
 }
 
 .Placeholder {
@@ -30,5 +30,5 @@
 }
 
 .EditableInput.None {
-  visibility: hidden;
+  width: 0;
 }

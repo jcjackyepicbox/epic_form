@@ -13,6 +13,7 @@ interface IProps {
   choiceValue: IChoice[];
   onChange: (choice_id: string, label: string) => void;
   onAddChoice: (new_choice: IChoiceForm) => void;
+  onDeleteChoice: (choice_id: string) => void;
 }
 
 function checkIfPlaceholder(
@@ -23,7 +24,12 @@ function checkIfPlaceholder(
   return initialValue === '' && value === '' && !focus;
 }
 
-function EditableChoiceInput({ choiceValue, onChange, onAddChoice }: IProps) {
+function EditableChoiceInput({
+  choiceValue,
+  onChange,
+  onAddChoice,
+  onDeleteChoice,
+}: IProps) {
   const [activeFocus, setActiveFocus] = useState<string | null>(null);
   const [getRef, setRef] = useDynamicRefs();
 
@@ -48,10 +54,24 @@ function EditableChoiceInput({ choiceValue, onChange, onAddChoice }: IProps) {
 
   function onKeyPress(e: React.KeyboardEvent<HTMLSpanElement>) {
     if (e.key === 'Enter') {
-      const newFormField = getNewChoiceFormField();
-      onAddChoice(newFormField);
+      if (choiceValue[choiceValue.length - 1].label !== '') {
+        const newFormField = getNewChoiceFormField();
+        onAddChoice(newFormField);
+      }
       e.preventDefault();
     }
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLSpanElement>, id: string) {
+    if (e.key === 'Backspace' && choiceValue.length !== 1) {
+      const currRef = getRef(id);
+      const currText = currRef.current?.innerText;
+      if (currText === '') {
+        onDeleteChoice(id);
+      }
+    }
+
+    return false;
   }
 
   function onInputChange(id: string) {
@@ -60,17 +80,18 @@ function EditableChoiceInput({ choiceValue, onChange, onAddChoice }: IProps) {
   }
 
   const inputChoices = choiceValue.map((val) => {
-    const currRef = getRef(val._id);
+    const { _id, label } = val;
+    const currRef = getRef(_id);
     const placeholderActive = checkIfPlaceholder(
-      activeFocus === val._id,
+      activeFocus === _id,
       currRef?.current?.innerText.trim() || '',
-      val.label
+      label
     );
 
     return (
       <div
         key={val._id}
-        onClick={() => onActiveClick(val._id)}
+        onClick={() => onActiveClick(_id)}
         onBlur={() => setActiveFocus(null)}
         className={classes.EditableContainer}
       >
@@ -79,7 +100,7 @@ function EditableChoiceInput({ choiceValue, onChange, onAddChoice }: IProps) {
           <span className={classes.Placeholder}>choice</span>
         )}
         <span
-          ref={setRef(val._id)}
+          ref={setRef(_id)}
           title="textbox"
           role="textbox"
           contentEditable
@@ -87,10 +108,10 @@ function EditableChoiceInput({ choiceValue, onChange, onAddChoice }: IProps) {
             [classes.None]: placeholderActive,
           })}
           suppressContentEditableWarning={true}
-          onInput={() => onInputChange(val._id)}
+          onInput={() => onInputChange(_id)}
           onKeyPress={onKeyPress}
-          onKeyDown={() => false}
-          // onKeyUp={onKeyUp}
+          onKeyDown={(e) => onKeyDown(e, _id)}
+          onFocus={() => onActiveClick(_id)}
         />
       </div>
     );
