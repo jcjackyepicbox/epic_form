@@ -38,7 +38,7 @@ function CreateSettings({ open, onClose, formSettings, activeField }: IProps) {
 
   function updateSettingProperty(
     field_id: string,
-    property: keyof IFormField['properties'],
+    property: Exclude<keyof IFormField['properties'], 'choices'>,
     value: string | null
   ) {
     dispatch(updateFieldProperties(field_id, property, value));
@@ -46,7 +46,7 @@ function CreateSettings({ open, onClose, formSettings, activeField }: IProps) {
 
   const settingItems = Object.keys(activeSettings)
     .filter((val: keyof IFormSetting) => availableCreateSetting[val])
-    .map((val: keyof IFormField['properties']) => {
+    .map((val: Exclude<keyof IFormField['properties'], 'choices'>) => {
       const settingEnable = activeSettings[val];
       const propertyValue = properties[val];
       const { flexDir, label } = mapFormatSettings[val];

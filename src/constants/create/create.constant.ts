@@ -5,4 +5,6 @@ export const mapPlaceholderField: Record<SETTING_TYPE, string> = {
   multiple_choice: 'Your question Here',
   thankyou_screen: 'Say Bye!',
   welcome_screen: 'Say Hi!',
+  number: 'Your question here',
+  yes_no: 'Your question here',
 };

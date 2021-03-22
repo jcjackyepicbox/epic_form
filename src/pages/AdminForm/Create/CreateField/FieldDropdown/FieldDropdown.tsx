@@ -66,7 +66,23 @@ function FieldDropdown({
     if (topCon + heightCon + heightDdl > window.document.body.clientHeight) {
       setDdlUpward(true);
     }
-  }, [ddlContainerRef?.top]);
+  }, [ddlContainerRef?.top, ddlDropdownRef.current]);
+
+  function handleOutsideClick(e: MouseEvent) {
+    if (!ddlDropdownRef.current?.contains(e.target)) {
+      onCloseDropdown();
+    }
+  }
+
+  useEffect(() => {
+    if (openDropdown) {
+      document.addEventListener('click', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [openDropdown]);
 
   const questionListItems = formSettings.map((val) => {
     const { type_name, icon, type_id, type_color } = val;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import CloseSvg from '../../svg/CloseSvg';
 import IconButton from '../IconButton/IconButton';
 import classes from './Modal.module.css';

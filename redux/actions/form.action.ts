@@ -170,6 +170,23 @@ export function updateFieldProperties(
   };
 }
 
+export function reorderFieldForm(
+  startIndex: number,
+  endIndex: number
+): ThunkAction<void, ApplicationState, unknown, Action<string>> {
+  return async (dispatch: any, getState) => {
+    const formData = getState().form.formData;
+    const { fields } = formData;
+
+    const cloneFields: IFormField[] = deepCopy(fields);
+
+    const [removed] = cloneFields.splice(startIndex, 1);
+    cloneFields.splice(endIndex, 0, removed);
+
+    dispatch(setAllFormField(cloneFields));
+  };
+}
+
 export function updateChoiceFieldProperties(
   field_id: string,
   choice_id: string,

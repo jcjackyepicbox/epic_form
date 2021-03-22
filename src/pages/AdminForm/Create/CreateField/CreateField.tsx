@@ -1,5 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import cx from 'classnames';
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from 'react-beautiful-dnd';
 import {
   IChoiceForm,
   IFormField,
@@ -14,6 +21,7 @@ import {
   updateChoiceFieldProperties,
   addChoiceFieldProperties,
   deleteChoiceFieldProperties,
+  reorderFieldForm,
 } from '../../../../../redux/actions/form.action';
 import {
   getNewChoiceFormField,
@@ -23,6 +31,7 @@ import PlusSvg from '../../../../svg/PlusSvg';
 import classes from './CreateField.module.css';
 import FieldDropdown from './FieldDropdown/FieldDropdown';
 import FieldInput from './FieldInput/FieldInput';
+import { deepCopyObject } from '../../../../utils/deepCopy';
 
 export interface IDropdownFormSettings extends IFormSetting {
   disable: boolean;
@@ -33,6 +42,11 @@ interface IProps {
   fieldFormData: IFormField[];
   formSettings: IFormSetting[];
   onSetActiveField: (_id: string) => void;
+}
+
+interface IItem {
+  id: string;
+  content: string;
 }
 
 function CreateField({
@@ -89,33 +103,96 @@ function CreateField({
     dispatch(deleteChoiceFieldProperties(field_id, choice_id));
   }
 
-  const fieldInputList = fieldFormData.map((val) => {
-    const { _id } = val;
-    return (
-      <FieldInput
-        active={_id === activeFieldId}
-        key={_id}
-        formFieldData={val}
-        formSettings={formSettings}
-        onTitleChange={actionUpdateTitle}
-        onSetActiveField={onSetActiveField}
-        onUpdateDescription={actionUpdateDescription}
-        onDeleteField={actionDeleteField}
-        onUpdateChoiceChange={actionUpdateChoiceChange}
-        onAddChoice={actionAddChoice}
-        onDeleteChoice={actionDeleteChoice}
-      />
-    );
-  });
-
   const dropdownFormSettings = mapDropdownFormSettings(
     formSettings,
     fieldFormData
   );
 
+  function onDragEnd(result: DropResult) {
+    // dropped outside the list
+
+    const welcomeScreen = fieldFormData.filter(
+      (val) => val.type_id === SETTING_TYPE.welcome_screen
+    );
+
+    const thankyouScreen = fieldFormData.filter(
+      (val) => val.type_id === SETTING_TYPE.thankyou_screen
+    );
+
+    if (
+      !result.destination ||
+      (welcomeScreen.length > 0 && result.destination.index === 0) ||
+      (thankyouScreen.length > 0 &&
+        result.destination.index === fieldFormData.length - 1)
+    ) {
+      console.error('Cannot reorder within welcome/thankyou screen');
+      // put toast of error, cannot reorder within welcome/thankyou screen
+      return;
+    }
+
+    dispatch(reorderFieldForm(result.source.index, result.destination.index));
+  }
+
   return (
     <div className={classes.CreateField}>
-      {fieldInputList}
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {fieldFormData.map((item, index) => {
+                const { _id, type_id } = item;
+
+                let isDraggableDisable = false;
+                if (
+                  type_id === SETTING_TYPE.welcome_screen ||
+                  type_id === SETTING_TYPE.thankyou_screen
+                ) {
+                  isDraggableDisable = true;
+                }
+
+                return (
+                  <Draggable
+                    key={_id}
+                    draggableId={_id}
+                    index={index}
+                    isDragDisabled={isDraggableDisable}
+                    disableInteractiveElementBlocking={isDraggableDisable}
+                  >
+                    {(provided, snapshot) => {
+                      return (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={provided.draggableProps.style}
+                          className={cx({
+                            [classes.isDragging]: snapshot.isDragging,
+                          })}
+                        >
+                          <FieldInput
+                            active={_id === activeFieldId}
+                            key={_id}
+                            formFieldData={item}
+                            formSettings={formSettings}
+                            onTitleChange={actionUpdateTitle}
+                            onSetActiveField={onSetActiveField}
+                            onUpdateDescription={actionUpdateDescription}
+                            onDeleteField={actionDeleteField}
+                            onUpdateChoiceChange={actionUpdateChoiceChange}
+                            onAddChoice={actionAddChoice}
+                            onDeleteChoice={actionDeleteChoice}
+                          />
+                        </div>
+                      );
+                    }}
+                  </Draggable>
+                );
+              })}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <div className={classes.NewFieldContainer} ref={ddlContainerRef}>
         <div className={classes.NewField} onClick={toggleDropdown}>
           <div className={classes.NewFieldIcon}>
