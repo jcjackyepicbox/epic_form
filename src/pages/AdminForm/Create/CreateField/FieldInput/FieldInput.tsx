@@ -17,6 +17,7 @@ import { mapIconCompoennt } from '../FieldDropdown/FieldDropdown';
 import classes from './FieldInput.module.css';
 
 interface IProps {
+  orderNum: number | null;
   active: boolean;
   formFieldData: IFormField;
   formSettings: IFormSetting[];
@@ -44,6 +45,7 @@ function FieldInput({
   onAddChoice,
   onDeleteField,
   onDeleteChoice,
+  orderNum,
 }: IProps) {
   const [hoverActive, setHoverActive] = useState<boolean>(false);
   const [ddlActive, setDdlActive] = useState<boolean>(false);
@@ -129,7 +131,7 @@ function FieldInput({
       <div className={classes.FieldIconContainer} onClick={setActiveField}>
         <div className={classes.FieldIcon} style={{ background: type_color }}>
           {iconSvg}
-          <div />
+          <div className={classes.FieldOrder}>{orderNum}</div>
         </div>
       </div>
       <div className={classes.FieldWorkspace} onClick={setActiveField}>
@@ -167,7 +169,7 @@ function FieldInput({
               <MoreSvg width={16} height={16} color="rgb(137, 137, 137)" />
             </IconButton>
             {ddlActive && (
-              <Dropdown.DropdownList>
+              <Dropdown.DropdownList toRight={true}>
                 <li className={classes.delete} onClick={onDeleteFieldClick}>
                   Delete
                 </li>

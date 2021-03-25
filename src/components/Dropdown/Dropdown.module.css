@@ -16,6 +16,10 @@
   z-index: 99;
 }
 
+.DropdownList.ToRight {
+  right: 0;
+}
+
 .DropdownList > li {
   padding: 8px 16px;
   cursor: pointer;

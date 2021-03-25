@@ -31,7 +31,11 @@ import PlusSvg from '../../../../svg/PlusSvg';
 import classes from './CreateField.module.css';
 import FieldDropdown from './FieldDropdown/FieldDropdown';
 import FieldInput from './FieldInput/FieldInput';
-import { deepCopyObject } from '../../../../utils/deepCopy';
+import {
+  getDraggableDisable,
+  getExistingTypeId,
+  getOrderNumber,
+} from '../../../../utils/create.utils';
 
 export interface IDropdownFormSettings extends IFormSetting {
   disable: boolean;
@@ -42,11 +46,6 @@ interface IProps {
   fieldFormData: IFormField[];
   formSettings: IFormSetting[];
   onSetActiveField: (_id: string) => void;
-}
-
-interface IItem {
-  id: string;
-  content: string;
 }
 
 function CreateField({
@@ -108,21 +107,21 @@ function CreateField({
     fieldFormData
   );
 
+  const existWelcomeScreen = getExistingTypeId(
+    fieldFormData,
+    SETTING_TYPE.welcome_screen
+  );
+
+  const existThankyouScreen = getExistingTypeId(
+    fieldFormData,
+    SETTING_TYPE.thankyou_screen
+  );
+
   function onDragEnd(result: DropResult) {
-    // dropped outside the list
-
-    const welcomeScreen = fieldFormData.filter(
-      (val) => val.type_id === SETTING_TYPE.welcome_screen
-    );
-
-    const thankyouScreen = fieldFormData.filter(
-      (val) => val.type_id === SETTING_TYPE.thankyou_screen
-    );
-
     if (
       !result.destination ||
-      (welcomeScreen.length > 0 && result.destination.index === 0) ||
-      (thankyouScreen.length > 0 &&
+      (existWelcomeScreen && result.destination.index === 0) ||
+      (existThankyouScreen &&
         result.destination.index === fieldFormData.length - 1)
     ) {
       console.error('Cannot reorder within welcome/thankyou screen');
@@ -142,13 +141,12 @@ function CreateField({
               {fieldFormData.map((item, index) => {
                 const { _id, type_id } = item;
 
-                let isDraggableDisable = false;
-                if (
-                  type_id === SETTING_TYPE.welcome_screen ||
-                  type_id === SETTING_TYPE.thankyou_screen
-                ) {
-                  isDraggableDisable = true;
-                }
+                const isDraggableDisable = getDraggableDisable(type_id);
+                const orderNum = getOrderNumber(
+                  index,
+                  type_id,
+                  existWelcomeScreen
+                );
 
                 return (
                   <Draggable
@@ -170,6 +168,7 @@ function CreateField({
                           })}
                         >
                           <FieldInput
+                            orderNum={orderNum}
                             active={_id === activeFieldId}
                             key={_id}
                             formFieldData={item}

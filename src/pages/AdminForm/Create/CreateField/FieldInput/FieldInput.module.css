@@ -24,6 +24,12 @@
   cursor: pointer;
 }
 
+.FieldIcon .FieldOrder {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .FieldWorkspace {
   flex-grow: 1;
   padding: 24px 24px 64px 16px;
@@ -42,5 +48,6 @@
 }
 
 .delete {
+  font-weight: 500;
   color: rgb(217, 87, 103);
 }

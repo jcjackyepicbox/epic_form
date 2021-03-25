@@ -119,7 +119,7 @@ function Create() {
               fieldFormData={formData.fields}
               onSetActiveField={onSetActiveField}
             />
-            <CreatePreview />
+            <CreatePreview activeField={activeField} formData={formData} />
           </div>
         )}
       </div>
