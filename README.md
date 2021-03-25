@@ -25,8 +25,8 @@ We use monorepo to manage all related epicforms system.
 
   Tech stack:
 
-  1. NodeJs - Express
-  2. MongoDB
+  - NodeJs - Express
+  - MongoDB
 
 - **cosmic**
 
@@ -34,12 +34,12 @@ We use monorepo to manage all related epicforms system.
 
   Tech Stack:
 
-  1. NodeJs - Express
-  2. React
-  3. Loadable
-  4. React Redux
-  5. React Router
-  6. Webpack
+  - NodeJs - Express
+  - React
+  - Loadable
+  - React Redux
+  - React Router
+  - Webpack
 
 - **divine** - Web Admin
 
@@ -47,9 +47,9 @@ We use monorepo to manage all related epicforms system.
 
   Tech Stack:
 
-  1. React
-  2. React Redux
-  3. Axios
+  - React
+  - React Redux
+  - Axios
 
 - **solace** - Micro Site (On Progress)
 
@@ -57,9 +57,9 @@ We use monorepo to manage all related epicforms system.
 
   Tech Stack:
 
-  1. Single Page Application - Webpack
-  2. React
-  3. Typescript
+  - Single Page Application - Webpack
+  - React
+  - Typescript
 
 - **star** - Library
 
@@ -67,5 +67,5 @@ We use monorepo to manage all related epicforms system.
 
   Tech Stack:
 
-  1. Rollup
-  2. React
+  - Rollup
+  - React
