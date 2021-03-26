@@ -74,9 +74,14 @@ function EditableChoiceInput({
     return false;
   }
 
-  function onInputChange(id: string) {
+  function onInputChange(ev: React.FormEvent<HTMLSpanElement>, id: string) {
     const currRef = getRef(id);
-    onChange(id, currRef.current?.innerText.trim() || '');
+    const txtValue = ev.currentTarget.innerText.trim();
+    onChange(id, txtValue);
+
+    if (currRef.current) {
+      currRef.current.innerText = txtValue;
+    }
   }
 
   const inputChoices = choiceValue.map((val) => {
@@ -108,7 +113,7 @@ function EditableChoiceInput({
             [classes.None]: placeholderActive,
           })}
           suppressContentEditableWarning={true}
-          onInput={() => onInputChange(_id)}
+          onInput={(e) => onInputChange(e, _id)}
           onKeyPress={onKeyPress}
           onKeyDown={(e) => onKeyDown(e, _id)}
           onFocus={() => onActiveClick(_id)}

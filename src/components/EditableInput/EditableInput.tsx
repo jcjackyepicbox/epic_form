@@ -33,8 +33,13 @@ function EditableInput({ placeholder, value, onChange, color }: IProps) {
     }
   }, []);
 
-  function onInputChange() {
-    onChange(textRef.current?.innerText.trim() || '');
+  function onInputChange(ev: React.FormEvent<HTMLDivElement>) {
+    const txtValue = ev.currentTarget.innerText;
+    onChange(txtValue);
+
+    if (textRef.current) {
+      textRef.current.innerText = txtValue;
+    }
   }
 
   function onKeyPress(e: React.KeyboardEvent<HTMLSpanElement>) {

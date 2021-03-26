@@ -3,14 +3,17 @@ import {
   IFormField,
   SETTING_TYPE,
 } from '../../../../../../interfaces/form/form.interface';
+import { IFieldAnswer } from './preview.types';
 
 class PreviewLinkedNode {
   next: PreviewLinkedNode | null = null;
   fieldData: IFormField;
+  answerData: IFieldAnswer | null = null;
 
-  constructor(fieldData: IFormField) {
+  constructor(fieldData: IFormField, answerData: IFieldAnswer | null) {
     this.fieldData = fieldData;
     this.next = null;
+    this.answerData = answerData;
   }
 
   setNext(node: PreviewLinkedNode) {
@@ -23,13 +26,17 @@ class Preview {
   public previewNode: PreviewLinkedNode | null = null;
   public formData: IForm;
 
-  constructor(formData: IForm) {
+  // initial Answer Data to be mapped when filling start
+  public answersData: Map<string, IFieldAnswer>;
+
+  constructor(formData: IForm, answersData: Map<string, IFieldAnswer>) {
     this.formData = formData;
+    this.answersData = answersData;
     const welcomeScreenField = this.getWelcomeScreen();
 
     if (welcomeScreenField !== null) {
       // if welcome screen exists then only take welcome screen until start button clicked.
-      const wsNode = new PreviewLinkedNode(welcomeScreenField);
+      const wsNode = new PreviewLinkedNode(welcomeScreenField, null);
       this.previewNode = wsNode;
     } else {
       this.setLinkedPreviewFields();
@@ -55,7 +62,8 @@ class Preview {
     // set next ref
     let currNode: PreviewLinkedNode | null = null;
     for (let i = fields.length - 1; i >= 0; i--) {
-      const fieldNode = new PreviewLinkedNode(fields[i]);
+      const fieldAnswer = this.answersData.get(fields[i]._id) || null;
+      const fieldNode = new PreviewLinkedNode(fields[i], fieldAnswer);
       if (currNode === null) {
         currNode = fieldNode;
       } else {

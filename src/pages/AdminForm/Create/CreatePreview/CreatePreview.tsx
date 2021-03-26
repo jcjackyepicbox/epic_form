@@ -20,6 +20,7 @@ function CreatePreview({ activeField, formData }: IProps) {
   const {
     state: { previewData, answerData },
     setStartPreview,
+    updateAnswerField,
   } = usePreviewForm(formData);
 
   const [getRef, setRef] = useDynamicRef();
@@ -35,6 +36,7 @@ function CreatePreview({ activeField, formData }: IProps) {
         setRef={setRef}
         setStartPreview={setStartPreview}
         getRef={getRef}
+        updateAnswerField={updateAnswerField}
         answerData={answerData}
       />
 
@@ -45,9 +47,7 @@ function CreatePreview({ activeField, formData }: IProps) {
         </div>
 
         <div className={classes.ProgressBar}>
-          <div className={classes.ProgressTitle}>
-            0 of {answerData.answer.length} answered
-          </div>
+          <div className={classes.ProgressTitle}>0 of 3 answered</div>
           <div className={classes.BarContainer}>
             <div className={classes.BarFill} />
           </div>

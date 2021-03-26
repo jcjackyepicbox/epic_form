@@ -14,7 +14,7 @@ export const mapFieldAnswerType: Record<SETTING_TYPE, ANSWER_TYPE> = {
   welcome_screen: ANSWER_TYPE.none,
 };
 
-export function getPreviewAnswer(formFields: IFormField[]): IFieldAnswer[] {
+export function getPreviewAnswer(formFields: IFormField[]) {
   const filteredFields = formFields.filter(
     (val) =>
       !(
@@ -23,17 +23,24 @@ export function getPreviewAnswer(formFields: IFormField[]): IFieldAnswer[] {
       )
   );
 
-  return filteredFields.map((val) => {
-    return {
-      answer_type: mapFieldAnswerType[val.type_id],
+  const mapAnswerField = new Map<string, IFieldAnswer>();
+
+  filteredFields.forEach((val) => {
+    const { _id, type_id } = val;
+    const fieldAnswer = {
+      answer_type: mapFieldAnswerType[type_id],
       boolean: null,
       choices: null,
-      field_id: val._id,
-      field_type: val.type_id,
+      field_id: _id,
+      field_type: type_id,
       number: null,
       text: null,
     };
+
+    mapAnswerField.set(_id, fieldAnswer);
   });
+
+  return mapAnswerField;
 }
 
 export function searchNode(node: PreviewLinkedNode | null, field_id: string) {
@@ -47,4 +54,25 @@ export function searchNode(node: PreviewLinkedNode | null, field_id: string) {
   }
 
   return null;
+}
+
+export function getKeyByAnswerType(
+  answer_type: ANSWER_TYPE
+): keyof IFieldAnswer {
+  switch (answer_type) {
+    case ANSWER_TYPE.boolean:
+      return 'boolean';
+
+    case ANSWER_TYPE.choices:
+      return 'choices';
+
+    case ANSWER_TYPE.number:
+      return 'number';
+
+    case ANSWER_TYPE.text:
+      return 'text';
+
+    default:
+      return 'text';
+  }
 }

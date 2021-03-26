@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { IFormField } from '../../../../../../interfaces/form/form.interface';
 import { PreviewLinkedNode } from '../helpers/preview.model';
 import classes from './PreviewWelcome.module.css';
+import PreviewButton from '../PreviewButton/PreviewButton';
 
 interface IProps {
   fieldData: IFormField;
@@ -26,16 +27,13 @@ function PreviewWelcome({
     <div className={classes.WelcomeScreen}>
       <h1>{title}</h1>
       <div className={classes.WelcomeDescription}>{description}</div>
-      <div className={classes.WelcomeButton}>
-        <button
-          className={cx(classes.PreviewButton, {
-            [classes.Hidden]: !showStartBtn,
-          })}
-          onClick={() => onClick(previewNode)}
-        >
-          {button_text}
-        </button>
-      </div>
+      <PreviewButton
+        size="large"
+        onClick={() => onClick(previewNode)}
+        hidden={!showStartBtn}
+      >
+        {button_text}
+      </PreviewButton>
     </div>
   );
 }

@@ -9,19 +9,22 @@ export enum ANSWER_TYPE {
   none = 'none',
 }
 
+export interface IChoiceAnswer {
+  choice_id: string;
+  text: string;
+}
 export interface IFieldAnswer {
   field_id: string;
   field_type: SETTING_TYPE;
   answer_type: ANSWER_TYPE;
-  choices: { choice_id: string; text: string } | null;
+  choices: IChoiceAnswer | null;
   text: string | null;
-  number: string | null;
-  boolean: boolean | null;
+  number: number | null;
+  boolean: number | null;
 }
 
 export interface IFormAnswer {
   start_time: number;
-  answer: IFieldAnswer[];
 }
 
 export interface IPreviewState {

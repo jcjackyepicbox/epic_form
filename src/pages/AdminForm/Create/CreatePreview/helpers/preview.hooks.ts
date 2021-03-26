@@ -1,10 +1,16 @@
 import React, { useReducer, useRef } from 'react';
 import { IForm } from '../../../../../../interfaces/form/form.interface';
-import { Preview } from './preview.model';
-import { IPreviewState } from './preview.types';
+import { Preview, PreviewLinkedNode } from './preview.model';
+import { IFieldAnswer, IPreviewState } from './preview.types';
 import { getPreviewAnswer } from './preview.utils';
 
-export type ACTION = 'SET_PREVIEW';
+export type ACTION = 'SET_START_TIME' | 'UPDATE_FIELD_ANSWER';
+
+export type TAnswerType<K extends keyof IFieldAnswer> = {
+  fieldNode: PreviewLinkedNode;
+  key: K;
+  value: IFieldAnswer[K];
+};
 
 interface IAction {
   type: ACTION;
@@ -17,34 +23,31 @@ const getInitialState = (formData: IForm): IPreviewState => {
 
   return {
     answerData: {
-      answer: answerFieldData,
       start_time: 0,
     },
-    previewData: new Preview(formData),
+    previewData: new Preview(formData, answerFieldData),
   };
 };
 
 function previewReducer(state: IPreviewState, action: IAction): IPreviewState {
-  const { previewData } = state;
-
   switch (action.type) {
-    case 'SET_PREVIEW': {
-      previewData.setLinkedPreviewFields();
+    case 'SET_START_TIME': {
       return {
         ...state,
         answerData: { ...state.answerData, start_time: +new Date() },
       };
     }
+
+    case 'UPDATE_FIELD_ANSWER': {
+      return {
+        ...state,
+      };
+    }
+
     default:
       return state;
   }
 }
-
-/**
- * Needed state:
- * 1. Answer Data by fields
- * 2, Preview fields to showcase slide screen.
- */
 
 function usePreviewForm(formData: IForm) {
   const [state, dispatch] = useReducer(
@@ -52,18 +55,33 @@ function usePreviewForm(formData: IForm) {
     getInitialState(formData)
   );
 
-  // // Update changes from formData if necessary
-  // useEffect(() => {
-  //   console.log('is changing');
-  // }, [formData]);
-
   function setStartPreview() {
-    dispatch({ type: 'SET_PREVIEW' });
+    const { previewData } = state;
+    previewData.setLinkedPreviewFields();
+    dispatch({ type: 'SET_START_TIME' });
+  }
+
+  function updateAnswerField<K extends keyof IFieldAnswer>(
+    key: K,
+    currNode: PreviewLinkedNode,
+    value: IFieldAnswer[K]
+  ) {
+    if (currNode.answerData) {
+      /**
+       * dispatch answer meta data
+       * 1. next unanswered node
+       * 2. update unanswered data
+       */
+      currNode.answerData[key] = value;
+
+      dispatch({ type: 'UPDATE_FIELD_ANSWER' });
+    }
   }
 
   return {
     state,
     setStartPreview,
+    updateAnswerField,
   };
 }
 

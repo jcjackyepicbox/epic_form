@@ -1,0 +1,25 @@
+.TextField {
+  margin: 32px 0 16px 0;
+}
+
+.TextField input {
+  border: none;
+  box-shadow: rgb(38 38 38 / 30%) 0px 1px;
+  font-size: 30px;
+  width: 100%;
+  background-color: transparent;
+  color: rgb(38, 38, 38);
+  padding-bottom: 8px;
+  font-family: 'Manrope', sans-serif;
+  outline: none;
+  font-weight: 400;
+}
+
+.TextField input:focus {
+  box-shadow: rgb(38 38 38) 0px 2px;
+}
+
+::placeholder {
+  color: rgba(38, 38, 38, 0.3);
+  font-weight: 400;
+}
