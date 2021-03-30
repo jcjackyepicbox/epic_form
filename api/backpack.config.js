@@ -5,7 +5,7 @@ module.exports = {
     // Important: return the modified config
 
     // changes the name of the entry point from index -> main.js
-    config.entry.main = ['./api/index.js'];
+    config.entry.main = ['./index.js'];
     config.output.path = path.join(process.cwd(), `build-api`);
 
     return config;

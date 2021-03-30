@@ -32,6 +32,8 @@ We use monorepo to manage all related epicforms system.
 
   Server side renderer for web development using NodeJs and React. Route handling using react-router and loadable to implement lazy load script files.
 
+  Web Platform to manage, create, and analyze forms. Create and design forms alike google forms and typeform. Analyze responses and insights from respondent answers. Account login currently only support google oauth.
+
   Tech Stack:
 
   - NodeJs - Express
@@ -41,17 +43,7 @@ We use monorepo to manage all related epicforms system.
   - React Router
   - Webpack
 
-- **divine** - Web Admin
-
-  Web Platform to manage, create, and analyze forms. Create and design forms alike google forms and typeform. Analyze responses and insights from respondent answers. Account login currently only support google oauth.
-
-  Tech Stack:
-
-  - React
-  - React Redux
-  - Axios
-
-- **solace** - Micro Site (On Progress)
+- **solace** - Micro Site
 
   Optimized for viewing forms only. Must support mobile layout and tablet layout. App will be in Single Page Application. For future reference, it will support extendable support by HTML and Javascript.
 
@@ -61,7 +53,7 @@ We use monorepo to manage all related epicforms system.
   - React
   - Typescript
 
-- **star** - Library
+- **divine** - Library
 
   Library to view and build forms. Extensible to admin and microsite application. Preventing duplication over both projects.
 

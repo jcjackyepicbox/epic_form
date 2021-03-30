@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
-import { signToken } from '../../../shared/jwt';
+import { signToken } from '../../shared/jwt';
 
 const googleAuthRouter = Router();
 const FALLBACK_URL = 'http://localhost:3000/dashboard';

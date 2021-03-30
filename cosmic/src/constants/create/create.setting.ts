@@ -17,7 +17,7 @@ export const availableCreateSetting: Record<keyof IFormSetting, boolean> = {
 };
 
 export const mapFormatSettings: Record<
-  keyof IFormField['properties'],
+  Exclude<keyof IFormField['properties'], 'choices'>,
   { label: string; flexDir: 'column' | 'row' }
 > = {
   button_text: {

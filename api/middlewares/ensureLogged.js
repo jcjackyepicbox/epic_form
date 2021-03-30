@@ -1,4 +1,4 @@
-import { verifyToken } from '../../shared/jwt';
+import { verifyToken } from '../shared/jwt';
 
 export function checkCookieToken(cookieToken) {
   return new Promise((resolve) => {

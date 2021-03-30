@@ -1,0 +1,25 @@
+{
+  "name": "@epic-form/api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "jacky",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "backpack dev"
+  },
+  "dependencies": {
+    "backpack-core": "^0.8.4",
+    "body-parser": "^1.19.0",
+    "bson": "^4.2.3",
+    "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.5",
+    "passport": "^0.4.1",
+    "passport-google-oauth2": "^0.2.0"
+  }
+}

@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '../.env' });
 import compression from 'compression';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';

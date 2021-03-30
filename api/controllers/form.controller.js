@@ -1,5 +1,4 @@
-require('dotenv').config();
-import { verifyTokenSync } from '../../shared/jwt';
+import { verifyTokenSync } from '../shared/jwt';
 import formDao from '../dao/formDao';
 import settingDao from '../dao/settingDao';
 import userDao from '../dao/userDao';

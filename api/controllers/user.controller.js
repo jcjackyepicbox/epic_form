@@ -1,6 +1,5 @@
-require('dotenv').config();
 import userDao from '../dao/userDao';
-import { verifyTokenSync } from '../../shared/jwt';
+import { verifyTokenSync } from '../shared/jwt';
 import WorkspaceModel from '../models/workspace.model';
 
 class UserController {

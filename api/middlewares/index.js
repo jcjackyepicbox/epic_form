@@ -1,4 +1,3 @@
-require('dotenv').config();
 import { Router } from 'express';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';

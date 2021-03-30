@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 import middlewares from './middlewares';
 import cors from 'cors';
 import express from 'express';

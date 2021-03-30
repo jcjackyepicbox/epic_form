@@ -1,10 +1,7 @@
 import React from 'react';
+import { ISvgProps } from '../../interfaces/general/svg.interface';
 
-interface IProps {
-  verticalAlign: string;
-}
-
-function GoogleSvg({ verticalAlign }: IProps) {
+function GoogleSvg({ verticalAlign }: Partial<ISvgProps>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +10,7 @@ function GoogleSvg({ verticalAlign }: IProps) {
       height="46"
       viewBox="0 0 46 46"
       style={{
-        verticalAlign: verticalAlign,
+        verticalAlign,
       }}
     >
       <defs>

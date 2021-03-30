@@ -1,4 +1,3 @@
-require('dotenv').config();
 import { matchPath } from 'react-router-dom';
 import { verifyTokenSync } from '../../shared/jwt';
 import routes from '../../src/routes';
