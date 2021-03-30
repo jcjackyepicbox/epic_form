@@ -56,14 +56,32 @@ class Preview {
     return null;
   }
 
+  getThankyouScreen() {
+    const { fields } = this.formData;
+    const filteredFields = fields.filter(
+      (val) => val.type_id === SETTING_TYPE.thankyou_screen
+    );
+
+    if (filteredFields.length > 0) {
+      return filteredFields[0];
+    }
+
+    return null;
+  }
+
   setLinkedPreviewFields() {
     const { fields } = this.formData;
 
+    // filtered thankyou screen
+    const filteredFields = fields.filter(
+      (val) => val.type_id !== SETTING_TYPE.thankyou_screen
+    );
+
     // set next ref
     let currNode: PreviewLinkedNode | null = null;
-    for (let i = fields.length - 1; i >= 0; i--) {
-      const fieldAnswer = this.answersData.get(fields[i]._id) || null;
-      const fieldNode = new PreviewLinkedNode(fields[i], fieldAnswer);
+    for (let i = filteredFields.length - 1; i >= 0; i--) {
+      const fieldAnswer = this.answersData.get(filteredFields[i]._id) || null;
+      const fieldNode = new PreviewLinkedNode(filteredFields[i], fieldAnswer);
       if (currNode === null) {
         currNode = fieldNode;
       } else {
@@ -74,6 +92,29 @@ class Preview {
 
     // set to head
     this.previewNode = currNode;
+  }
+
+  setThankyouScreen() {
+    const thankyouScreen =
+      this.getThankyouScreen() || this.defaultThankyouScreen();
+
+    const thankyouNode = new PreviewLinkedNode(thankyouScreen, null);
+
+    this.previewNode = thankyouNode;
+  }
+
+  defaultThankyouScreen(): IFormField {
+    return {
+      _id: '',
+      properties: {
+        button_text: 'Join now',
+        choices: [],
+        description:
+          'Join epicform to start creating your own forms and survey. Everything is free',
+      },
+      title: 'Thank You',
+      type_id: SETTING_TYPE.thankyou_screen,
+    };
   }
 }
 

@@ -2,8 +2,8 @@ import {
   IFormField,
   SETTING_TYPE,
 } from '../../../../../../interfaces/form/form.interface';
-import { PreviewLinkedNode } from './preview.model';
-import { ANSWER_TYPE, IFieldAnswer } from './preview.types';
+import { Preview, PreviewLinkedNode } from './preview.model';
+import { ANSWER_TYPE, IFieldAnswer, PREVIEW_PHASE } from './preview.types';
 
 export const mapFieldAnswerType: Record<SETTING_TYPE, ANSWER_TYPE> = {
   multiple_choice: ANSWER_TYPE.choices,
@@ -41,6 +41,31 @@ export function getPreviewAnswer(formFields: IFormField[]) {
   });
 
   return mapAnswerField;
+}
+
+export function getSetAnswer(answerFieldData: Map<string, IFieldAnswer>) {
+  const setUnanswered = new Set<string>();
+
+  answerFieldData.forEach((_, key) => {
+    setUnanswered.add(key);
+  });
+
+  return setUnanswered;
+}
+
+export function getInitialPhase(previewData: Preview) {
+  let start_time = 0;
+  let phaseType = PREVIEW_PHASE.start;
+
+  if (previewData.getWelcomeScreen() === null) {
+    start_time = +new Date();
+    phaseType = PREVIEW_PHASE.content;
+  }
+
+  return {
+    start_time,
+    phaseType,
+  };
 }
 
 export function searchNode(node: PreviewLinkedNode | null, field_id: string) {

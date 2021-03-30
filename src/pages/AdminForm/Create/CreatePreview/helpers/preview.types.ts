@@ -22,12 +22,15 @@ export interface IFieldAnswer {
   number: number | null;
   boolean: number | null;
 }
-
-export interface IFormAnswer {
+export interface IPreviewState {
   start_time: number;
+  unanswered_data: Set<string>;
+  previewData: Preview;
+  phaseType: PREVIEW_PHASE;
 }
 
-export interface IPreviewState {
-  answerData: IFormAnswer;
-  previewData: Preview;
+export enum PREVIEW_PHASE {
+  'start' = 'start',
+  'content' = 'content',
+  'end' = 'end',
 }

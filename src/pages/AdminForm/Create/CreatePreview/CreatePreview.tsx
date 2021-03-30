@@ -3,9 +3,12 @@ import {
   IForm,
   IFormField,
 } from '../../../../../interfaces/form/form.interface';
+import RestartSvg from '../../../../svg/RestartSvg';
 import classes from './CreatePreview.module.css';
 import usePreviewForm, { useDynamicRef } from './helpers/preview.hooks';
+import { PREVIEW_PHASE } from './helpers/preview.types';
 import PreviewContainer from './PreviewContainer/PreviewContainer';
+import PreviewFooter from './PreviewFooter/PreviewFooter';
 
 /**
  * Can be extendable to create one more web apps as a form view.
@@ -18,9 +21,11 @@ interface IProps {
 
 function CreatePreview({ activeField, formData }: IProps) {
   const {
-    state: { previewData, answerData },
+    state: { previewData, unanswered_data, phaseType },
     setStartPreview,
     updateAnswerField,
+    submitFormAnswer,
+    restartPreview,
   } = usePreviewForm(formData);
 
   const [getRef, setRef] = useDynamicRef();
@@ -37,21 +42,18 @@ function CreatePreview({ activeField, formData }: IProps) {
         setStartPreview={setStartPreview}
         getRef={getRef}
         updateAnswerField={updateAnswerField}
-        answerData={answerData}
+        showStartBtn={phaseType === PREVIEW_PHASE.start}
+        onSubmit={submitFormAnswer}
       />
 
       {/* Absolute Button */}
-      <div className={classes.PreviewFooter}>
-        <div className={classes.PoweredBar}>
-          Powered by <span className={classes.PoweredTitle}>Epicform</span>
-        </div>
+      <PreviewFooter
+        totalAnswer={previewData.answersData.size}
+        totalUnasnwered={unanswered_data.size}
+      />
 
-        <div className={classes.ProgressBar}>
-          <div className={classes.ProgressTitle}>0 of 3 answered</div>
-          <div className={classes.BarContainer}>
-            <div className={classes.BarFill} />
-          </div>
-        </div>
+      <div className={classes.RestartContainer} onClick={restartPreview}>
+        <RestartSvg />
       </div>
     </div>
   );

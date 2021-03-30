@@ -6,9 +6,10 @@ interface IProps {
   value: string;
   onNext: () => void;
   onChange: (value: string) => void;
+  isLastNode: boolean;
 }
 
-function TextField({ onNext, onChange, value }: IProps) {
+function TextField({ onNext, onChange, value, isLastNode }: IProps) {
   return (
     <div className={classes.TextField}>
       <input
@@ -24,7 +25,7 @@ function TextField({ onNext, onChange, value }: IProps) {
         onClick={onNext}
         hidden={value === ''}
       >
-        OK
+        {isLastNode ? 'Submit' : 'OK'}
       </PreviewButton>
     </div>
   );

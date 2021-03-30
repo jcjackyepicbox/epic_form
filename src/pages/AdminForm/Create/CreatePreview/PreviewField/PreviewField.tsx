@@ -1,18 +1,32 @@
 import React from 'react';
 import { IFormField } from '../../../../../../interfaces/form/form.interface';
 import { PreviewLinkedNode } from '../helpers/preview.model';
-import { ANSWER_TYPE, IFieldAnswer } from '../helpers/preview.types';
+import {
+  ANSWER_TYPE,
+  IChoiceAnswer,
+  IFieldAnswer,
+} from '../helpers/preview.types';
 import { getKeyByAnswerType } from '../helpers/preview.utils';
+import BooleanField from './BooleanField/BooleanField';
+import ChoiceField from './ChoiceField/ChoiceField';
 import classes from './PreviewField.module.css';
 import TextField from './TextField/TextField';
 
 interface IAnswerProps {
+  fieldData: IFormField;
   answerField: IFieldAnswer | null;
   onNext: () => void;
-  onChange: (value: string) => void;
+  onChange: (value: any) => void;
+  isLastNode: boolean;
 }
 
-function AnswerField({ answerField, onNext, onChange }: IAnswerProps) {
+function AnswerField({
+  answerField,
+  onNext,
+  onChange,
+  fieldData,
+  isLastNode,
+}: IAnswerProps) {
   if (answerField === null) {
     return null;
   }
@@ -26,11 +40,31 @@ function AnswerField({ answerField, onNext, onChange }: IAnswerProps) {
         onNext={onNext}
         onChange={onChange}
         value={(answerField[keyAnswer] || '') as string}
+        isLastNode={isLastNode}
       />
     );
-  } else {
-    return <></>;
+  } else if (answer_type === ANSWER_TYPE.boolean) {
+    return (
+      <BooleanField
+        value={answerField[keyAnswer] as number | null}
+        onChange={onChange}
+        onNext={onNext}
+        isLastNode={isLastNode}
+      />
+    );
+  } else if (answer_type === ANSWER_TYPE.choices) {
+    return (
+      <ChoiceField
+        fieldData={fieldData}
+        onChange={onChange}
+        value={answerField[keyAnswer] as IChoiceAnswer | null}
+        isLastNode={isLastNode}
+        onNext={onNext}
+      />
+    );
   }
+
+  return null;
 }
 
 interface IProps {
@@ -61,12 +95,14 @@ function PreviewField({
     onNextClick(previewNode);
   }
 
-  function onChange(value: string) {
+  function onChange(value: any) {
     if (answerField) {
       const keyAnswer = getKeyByAnswerType(answerField.answer_type);
       updateAnswerField(keyAnswer, previewNode, value);
     }
   }
+
+  const isLastNode = previewNode.next === null;
 
   return (
     <div className={classes.PreviewField}>
@@ -76,6 +112,8 @@ function PreviewField({
         answerField={answerField}
         onNext={onNext}
         onChange={onChange}
+        fieldData={fieldData}
+        isLastNode={isLastNode}
       />
     </div>
   );
