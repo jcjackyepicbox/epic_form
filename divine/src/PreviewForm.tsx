@@ -1,25 +1,17 @@
 import React from 'react';
-import {
-  IForm,
-  IFormField,
-} from '../../../../../interfaces/form/form.interface';
-import RestartSvg from '../../../../svg/RestartSvg';
-import classes from './CreatePreview.module.css';
+import { IForm } from './interfaces/index.interface';
+import RestartSvg from './svg/RestartSvg';
+import classes from './PreviewForm.module.css';
 import usePreviewForm, { useDynamicRef } from './helpers/preview.hooks';
 import { PREVIEW_PHASE } from './helpers/preview.types';
-import PreviewContainer from './PreviewContainer/PreviewContainer';
-import PreviewFooter from './PreviewFooter/PreviewFooter';
+import PreviewContainer from './containers/PreviewContainer/PreviewContainer';
+import PreviewFooter from './containers/PreviewFooter/PreviewFooter';
 
-/**
- * Can be extendable to create one more web apps as a form view.
- * hence, we only using props as one way communication and have no say in any redux
- */
 interface IProps {
-  activeField: IFormField | null;
   formData: IForm;
 }
 
-function CreatePreview({ activeField, formData }: IProps) {
+function CreatePreview({ formData }: IProps) {
   const {
     state: { previewData, unanswered_data, phaseType },
     setStartPreview,
@@ -29,8 +21,6 @@ function CreatePreview({ activeField, formData }: IProps) {
   } = usePreviewForm(formData);
 
   const [getRef, setRef] = useDynamicRef();
-
-  console.log(formData);
 
   return (
     <div className={classes.CreatePreview}>

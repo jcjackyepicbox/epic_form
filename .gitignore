@@ -6,3 +6,4 @@ build/
 build-api/
 
 dev/
+dist/

@@ -1,0 +1,18 @@
+{
+  "name": "epic_form",
+  "repository": "git@github.com:jcjackyepicbox/epic_form.git",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "cosmic",
+      "api",
+      "divine",
+      "solace"
+    ]
+  },
+  "scripts": {
+    "dev:cosmic": "yarn workspace @epic-form/cosmic dev",
+    "dev:api": "yarn workspace @epic-form/api dev",
+    "dev:solace": "yarn workspace @epic-form/solace start"
+  }
+}

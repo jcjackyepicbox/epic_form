@@ -28,11 +28,13 @@ We use monorepo to manage all related epicforms system.
   - NodeJs - Express
   - MongoDB
 
-- **cosmic**
+- **cosmic** - Dashboard main app
 
   Server side renderer for web development using NodeJs and React. Route handling using react-router and loadable to implement lazy load script files.
 
   Web Platform to manage, create, and analyze forms. Create and design forms alike google forms and typeform. Analyze responses and insights from respondent answers. Account login currently only support google oauth.
+
+  Future approach: Different domain for company website and dashboard admin.
 
   Tech Stack:
 

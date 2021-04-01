@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "module": "es6",
+    "outDir": "./dist",
+    "target": "es5",
+    "rootDir": "./src",
+    "importHelpers": true,
+    "removeComments": true,
+    "strict": true,
+    "jsx": "react",
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "paths": {
+      "tslib": ["../node_modules/tslib/tslib.d.ts"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

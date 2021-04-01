@@ -1,0 +1,31 @@
+.CreatePreview {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.PreviewBackground {
+  position: absolute;
+  z-index: -20;
+  height: 100%;
+  width: 100%;
+  background-image: url('https://res.cloudinary.com/dvkfb7uw0/image/upload/v1616479551/epic_form/asoggetti-gdE-5Oui1Y0-unsplash_uwq6ls.jpg');
+  background-size: cover;
+  background-position: center top;
+  top: 0;
+  left: 0;
+}
+
+.RestartContainer {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
