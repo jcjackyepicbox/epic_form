@@ -19,7 +19,7 @@ yarn start
 
 We use monorepo to manage all related epicforms system.
 
-- :ring: **api**
+- **api** :rocket: - Server API
 
   Built with NodeJs Express framework and using **backpack** as build system.
 
@@ -28,7 +28,7 @@ We use monorepo to manage all related epicforms system.
   - NodeJs - Express
   - MongoDB
 
-- :dna: **cosmic** - Dashboard main app
+- **cosmic** :dna: - Dashboard main app
 
   Server side renderer for web development using NodeJs and React. Route handling using react-router and loadable to implement lazy load script files.
 
@@ -45,7 +45,7 @@ We use monorepo to manage all related epicforms system.
   - React Router
   - Webpack
 
-- :alembic: **solace** - Micro Site
+- **solace** :alembic: - Micro Site
 
   Optimized for viewing forms only. Must support mobile layout and tablet layout. App will be in Single Page Application. For future reference, it will support extendable support by HTML and Javascript.
 
@@ -55,7 +55,7 @@ We use monorepo to manage all related epicforms system.
   - React
   - Typescript
 
-- :moyai: **divine** - Library
+- **divine** :moyai: - Library
 
   Library to view and build forms. Extensible to admin and microsite application. Preventing duplication over both projects.
 
