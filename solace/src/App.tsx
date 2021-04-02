@@ -5,6 +5,8 @@ import {
   IForm,
   IFormSetting,
 } from '@epic-form/divine/dist/types/interfaces/index.interface';
+import Loading from './components/Loading/Loading';
+import NotFound from './components/NotFound/NotFound';
 
 interface IFetchData {
   status: boolean;
@@ -35,15 +37,21 @@ function App(): JSX.Element {
         .finally(() => {
           setLoading(false);
         });
+    } else {
+      setLoading(false);
     }
   }, []);
 
   if (loading) {
-    return <div>Loading</div>;
+    return (
+      <div className={classes.LoadingContainer}>
+        <Loading />
+      </div>
+    );
   }
 
   if (formData === null) {
-    return <div></div>;
+    return <NotFound />;
   }
 
   return (

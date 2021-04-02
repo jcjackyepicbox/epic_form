@@ -33,6 +33,6 @@ module.exports = (env) =>
         name: '[name].[ext]',
       },
     }),
-    loaders.loadJavaScript(),
-    loaders.loadPreESLint()
+    loaders.loadJavaScript()
+    //loaders.loadPreESLint()
   );

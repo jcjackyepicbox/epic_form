@@ -11,6 +11,7 @@ module.exports = (env) => {
     resolve: {
       extensions: ['.js', '.json', '.tsx', '.ts'],
     },
+    target: 'web',
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
