@@ -19,13 +19,13 @@ initAuthentication();
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'http://localhost:3018'],
   })
 );
 
 app.use(middlewares);
 
-app.use((req, res, next) => {
+app.use((req, _, next) => {
   console.log('Cookies', req.url, req.cookies);
   console.log('Headers', req.url, req.headers);
 
