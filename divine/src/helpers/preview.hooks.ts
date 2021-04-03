@@ -78,7 +78,17 @@ function previewReducer(state: IPreviewState, action: IAction): IPreviewState {
   }
 }
 
-function usePreviewForm(formData: IForm) {
+function usePreviewForm(
+  formData: IForm,
+  postSubmitAnswer?: (
+    startTime: number,
+    answer: IFieldAnswer[],
+    formId: string
+  ) => {
+    status: boolean;
+    message: string;
+  }
+) {
   const [state, dispatch] = useReducer(
     previewReducer,
     formData,
@@ -113,23 +123,18 @@ function usePreviewForm(formData: IForm) {
     [dispatch, state]
   );
 
-  function submitAnswer(startTime: number): Promise<void> {
-    return new Promise((resolve) => {
-      console.log(startTime);
-      setTimeout(() => {
-        resolve();
-      }, 1000);
-    });
-  }
+  async function submitFormAnswer() {
+    const { _id } = formData;
+    const { start_time, previewData } = state;
+    const answerData: IFieldAnswer[] = [];
+    previewData.answersData.forEach((val) => answerData.push(val));
+    let responseData = null;
+    if (postSubmitAnswer && typeof postSubmitAnswer === 'function') {
+      responseData = await postSubmitAnswer(start_time, answerData, _id);
+    }
 
-  function submitFormAnswer() {
-    const { start_time } = state;
-
-    submitAnswer(start_time).then(() => {
-      const { previewData } = state;
-      previewData.setThankyouScreen();
-      dispatch({ type: 'SET_FINISH' });
-    });
+    previewData.setThankyouScreen();
+    dispatch({ type: 'SET_FINISH' });
   }
 
   function restartPreview() {

@@ -13,7 +13,6 @@
   background-color: rgba(38, 38, 38, 0.05);
   margin: 8px 0;
   font-size: 20px;
-  font-weight: 500;
   flex-shrink: 1;
   cursor: pointer;
   display: flex;
@@ -27,6 +26,7 @@
 .ChoiceItem.Selected {
   box-shadow: rgb(38 38 38 / 90%) 0px 0px 0px 2px inset;
   background-color: rgba(38, 38, 38, 0.25);
+  font-weight: 500;
 }
 
 .CheckedIcon {

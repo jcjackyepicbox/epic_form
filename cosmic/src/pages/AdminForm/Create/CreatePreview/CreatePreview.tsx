@@ -10,7 +10,7 @@ interface IProps {
 function CreatePreview({ formData }: IProps) {
   return (
     <div className={classes.CreatePreview}>
-      <PreviewForm formData={formData} />
+      <PreviewForm formData={formData} isDevelopment={true} />
     </div>
   );
 }

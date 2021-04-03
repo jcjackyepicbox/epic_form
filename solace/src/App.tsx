@@ -5,6 +5,10 @@ import {
   IForm,
   IFormSetting,
 } from '@epic-form/divine/dist/types/interfaces/index.interface';
+import {
+  IFieldAnswer,
+  IResponseApi,
+} from '@epic-form/divine/dist/types/helpers/preview.types';
 import Loading from './components/Loading/Loading';
 import NotFound from './components/NotFound/NotFound';
 
@@ -42,6 +46,43 @@ function App(): JSX.Element {
     }
   }, []);
 
+  async function postSubmitAnswer(
+    startTime: number,
+    answer: IFieldAnswer[],
+    formId: string
+  ) {
+    try {
+      const data = await fetch('http://localhost:3001/api/public/response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          start_time: startTime,
+          end_time: +new Date(),
+          answer,
+          form_id: formId,
+        }),
+      });
+
+      const jsonData: IResponseApi = await data.json();
+
+      if (jsonData.status && jsonData.data && jsonData.data.status) {
+        return {
+          status: true,
+          message: 'Success submit response',
+        };
+      }
+
+      throw new Error(jsonData.error);
+    } catch (err) {
+      return {
+        status: false,
+        message: err.message,
+      };
+    }
+  }
+
   if (loading) {
     return (
       <div className={classes.LoadingContainer}>
@@ -56,7 +97,7 @@ function App(): JSX.Element {
 
   return (
     <div className={classes.App}>
-      <PreviewForm formData={formData} />
+      <PreviewForm formData={formData} postSubmitAnswer={postSubmitAnswer} />
     </div>
   );
 }

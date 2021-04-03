@@ -10,15 +10,15 @@ function Join() {
   return (
     <div className={classes.SignupContainer}>
       <div className={classes.SignupImage}>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <Logo size="large" />
+        </Link>
         <img
           src="https://res.cloudinary.com/dvkfb7uw0/image/upload/v1614841546/epic_form/signup_fgyxpn.jpg"
           alt="signup image"
         />
       </div>
       <div className={classes.Signup}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <Logo size="large" />
-        </Link>
         <div className={classes.SignupContent}>
           <h1>Join Us</h1>
           <div className={cx(classes.SignupDesc, classes.SpaceBlock)}>

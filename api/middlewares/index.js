@@ -7,7 +7,11 @@ import bodyParser from 'body-parser';
 const middlewares = Router();
 
 middlewares.use(cookieParser());
-middlewares.use(bodyParser.json());
+middlewares.use(
+  bodyParser.json({
+    extended: true,
+  })
+);
 middlewares.use(bodyParser.urlencoded({ extended: true }));
 
 middlewares.use(

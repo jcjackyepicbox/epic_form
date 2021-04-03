@@ -34,3 +34,12 @@ export enum PREVIEW_PHASE {
   'content' = 'content',
   'end' = 'end',
 }
+
+export interface IResponseApi {
+  status: boolean;
+  data?: {
+    status: boolean;
+    message: string;
+  };
+  error?: string;
+}
