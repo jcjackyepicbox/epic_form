@@ -33,10 +33,8 @@ function CreatePreview({ formData, isDevelopment, postSubmitAnswer }: IProps) {
 
   return (
     <div className={classes.CreatePreview}>
-      {/* If any background */}
       <div className={classes.PreviewBackground} />
 
-      {/* Field Preview Data */}
       <PreviewContainer
         previewData={previewData}
         setRef={setRef}
