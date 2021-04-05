@@ -78,15 +78,26 @@
   height: inherit;
   border-radius: inherit;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
   box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 24px 16px;
   text-align: center;
   text-decoration: none;
+  flex-direction: column;
+}
+
+.RegularTitle {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}
+
+.RegularBottom {
+  padding: 16px;
+  box-shadow: rgb(0 0 0 / 7%) 0px 1px 0px 0px inset;
+  font-size: 12px;
 }
 
 .RegularForm:hover {

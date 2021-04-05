@@ -45,12 +45,15 @@ function WorkspaceForm({
   const { workspace_name, is_default } = workspaceData;
 
   const formsList = formsData.map((val) => {
-    const { title, _id } = val;
+    const { title, _id, responses } = val;
     return (
       <Link key={_id} to={`/forms/${_id}/create`}>
         <div className={classes.FormsItem} key={_id}>
           <div className={classes.RegularForm}>
             <div className={classes.RegularTitle}>{title}</div>
+            <div className={classes.RegularBottom}>
+              {responses.length} responses
+            </div>
           </div>
         </div>
       </Link>

@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '../.env' });
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
 import userDao from './dao/userDao';
@@ -36,7 +37,9 @@ function initAuthentication() {
           .loginUser(
             userData.getUserCreation(workspaceData.getFirstWorkspace())
           )
-          .then((data) => done(null, data));
+          .then((data) => {
+            done(null, data);
+          });
       }
     )
   );

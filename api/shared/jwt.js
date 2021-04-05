@@ -32,6 +32,7 @@ export function verifyTokenSync(cookieToken, secret) {
 // Issue Token
 export function signToken(secret) {
   return (req, res, next) => {
+    console.log(req.url, secret);
     jwt.sign(
       { userId: req.user.provider_id },
       secret,

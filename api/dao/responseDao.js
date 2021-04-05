@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
 
-class ResponseDa {
+class ResponseDao {
   constructor() {
     this.response = null;
   }
@@ -20,13 +20,24 @@ class ResponseDa {
 
   async storeResponse(answer, ip, start_time, end_time, form_id) {
     try {
-      return null;
+      const cursor = await this.response.insertOne({
+        answer,
+        client_ip: ip,
+        start_time,
+        end_time,
+        form_id,
+      });
+
+      return {
+        status: true,
+        insertedId: cursor.insertedId,
+      };
     } catch (err) {
-      console.error(`Error occurred while get form data, ${e}`);
-      return null;
+      console.error(`Error occurred while store response data, ${err}`);
+      return { error: err.message, code: 100, status: false };
     }
   }
 }
 
-const formDao = new FormDao();
-export default formDao;
+const responseDao = new ResponseDao();
+export default responseDao;

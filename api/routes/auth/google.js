@@ -1,3 +1,5 @@
+require('dotenv').config({ path: '../../../.env' });
+
 import { Router } from 'express';
 import passport from 'passport';
 import { signToken } from '../../shared/jwt';
@@ -16,7 +18,7 @@ googleAuthRouter.get(
   passport.authenticate('google', {
     failureRedirect: 'http://localhost:3000/join',
   }),
-  signToken(process.env.SESSION_COOKIE_SECRET),
+  signToken('captainfantastic'),
   (req, res) => {
     res.redirect(`${FALLBACK_URL}/${req.user.workspaces[0]._id}`);
   }

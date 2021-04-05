@@ -13,7 +13,6 @@ const webpackProd = (env) => {
   const pathEnvFile = path.resolve(__dirname, '..', currentEnvFile);
   const publicPathURL = getPublicPathEnv(pathEnvFile);
 
-  console.log(publicPathURL);
   return {
     mode: 'production',
     output: {

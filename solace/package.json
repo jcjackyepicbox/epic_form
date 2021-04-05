@@ -87,6 +87,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
+    "@epic-form/divine": "^1.0.0-rc1",
     "classnames": "^2.3.0",
     "puppeteer": "^5.5.0",
     "puppeteer-core": "^5.5.0",

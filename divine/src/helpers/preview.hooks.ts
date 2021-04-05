@@ -128,9 +128,14 @@ function usePreviewForm(
     const { start_time, previewData } = state;
     const answerData: IFieldAnswer[] = [];
     previewData.answersData.forEach((val) => answerData.push(val));
-    let responseData = null;
+    let responseData: { status: boolean; message: string } | null = null;
     if (postSubmitAnswer && typeof postSubmitAnswer === 'function') {
       responseData = await postSubmitAnswer(start_time, answerData, _id);
+
+      if (responseData && responseData.status === false) {
+        console.error('Error occured', responseData.message);
+        return;
+      }
     }
 
     previewData.setThankyouScreen();

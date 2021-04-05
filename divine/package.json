@@ -1,6 +1,6 @@
 {
   "name": "@epic-form/divine",
-  "version": "1.0.0",
+  "version": "1.0.0-rc1",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "license": "MIT",
@@ -9,9 +9,9 @@
     "dev": "rollup -c -w"
   },
   "peerDependencies": {
+    "classnames": "^2.3.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "classnames": "^2.3.0"
+    "react-dom": "16.13.1"
   },
   "files": [
     "dist"

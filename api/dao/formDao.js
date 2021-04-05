@@ -43,6 +43,7 @@ class FormDao {
         title: title,
         purpose: purpose,
         fields: fields,
+        responses: [],
       });
 
       return {
@@ -62,6 +63,28 @@ class FormDao {
         {
           $set: {
             fields: form_fields,
+          },
+        }
+      );
+
+      if (updatedData.modifiedCount === 1) {
+        return { status: true, message: 'Succesfully update form data' };
+      }
+
+      throw new Error(`${updatedData.matchedCount} data updated`);
+    } catch (e) {
+      console.error(`Error occurred while updating data, ${e}`);
+      return { error: e.message, code: 100, status: false };
+    }
+  }
+
+  async updateFormResponse(form_id, response_id) {
+    try {
+      const updatedData = await this.form.updateOne(
+        { _id: ObjectId(form_id) },
+        {
+          $push: {
+            responses: response_id,
           },
         }
       );

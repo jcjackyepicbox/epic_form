@@ -4,6 +4,7 @@ import Loading from './components/Loading/Loading';
 import NotFound from './pages/404/404';
 import { getUserWorkspace } from '../redux/actions/user.action';
 import { getFormDataDetail } from '../redux/actions/form.action';
+
 const About = loadable<JSX.Element>(() => import('./pages/About/About'), {
   fallback: Loading(),
   ssr: false,

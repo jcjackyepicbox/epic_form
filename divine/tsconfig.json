@@ -17,6 +17,6 @@
       "tslib": ["../node_modules/tslib/tslib.d.ts"]
     }
   },
-  "include": ["src/**/*", "../solace/src/components/Loading"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

@@ -9,6 +9,7 @@ import userDao from './dao/userDao';
 import initAuthentication from './authentication';
 import formDao from './dao/formDao';
 import settingDao from './dao/settingDao';
+import responseDao from './dao/responseDao';
 
 const app = express();
 
@@ -49,6 +50,7 @@ function initMongo() {
       await userDao.injectDB(client);
       await formDao.injectDB(client);
       await settingDao.injectDB(client);
+      await responseDao.injectDB(client);
       return;
     });
 }

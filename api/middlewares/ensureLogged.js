@@ -45,10 +45,13 @@ export function ensureLoggedOut() {
   return async function (req, res, next) {
     try {
       const cookieToken = req.cookies.auth;
-      const { status } = await checkCookieToken(cookieToken);
 
-      if (cookieToken && status) {
-        return res.redirect('http://localhost:3000/dashboard/');
+      if (cookieToken) {
+        const { status } = await checkCookieToken(cookieToken);
+
+        if (status) {
+          return res.redirect('http://localhost:3000/dashboard/');
+        }
       }
 
       next();

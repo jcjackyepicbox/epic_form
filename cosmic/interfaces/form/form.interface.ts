@@ -21,6 +21,7 @@ export interface IForm {
   title: string;
   purpose: string;
   fields: IFormField[];
+  responses: string[];
 }
 
 export interface IChoiceForm {
