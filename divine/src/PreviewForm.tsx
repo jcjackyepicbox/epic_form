@@ -47,7 +47,6 @@ function CreatePreview({ formData, isDevelopment, postSubmitAnswer }: IProps) {
         onSubmit={submitFormAnswer}
       />
 
-      {/* Absolute Button */}
       <PreviewFooter
         totalAnswer={previewData.answersData.size}
         totalUnasnwered={unanswered_data.size}
