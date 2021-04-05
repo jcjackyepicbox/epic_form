@@ -1,6 +1,7 @@
 {
   "name": "@epic-form/divine",
   "version": "1.0.0-rc1",
+  "description": "Library preview forms",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "license": "MIT",
