@@ -8,11 +8,14 @@ import CreateField from './CreateField/CreateField';
 import CreatePreview from './CreatePreview/CreatePreview';
 import CreateSettings from './CreateSettings/CreateSettings';
 import { IForm, IFormField } from '../../../../interfaces/form/form.interface';
-import CreateNavbar from './CreateNavbar/CreateNavbar';
+import FormNavbar, {
+  FORM_MENU,
+} from '../../../components/FormNavbar/FormNavbar';
 import { updateFormField } from '../../../service/form.service';
 import { deepEqual } from '../../../utils/deepEqual';
 import { Prompt, useParams } from 'react-router-dom';
 import Loading from '../../../components/Loading/Loading';
+import AdminButton from '../../../components/AdminButton/AdminButton';
 
 function getActiveField(fieldData: IFormField[], _id: string) {
   const filteredField = fieldData.filter((val) => val._id === _id);
@@ -97,11 +100,15 @@ function Create() {
       />
       <div className={classes.CreateContainer}>
         <UserLayout profileImage={image} userName={display_name}>
-          <CreateNavbar
-            title={formData.title}
-            onSave={saveFormField}
-            isUnsaved={isUnsaved}
-          />
+          <FormNavbar title={formData.title} activeMenu={FORM_MENU.CREATE}>
+            <AdminButton
+              color="black"
+              onClick={saveFormField}
+              disabled={!isUnsaved}
+            >
+              Save
+            </AdminButton>
+          </FormNavbar>
         </UserLayout>
         {loading ? (
           <Loading />

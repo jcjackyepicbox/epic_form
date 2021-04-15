@@ -3,7 +3,7 @@ import classes from './IconButton.module.css';
 import cx from 'classnames';
 interface IProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   customPadding?: string;
   active?: boolean;
 }

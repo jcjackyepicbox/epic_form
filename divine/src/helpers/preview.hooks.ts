@@ -84,10 +84,10 @@ function usePreviewForm(
     startTime: number,
     answer: IFieldAnswer[],
     formId: string
-  ) => {
+  ) => Promise<{
     status: boolean;
     message: string;
-  }
+  }>
 ) {
   const [state, dispatch] = useReducer(
     previewReducer,

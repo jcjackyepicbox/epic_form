@@ -3,14 +3,15 @@
 }
 
 .CreateNavbar {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
   margin-right: 8px;
   padding-right: 16px;
 }
 
 .TitleBackNav {
   display: flex;
+  align-items: center;
   font-size: 14px;
 }
 
@@ -29,10 +30,11 @@
   justify-content: center;
 }
 
-.MenuNav ul > li {
+.MenuNav ul li {
   margin: 0 16px;
   cursor: pointer;
   text-transform: uppercase;
+  text-decoration: none;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1.2px;
@@ -40,7 +42,13 @@
   color: rgb(137, 137, 137);
 }
 
-.MenuNav ul > li.active {
+.MenuNav ul li.active {
   border-bottom: 2px solid #262627;
   color: #262627;
+}
+
+.RightNav {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
 }

@@ -78,7 +78,7 @@ function App(): JSX.Element {
     } catch (err) {
       return {
         status: false,
-        message: err.message,
+        message: err.message as string,
       };
     }
   }

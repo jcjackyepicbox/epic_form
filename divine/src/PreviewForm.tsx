@@ -14,10 +14,10 @@ interface IProps {
     startTime: number,
     answer: IFieldAnswer[],
     formId: string
-  ) => {
+  ) => Promise<{
     status: boolean;
     message: string;
-  };
+  }>;
 }
 
 function CreatePreview({ formData, isDevelopment, postSubmitAnswer }: IProps) {

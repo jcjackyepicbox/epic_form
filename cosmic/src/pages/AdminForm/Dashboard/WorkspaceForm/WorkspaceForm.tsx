@@ -6,7 +6,7 @@ import PlusSvg from '../../../../svg/PlusSvg';
 import classes from './WorkspaceForm.module.css';
 import { getFormsWorkspace } from '../../../../service/form.service';
 import { IForm } from '../../../../../interfaces/form/form.interface';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Dropdown from '../../../../components/Dropdown/Dropdown';
 interface IProps {
   workspaceData: IWorkspace | null;
@@ -23,6 +23,7 @@ function WorkspaceForm({
 }: IProps) {
   const [menuActive, setMenuActive] = useState<boolean>(false);
   const { formsData } = useFormData(workspaceData);
+  const [redirect, setRedirect] = useState<string>('');
 
   if (!workspaceData) {
     return null;
@@ -42,25 +43,43 @@ function WorkspaceForm({
     }
   }
 
+  function onWorkspaceClick(_id: string) {
+    setRedirect(`/forms/${_id}/create`);
+  }
+
   const { workspace_name, is_default } = workspaceData;
 
   const formsList = formsData.map((val) => {
     const { title, _id, responses } = val;
     return (
-      <Link key={_id} to={`/forms/${_id}/create`}>
-        <div className={classes.FormsItem} key={_id}>
-          <div className={classes.RegularForm}>
-            <div className={classes.RegularTitle}>{title}</div>
-            <div className={classes.RegularBottom}>
+      <div
+        className={classes.FormsItem}
+        key={_id}
+        onClick={() => onWorkspaceClick(_id)}
+      >
+        <div className={classes.RegularForm}>
+          <div className={classes.RegularTitle}>{title}</div>
+          <div className={classes.RegularBottom}>
+            <div className={classes.RegularResponses}>
               {responses.length} responses
             </div>
+            <IconButton
+              customPadding="10px 6px"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <MoreSvg />
+            </IconButton>
           </div>
         </div>
-      </Link>
+      </div>
     );
   });
+
   return (
     <div className={classes.WorkspaceForm} onClick={onDefaultClick}>
+      {redirect !== '' && <Redirect to={redirect} />}
       <div className={classes.WorkspaceTitle}>
         <div>{workspace_name}</div>
 

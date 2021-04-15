@@ -29,6 +29,14 @@ const Create = loadable<any>(() => import('./pages/AdminForm/Create/Create'), {
   fallback: Loading(),
 });
 
+const Share = loadable<any>(() => import('./pages/AdminForm/Share/Share'), {
+  fallback: Loading(),
+});
+
+const Result = loadable<any>(() => import('./pages/AdminForm/Result/Result'), {
+  fallback: Loading(),
+});
+
 export interface IRouteApp extends RouteProps {
   loadData?: (dispatch: any, ctx: any, params: any) => Promise<void>;
   requireAuth?: boolean;
@@ -64,6 +72,22 @@ const routes: IRouteApp[] = [
     requireAuth: true,
     loadData: (dispatch: any, ctx: any, params: any) =>
       dispatch(getFormDataDetail(ctx, params)),
+  },
+  {
+    path: '/forms/:id/share',
+    exact: true,
+    component: Share,
+    requireAuth: true,
+    // loadData: (dispatch: any, ctx: any, params: any) =>
+    //   dispatch(getFormDataDetail(ctx, params)),
+  },
+  {
+    path: '/forms/:id/result',
+    exact: true,
+    component: Result,
+    requireAuth: true,
+    // loadData: (dispatch: any, ctx: any, params: any) =>
+    //   dispatch(getFormDataDetail(ctx, params)),
   },
   // Get necessary data of user
   {
