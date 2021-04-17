@@ -55,6 +55,12 @@ function Create() {
   }, [formData, initialFormData]);
 
   useEffect(() => {
+    if (formData.title) {
+      document.title = formData.title;
+    }
+  }, [formData.title]);
+
+  useEffect(() => {
     function listener(e: BeforeUnloadEvent) {
       if (isUnsaved) {
         e.preventDefault();

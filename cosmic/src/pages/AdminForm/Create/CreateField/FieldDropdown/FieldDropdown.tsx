@@ -89,6 +89,7 @@ function FieldDropdown({
     const iconComponent = mapIconCompoennt(icon);
     return (
       <li
+        role="listitem"
         key={type_id}
         className={cx({
           [classes.active]: type_id === activeForm?.type_id,
@@ -119,7 +120,7 @@ function FieldDropdown({
     >
       <div className={classes.NewFieldTypeList}>
         <div className={classes.NewFieldTypeTitle}>Choose Question Type</div>
-        <ul>{questionListItems}</ul>
+        <ul role="list">{questionListItems}</ul>
       </div>
 
       <div className={classes.NewFieldTypeDescription}>

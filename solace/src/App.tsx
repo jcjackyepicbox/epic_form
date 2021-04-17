@@ -36,6 +36,7 @@ function App(): JSX.Element {
         .then((data: IFetchData) => {
           if (data.status) {
             setFormData(data.data.formData);
+            document.title = data.data.formData.title;
           }
         })
         .finally(() => {

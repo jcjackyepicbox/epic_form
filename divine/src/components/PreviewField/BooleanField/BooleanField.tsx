@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 
 import classes from './BooleanField.module.css';
@@ -27,7 +27,6 @@ function BooleanField({ value, onNext, onChange, isLastNode }: IProps) {
 
   function onNoClicked() {
     onChange(0);
-
     if (isLastNode) {
       setShowSubmit(true);
     } else {
@@ -37,30 +36,40 @@ function BooleanField({ value, onNext, onChange, isLastNode }: IProps) {
 
   return (
     <>
-      <div className={classes.ChoiceContainer}>
-        <div
+      <ul className={classes.ChoiceContainer} role="list">
+        <li
           className={cx(classes.ChoiceItem, {
             [classes.Selected]: value === 1,
           })}
           onClick={onYesClicked}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') onYesClicked();
+          }}
+          role="listitem"
+          tabIndex={0}
         >
           <span>Yes</span>
           <div className={classes.CheckedIcon}>
             <BoldCheckSvg />
           </div>
-        </div>
-        <div
+        </li>
+        <li
+          role="listitem"
           className={cx(classes.ChoiceItem, {
             [classes.Selected]: value === 0,
           })}
           onClick={onNoClicked}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') onNoClicked();
+          }}
+          tabIndex={0}
         >
           <span>No</span>
           <div className={classes.CheckedIcon}>
             <BoldCheckSvg />
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
 
       <PreviewButton size="medium" hidden={!showSubmit} onClick={onNext}>
         Submit

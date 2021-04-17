@@ -78,16 +78,16 @@ const routes: IRouteApp[] = [
     exact: true,
     component: Share,
     requireAuth: true,
-    // loadData: (dispatch: any, ctx: any, params: any) =>
-    //   dispatch(getFormDataDetail(ctx, params)),
+    loadData: (dispatch: any, ctx: any, params: any) =>
+      dispatch(getFormDataDetail(ctx, params)),
   },
   {
     path: '/forms/:id/result',
     exact: true,
     component: Result,
     requireAuth: true,
-    // loadData: (dispatch: any, ctx: any, params: any) =>
-    //   dispatch(getFormDataDetail(ctx, params)),
+    loadData: (dispatch: any, ctx: any, params: any) =>
+      dispatch(getFormDataDetail(ctx, params)),
   },
   // Get necessary data of user
   {

@@ -1,0 +1,54 @@
+.ViewButtonText {
+  padding-left: 8px;
+}
+
+.ResultPageContainer {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.ResultContent {
+  margin: 0 auto;
+  padding: 0 32px;
+  max-width: 1088px;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.ResultWidget {
+  padding: 32px 0;
+}
+
+.ResultWidgetTitle {
+  font-size: 24px;
+}
+
+.DeviceGroup {
+  margin: 16px 0 32px 0;
+  padding: 6px 12px;
+  background-color: rgb(115, 115, 115);
+  width: auto;
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.WidgetFlex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.InsightsContainer {
+  margin-right: 32px;
+}
+
+.InsightsTitle {
+  opacity: 0.8;
+}
+
+.InsightsValue {
+  font-size: 36px;
+  font-weight: 300;
+}

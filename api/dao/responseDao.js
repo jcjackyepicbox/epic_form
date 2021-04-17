@@ -18,7 +18,7 @@ class ResponseDao {
     }
   }
 
-  async storeResponse(answer, ip, start_time, end_time, form_id) {
+  async storeResponse(answer, ip, start_time, end_time, form_id, meta_browser) {
     try {
       const cursor = await this.response.insertOne({
         answer,
@@ -26,6 +26,7 @@ class ResponseDao {
         start_time,
         end_time,
         form_id,
+        meta_browser,
       });
 
       return {

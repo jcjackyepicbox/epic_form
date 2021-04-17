@@ -16,6 +16,11 @@
   color: #262627;
 }
 
+.AdminButton.greywhite {
+  background-color: rgb(227, 227, 227);
+  color: #262627;
+}
+
 .AdminButton.teal {
   background-color: rgb(79, 176, 174);
   color: #fff;
@@ -34,4 +39,8 @@
 .AdminButton.disabled {
   background-color: rgba(0, 0, 0, 0.07);
   color: rgb(170, 170, 170);
+}
+
+.AdminButton.borderLess {
+  border-radius: 0;
 }

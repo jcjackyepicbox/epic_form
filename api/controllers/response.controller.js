@@ -1,10 +1,14 @@
 import formDao from '../dao/formDao';
 import responseDao from '../dao/responseDao';
 import { getClientIP } from '../shared/getConfig';
+import parser from 'ua-parser-js';
 
 class ResponseController {
   async storeResponse(req, res) {
     try {
+      const userAgentReq = req.get('User-Agent');
+      const userAgentParsed = parser(userAgentReq);
+
       const { start_time, end_time, form_id, answer } = req.body;
       const clientIp = getClientIP(req);
       const insertData = await responseDao.storeResponse(
@@ -12,7 +16,8 @@ class ResponseController {
         clientIp,
         start_time,
         end_time,
-        form_id
+        form_id,
+        userAgentParsed
       );
 
       if (insertData.status) {

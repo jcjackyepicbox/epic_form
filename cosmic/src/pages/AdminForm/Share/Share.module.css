@@ -1,0 +1,67 @@
+.ViewButtonText {
+  padding-left: 8px;
+}
+
+.ShareContainer {
+  margin: 0 auto;
+  padding: 0 32px;
+  max-width: 1088px;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.SharePageContainer {
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(250, 250, 250);
+}
+
+.ShareWidgetContainer {
+  padding-top: 32px;
+}
+
+.WidgetTitle {
+  font-size: 24px;
+  color: #262627;
+  font-weight: 300;
+}
+
+.WidgetList {
+  display: flex;
+  padding: 32px 0;
+}
+
+.ShareLinkContainer {
+  box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px;
+  background-color: #fff;
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+}
+
+.ShareLinkTitle {
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+.ShareInput {
+  display: flex;
+}
+
+.InputContainer {
+  border-color: rgb(187, 187, 187);
+  border-radius: 4px 0 0 4px;
+  border-width: 1px 0px 1px 1px;
+  border-style: solid;
+  padding: 6px 12px;
+  flex: 1;
+}
+
+.InputContainer input {
+  border: 0px;
+  outline: 0;
+  width: 100%;
+}

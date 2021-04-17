@@ -48,29 +48,37 @@ function ChoiceField({
   const choiceItemComponent = choices.map((val) => {
     const { _id, label } = val;
     return (
-      <div
+      <li
+        role="listitem"
+        tabIndex={0}
         className={cx(classes.ChoiceItem, {
           [classes.Selected]: _id === selectedValue.choice_id,
         })}
         key={_id}
         onClick={() => onChoiceClicked(_id, label)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onChoiceClicked(_id, label);
+          }
+        }}
       >
         <span>{label}</span>
         <div className={classes.CheckedIcon}>
           <BoldCheckSvg />
         </div>
-      </div>
+      </li>
     );
   });
 
   return (
-    <div className={classes.ChoiceContainer}>
-      {choiceItemComponent}
-
+    <>
+      <ul className={classes.ChoiceContainer} role="list">
+        {choiceItemComponent}
+      </ul>
       <PreviewButton size="medium" hidden={!showSubmit} onClick={onNext}>
         Submit
       </PreviewButton>
-    </div>
+    </>
   );
 }
 
