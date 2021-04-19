@@ -5,6 +5,8 @@ export const initialFormState: IFormState = {
   formData: { ...defaultFormData },
   loading: false,
   formSetting: [],
+  formResponse: [],
+  formResponseByField: {},
   error: '',
 };
 // Use the initialState as a default value
@@ -18,12 +20,9 @@ export default function formReducer(
         ...state,
         formData: action.payload.formData || { ...defaultFormData },
         loading: action.payload.loading || false,
-      };
-
-    case 'STORE_SETTING':
-      return {
-        ...state,
+        formResponse: action.payload.formResponse || [],
         formSetting: action.payload.formSetting || [],
+        formResponseByField: action.payload.formResponseByField || {},
       };
 
     case 'SET_FORM_FIELDS':

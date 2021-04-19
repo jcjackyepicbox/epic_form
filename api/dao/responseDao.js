@@ -38,6 +38,16 @@ class ResponseDao {
       return { error: err.message, code: 100, status: false };
     }
   }
+
+  async getAllResponse(form_id) {
+    try {
+      const cursor = await this.response.find({ form_id: form_id });
+      return cursor.toArray();
+    } catch (err) {
+      console.error(`Error occurred while get form data, ${err}`);
+      return null;
+    }
+  }
 }
 
 const responseDao = new ResponseDao();

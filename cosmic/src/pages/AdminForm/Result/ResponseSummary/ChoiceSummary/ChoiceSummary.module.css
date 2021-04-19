@@ -1,0 +1,47 @@
+.ChoiceSummary {
+  display: grid;
+  grid-template-columns: auto minmax(100px, 1fr);
+  align-items: center;
+  font-size: 14px;
+  gap: 8px 16px;
+}
+
+.ChoiceChartBar {
+  height: 40px;
+  background-color: rgb(240, 240, 240);
+  color: rgb(19, 19, 19);
+  border-radius: 2px;
+  position: relative;
+}
+
+.ChoiceFillBar {
+  height: 40px;
+  height: 100%;
+  background-color: rgba(4, 135, 175, 0.84);
+  padding-left: 16px;
+}
+
+.ChoiceAbsoluteBar {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.ResponseLabel {
+  font-weight: 500;
+  color: #131313;
+}
+
+.ResponseAmount {
+  font-size: 12px;
+}
+
+.ResponseAmount span {
+  font-weight: bold;
+}

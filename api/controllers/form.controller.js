@@ -3,6 +3,7 @@ import formDao from '../dao/formDao';
 import settingDao from '../dao/settingDao';
 import userDao from '../dao/userDao';
 import FormModel from '../models/form.model';
+import responseDao from '../dao/responseDao';
 
 class FormController {
   async insertNewForm(req, res) {
@@ -76,16 +77,61 @@ class FormController {
     }
   }
 
-  async getFormDetail(req, res) {
+  async getPublicFormDetail(req, res) {
+    try {
+      const form_id = req.params.id;
+      const formData = await formDao.getFormDetail(form_id);
+
+      if (formData) {
+        res.json({
+          status: true,
+          data: { formData },
+        });
+      } else {
+        res.json({
+          status: false,
+          error: 'Something went wrong',
+          code: 100,
+        });
+      }
+    } catch (err) {
+      res.json({
+        status: false,
+        error: 100,
+        message: err.message,
+      });
+    }
+  }
+
+  getAnswerField(formResponse) {
+    const formResponseField = {};
+
+    formResponse.forEach((val) => {
+      const { answer } = val;
+      answer.forEach((answerVal) => {
+        if (formResponseField[answerVal.field_id]) {
+          formResponseField[answerVal.field_id].push(answerVal);
+        } else {
+          formResponseField[answerVal.field_id] = [answerVal];
+        }
+      });
+    });
+    return formResponseField;
+  }
+
+  async getAdminFormDetail(req, res) {
     try {
       const form_id = req.params.id;
       const formData = await formDao.getFormDetail(form_id);
       const formSetting = await settingDao.getFormSettings();
+      const formResponse = await responseDao.getAllResponse(form_id);
+
+      const formResponseByField = this.getAnswerField(formResponse);
 
       if (formData && formSetting) {
         res.json({
           status: true,
-          data: { formData, formSetting },
+          data: { formData, formSetting, formResponse, formResponseByField },
         });
       } else {
         res.json({

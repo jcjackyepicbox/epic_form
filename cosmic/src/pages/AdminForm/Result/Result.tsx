@@ -1,7 +1,12 @@
 import PreviewForm from '@epic-form/divine';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import {
+  IFormField,
+  IFormSetting,
+  SETTING_TYPE,
+} from '../../../../interfaces/form/form.interface';
+import { IFormResponse } from '../../../../interfaces/redux/form.interface';
 import { ApplicationState } from '../../../../redux/reducers';
 import AdminButton from '../../../components/AdminButton/AdminButton';
 import FormNavbar, {
@@ -11,14 +16,49 @@ import ModalFullPage from '../../../components/ModalFullPage/ModalFullPage';
 import UserLayout from '../../../components/UserLayoutHeader/UserLayoutHeader';
 import { defaultUserData } from '../../../data/user.data';
 import ViewSvg from '../../../svg/ViewSvg';
+import ResponseSummary from './ResponseSummary/ResponseSummary';
 import classes from './Result.module.css';
+
+function calculateAverageTime(formResponse: IFormResponse[]) {
+  const totalConsumedTime = formResponse.reduce((a, b) => {
+    return a + b.end_time - b.start_time;
+  }, 0);
+
+  const avgTime = Math.floor(totalConsumedTime / formResponse.length / 1000);
+
+  const minutes = Math.floor(avgTime / 60);
+  const seconds = avgTime % 60;
+
+  return {
+    minutes: minutes > 9 ? minutes.toString() : `0${minutes}`,
+    seconds: seconds > 9 ? seconds.toString() : `0${seconds}`,
+  };
+}
 
 function Result() {
   const { image, display_name } =
     useSelector((state: ApplicationState) => state.user.user) ||
     defaultUserData;
-  const { formData } = useSelector((state: ApplicationState) => state.form);
+  const {
+    formData,
+    formSetting,
+    formResponse,
+    formResponseByField,
+  } = useSelector((state: ApplicationState) => state.form);
   const [openPreview, setOpenPreview] = useState<boolean>(false);
+
+  const filterFields = useMemo(
+    () =>
+      formData.fields.filter(
+        (val) =>
+          val.type_id !== SETTING_TYPE.welcome_screen &&
+          val.type_id !== SETTING_TYPE.thankyou_screen
+      ),
+    [formData.fields]
+  );
+
+  const { minutes, seconds } = calculateAverageTime(formResponse);
+
   return (
     <>
       {openPreview && (
@@ -51,21 +91,29 @@ function Result() {
             <div className={classes.WidgetFlex}>
               <div className={classes.InsightsContainer}>
                 <div className={classes.InsightsTitle}>Responses</div>
-                <div className={classes.InsightsValue}>8</div>
+                <div className={classes.InsightsValue}>
+                  {formResponse.length}
+                </div>
               </div>
               <div className={classes.InsightsContainer}>
                 <div className={classes.InsightsTitle}>
                   Average time to complete
                 </div>
-                <div className={classes.InsightsValue}>00:13</div>
+                <div className={classes.InsightsValue}>
+                  {minutes}:{seconds}
+                </div>
               </div>
             </div>
           </div>
-
           <div className={classes.ResultWidget}>
             <div className={classes.ResultWidgetTitle}>Response Summary</div>
 
-            <div></div>
+            <ResponseSummary
+              formFields={filterFields}
+              formSettings={formSetting}
+              formResponseByField={formResponseByField}
+              totalResponse={formResponse.length}
+            />
           </div>
         </div>
       </div>

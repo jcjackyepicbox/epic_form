@@ -4,7 +4,7 @@ import responseController from '../../controllers/response.controller';
 
 const publicRouter = Router();
 
-publicRouter.get('/form/:id', formController.getFormDetail);
+publicRouter.get('/form/:id', formController.getPublicFormDetail);
 publicRouter.post('/response', responseController.storeResponse);
 
 export default publicRouter;

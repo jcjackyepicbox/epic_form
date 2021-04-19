@@ -5,13 +5,20 @@
 .ResultPageContainer {
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  color: #262627;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgb(250, 250, 250);
 }
 
 .ResultContent {
   margin: 0 auto;
   padding: 0 32px;
   max-width: 1088px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   width: 100%;
 }

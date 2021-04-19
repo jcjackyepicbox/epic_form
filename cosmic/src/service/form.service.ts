@@ -1,9 +1,11 @@
+import { IFieldAnswer } from '@epic-form/divine/dist/types/helpers/preview.types';
 import axios from 'axios';
 import {
   IForm,
   IFormField,
   IFormSetting,
 } from '../../interfaces/form/form.interface';
+import { IFormResponse } from '../../interfaces/redux/form.interface';
 import AuthAxiosInstance from '../utils/axios.utils';
 import { IPostStatus, IService } from './type.service';
 
@@ -86,7 +88,14 @@ async function createNewForm(
 async function getFormDetail(
   ctx: any,
   params: any
-): Promise<IService<{ formData: IForm; formSetting: IFormSetting[] } | null>> {
+): Promise<
+  IService<{
+    formData: IForm;
+    formSetting: IFormSetting[];
+    formResponse: IFormResponse[];
+    formResponseByField: Record<string, IFieldAnswer[]>;
+  } | null>
+> {
   try {
     const authAxios = AuthAxiosInstance.getInstance(
       ctx?.cookies?.auth || ''
@@ -94,7 +103,12 @@ async function getFormDetail(
     const form_id = params?.id || '';
 
     const data = await authAxios.get<
-      IService<{ formData: IForm; formSetting: IFormSetting[] } | null>
+      IService<{
+        formData: IForm;
+        formSetting: IFormSetting[];
+        formResponse: IFormResponse[];
+        formResponseByField: Record<string, IFieldAnswer[]>;
+      } | null>
     >('http://localhost:3001/api/form/' + form_id, {
       withCredentials: true,
     });
@@ -111,6 +125,7 @@ async function getFormDetail(
     };
   } catch (err) {
     console.error(err);
+
     return {
       status: false,
       data: null,

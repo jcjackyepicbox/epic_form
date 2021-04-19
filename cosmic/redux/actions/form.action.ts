@@ -7,17 +7,29 @@ import {
   IFormSetting,
   SETTING_TYPE,
 } from '../../interfaces/form/form.interface';
-import { IFormAction } from '../../interfaces/redux/form.interface';
+import {
+  IFormAction,
+  IFormResponse,
+} from '../../interfaces/redux/form.interface';
 import { getFormDetail } from '../../src/service/form.service';
 import { ApplicationState } from '../reducers';
 import { deepCopy } from '../../src/utils/deepCopy';
+import { IFieldAnswer } from '@epic-form/divine/dist/types/helpers/preview.types';
 
-export function storeFormData(formData: IForm): IFormAction {
+export function storeFormData(
+  formData: IForm,
+  formSetting: IFormSetting[],
+  formResponse: IFormResponse[],
+  formResponseByField: Record<string, IFieldAnswer[]>
+): IFormAction {
   return {
     type: 'STORE_FORM',
     payload: {
       formData,
       loading: false,
+      formResponse,
+      formSetting,
+      formResponseByField,
     },
   };
 }
@@ -27,15 +39,6 @@ export function setLoading(): IFormAction {
     type: 'SET_FORM_LOADING',
     payload: {
       loading: true,
-    },
-  };
-}
-
-export function storeFormSetting(formSetting: IFormSetting[]): IFormAction {
-  return {
-    type: 'STORE_SETTING',
-    payload: {
-      formSetting,
     },
   };
 }
@@ -75,8 +78,21 @@ export function getFormDataDetail(ctx: any, params: any) {
     if (!formData.status && formData.error) {
       dispatch(setError(formData.error));
     } else if (formData && formData.status && formData.data !== null) {
-      dispatch(storeFormData(formData.data.formData));
-      dispatch(storeFormSetting(formData.data.formSetting));
+      const {
+        formData: formDataObj,
+        formSetting,
+        formResponse,
+        formResponseByField,
+      } = formData.data;
+
+      dispatch(
+        storeFormData(
+          formDataObj,
+          formSetting,
+          formResponse,
+          formResponseByField
+        )
+      );
     }
   };
 }
