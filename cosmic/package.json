@@ -12,6 +12,7 @@
     "start": "node ./scripts/start"
   },
   "dependencies": {
+    "@epic-form/divine": "^1.0.0-rc4",
     "@loadable/component": "^5.14.1",
     "@types/react-beautiful-dnd": "^13.0.0",
     "axios": "^0.21.1",
