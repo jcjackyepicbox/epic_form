@@ -5,14 +5,9 @@ Build react application using NodeJS to server side rendering application due to
 ### Development
 
 ```
-yarn dev
-```
-
-### Production
-
-```
-yarn build
-yarn start
+yarn dev:solace
+yarn dev:api
+yarn dev:cosmic
 ```
 
 ### Important Task List
