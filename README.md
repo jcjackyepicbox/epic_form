@@ -1,6 +1,6 @@
-## Universal React Application
+## epicform
 
-Build react application using NodeJS to server side rendering application due to supporting multiple page application from scratch.
+Personal work project to create unique and new experience of building and filling form survey. There are few parts of application within this project:
 
 ### Development
 
