@@ -15,6 +15,11 @@ yarn build
 yarn start
 ```
 
+### Important Task List
+
+- [ ] Mobile responsive support
+- [ ] ...
+
 ### Folder Structure
 
 We use monorepo to manage all related epicforms system.
