@@ -24,6 +24,13 @@ function calculateAverageTime(formResponse: IFormResponse[]) {
     return a + b.end_time - b.start_time;
   }, 0);
 
+  if (totalConsumedTime === 0) {
+    return {
+      minutes: '00',
+      seconds: '00',
+    };
+  }
+
   const avgTime = Math.floor(totalConsumedTime / formResponse.length / 1000);
 
   const minutes = Math.floor(avgTime / 60);

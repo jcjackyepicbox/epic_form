@@ -65,6 +65,8 @@ function FieldDropdown({
 
     if (topCon + heightCon + heightDdl > window.document.body.clientHeight) {
       setDdlUpward(true);
+    } else {
+      setDdlUpward(false);
     }
   }, [ddlContainerRef?.top, ddlDropdownRef.current]);
 

@@ -73,7 +73,7 @@ function ResponseSummary({
     const { icon, type_color } = getActiveSettings(formSettings, type_id);
     const iconSvg = mapIconCompoennt(icon);
 
-    const answerField = formResponseByField[_id];
+    const answerField = formResponseByField[_id] || [];
     const validAnswer = getValidAnswerLength(type_id, answerField);
 
     return (
